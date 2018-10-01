@@ -59,7 +59,20 @@ class TranslatedField(object):
     However, wagtailtranslation seems to be not under active 
     development, so I believe it's better to use this way. Inheriting
     from abstract classes reduces the problem of writing code twice.
+
+    Example:
+    
+    class MyPage( TranslatedPage ):
+        myfield_en = models.Charfield(...)
+        myfield_de = models.Charfield(...)
+        myfield = TranslatedField('myfield')
+
+    
+    Now, MyPage.myfield will retrieve the contents of either myfield_en or
+    myfield_de, depending on the current language settings.
+    
     '''
+
     def __init__(self, field, field_de = None):
         if field_de is None:
             field_en = field+'_en'
@@ -78,6 +91,15 @@ class TranslatedField(object):
 
 
 class TranslatedPage( Page ):
+    '''
+    abstract class.
+    Implements a Page model with a translated title-field. 
+
+    Overrides the `add_child` method of the Page model to call the childs 
+    `after_create_hook` method, if available.
+
+    
+    '''
     title_de = models.CharField(
         max_length = 128,
 #        null = True, blank = True,
@@ -102,6 +124,9 @@ class TranslatedPage( Page ):
         return self.title_trans
 
     def add_child( self, instance = None, **kwargs ):
+        # Calls the instance's `after_create_hook` method with the current
+        # request as argument, if the instance has implemented this method.
+        
         request = kwargs.get('request', None)
         
         child = super(TranslatedPage, self).add_child ( instance = instance, **kwargs )
@@ -116,6 +141,14 @@ class TranslatedPage( Page ):
 
 @default_panels
 class IntroductionMixin( models.Model ):
+    '''
+    abstract class.
+    Mixin implementing an optional introduction.
+    '''
+
+    # @TODO: Remove either this class or `OptionalIntroductionMixin`
+    # below. Both provide the same.
+
     introduction_en = StreamField(
         IntroductionStreamBlock(required = False),
         blank = True, null = True, 
@@ -146,6 +179,11 @@ class IntroductionMixin( models.Model ):
 
 @default_panels
 class MandatoryIntroductionMixin( models.Model ):
+    '''
+    abstract class
+    Mixin implementing a mandatory introduction.
+    '''
+
     introduction_en = StreamField(
         IntroductionStreamBlock(required = False),
         blank = False, null = False, 
@@ -173,6 +211,16 @@ class MandatoryIntroductionMixin( models.Model ):
         abstract = True
 
 class OptionalIntroductionMixin( models.Model ):
+    '''
+    abstract class.
+    Mixin implementing the same as `IntroductionMixin` above: an optional
+    introduction.
+
+    Obviously, one of these two classes is not necessary.
+    '''
+
+    # @TODO: Remove either this class or `IntroductionMixin` above.
+
     introduction_en = StreamField(
         IntroductionStreamBlock(required = False),
         blank = True, null = True, 
@@ -201,6 +249,10 @@ class OptionalIntroductionMixin( models.Model ):
 
 @default_panels
 class BodyMixin( models.Model ):
+    '''
+    abstract class.
+    A mixin adding an optional body field.
+    '''
     body_en = StreamField(
         BodyStreamBlock,
         blank = True, null = True,
@@ -227,6 +279,10 @@ class BodyMixin( models.Model ):
 
 @default_panels
 class SidebarContentMixin( models.Model ):
+    '''
+    abstract class
+    Mixin adding optional sidebar content to the model.
+    '''
     sidebar_content_en = StreamField(
         SidebarStreamBlock,
         blank = True, null = True,
@@ -253,7 +309,9 @@ class SidebarContentMixin( models.Model ):
 
 @default_panels
 class StandardMixin( IntroductionMixin, BodyMixin, SidebarContentMixin ):
-    """A standard page contains the fields
+    """
+    abstract class
+    A standard page contains the fields
     - introduction
     - body
     - sidebar_content
@@ -289,16 +347,21 @@ class AbstractContainerPage ( TranslatedPage, IntroductionMixin ):
         'website.AbstractChildPage'
     ]
 
+    # A first idea of implementing unique pages which (see `can_exist_under`
+    # below) is not and will maybe never used.  
+
     is_unique = False
     is_unique_in_parent = False
     
     
     @classmethod
     def can_exist_under( self, parent ):
+        # test for uniqueness not implemented
         if self.is_unique:
             pass
         if self.is_unique_in_parent:
             pass
+
         return super(AbstractContainerPage, self).can_exist_under( parent )
         
 
@@ -306,6 +369,12 @@ class AbstractContainerPage ( TranslatedPage, IntroductionMixin ):
         ''' Get the visible children of this page. '''
         title_field = 'title'
         
+        # I'm not sure whether the following module-testing is really
+        # required. It might be easier and much more readable to use 
+        #   obj = Page
+        # or maybe
+        #   obj = TranslatedPage
+        # instead.
         this_class = type(self)
         if len( this_class.subpage_types ) == 1:
             kls = this_class.subpage_types[0]
@@ -370,14 +439,21 @@ class StandardPageContact( AbstractContactPerson ):
     page = ParentalKey( StandardPage, related_name ='contact_persons')
 
 @default_panels
-class StandardPageWithTOC( TranslatedPage, OptionalIntroductionMixin, BodyMixin ):
+class StandardPageWithTOC( 
+        TranslatedPage, OptionalIntroductionMixin, BodyMixin 
+):
+    ''' 
+    Implements a page where a Table of contents is automatically
+    generated. The TOC entries are taken from the h3-blocks in he body-field.
+    '''
+    
     subpage_types = [
         'website.StandardPage',
         'website.StandardPageWithTOC'
     ]
     template = 'website/standard_page_with_TOC.html'
     class Meta:
-        verbose_name = 'Standard page with automatoc table of contents'
+        verbose_name = 'Standard page with automatic table of contents'
 
     def get_context( self, request ):
         context = super(StandardPageWithTOC, self).get_context( request )
