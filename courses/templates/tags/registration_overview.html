@@ -1,0 +1,24 @@
+{% load i18n wagtailcore_tags wagtailroutablepage_tags courses_tags %}
+{% if page.is_bookable %}
+<h3>{% trans "Register" %}</h3>
+<ul class="registration_overview">
+{% for ptype in registration_list %}
+  <li>
+    {% if ptype.full %}
+      {% trans "The course is fully booked for" %} {{ ptype.ptype|long_ptype }} 
+      {% if ptype.waitlist %}
+      <a href="{% pageurl page %}register/{{ ptype.ptype }}">{% trans "But you can apply for the wait list." %}</a>
+      {% endif %}
+    {% else %}
+      <a href="{% pageurl page %}register/{{ ptype.ptype }}">{% trans "Register as" %} {{ ptype.ptype|long_ptype }}</a>
+    {% endif %}
+  </li>
+{% empty %}
+  {% if in_past %}
+   <li>{% trans "The date for the course is over." %}</li>
+  {% else %}
+   <li>{% trans "The course is fully booked." %}</li>
+  {% endif %}
+{% endfor %}
+</ul>
+{% endif %}

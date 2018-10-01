@@ -1,0 +1,112 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+#rub-themenbox {
+	background: #f3f3f3;
+	height: 300px;
+	overflow: hidden;
+	position: relative;
+	width: 700px;
+}
+
+#rub-slider_outer {
+    background: none repeat scroll 0 0 #FFFFFF;
+    height: 300px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 700px;
+}
+#rub-slider_inner {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    width: 700px;
+}
+#rub-slider_inner .rub-slider-thema{
+    float: left;
+    height: 300px;
+    width: 700px;
+}
+
+#rub-slider_control {
+	height: 30px;
+	overflow: hidden;
+	position: absolute;
+	right: 5px;
+	text-align: right;
+	top: 270px;
+	width: 150px;
+	z-index: 100;
+}
+#caption {
+    color: #f0f0f0;
+    font-size: 90%;
+    margin: 9px 10px 0 0;
+}
+#prev {
+    cursor: pointer;
+
+	border-left: 1px solid #333;
+	border-right: 1px solid #333;
+}
+#next {
+    cursor: pointer;
+
+}
+#pause {
+    cursor: pointer;
+
+	border-right: 1px solid #333;
+}
+#play {
+    cursor: pointer;
+
+	border-right: 1px solid #333;
+}
+
+
+
+
+.rub-slider_overlay {
+	background: none repeat scroll 0 0 #000000;
+	left: 0;
+	filter: alpha(opacity=50);
+	opacity: .5;
+	overflow: hidden;
+	padding: 0 10px;
+	position: absolute;
+	width: 680px;
+	z-index: 10;
+}
+.rub-slider_overlay {
+	height: 30px;
+	top: 270px;
+}
+
+.rub-slider_text {
+	color: #F0F0F0;
+	left: 0px;
+	position: absolute;
+	width: 700px;
+	z-index: 100;
+	top: 270px;
+	height: 30px;
+	font-size:95%;
+
+	
+	
+}
+.rub-slider_text p {
+ margin: 0; padding:6px 0 0 10px;
+}
+.rub-slider_text a:link, .rub-slider_text a:visited {
+	color: #F0F0F0;
+	text-decoration: underline;
+}
+.rub-slider_text a:hover {
+	color: #F0F0F0;
+	text-decoration: underline;
+}

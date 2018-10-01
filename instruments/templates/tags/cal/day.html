@@ -1,0 +1,12 @@
+<table data-day="{{currdate|date:"Y-m-d"}}" width="100%" class="{% if is_past %}past {% endif %}{% if is_holiday %}holiday {% endif %}">
+  <colgroup>
+    <col width="100%" />
+  </colgroup>
+  <thead>
+    <tr><th>{{currdate}}</th></tr>
+    {% for hour in hours %}
+    <tr><td data-start-time="{{hour}}:00" data-end-time="{{hour}}:59"
+    class="hourfield t{{hour}}00{% if hour in unavailable %} unavailable{% endif %} {% cycle 'r1' 'r2' %}"></td></tr>
+    {% endfor %}
+  </thead>
+</table>

@@ -1,0 +1,11 @@
+.xdsoft_datetimepicker{
+    z-index:1000;
+}
+
+#id_instrument li{
+    margin-top:1em;
+}
+
+#id_instrument li label{
+    float:none;
+}

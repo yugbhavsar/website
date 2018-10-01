@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load i18n website_tags static wagtailcore_tags  wagtailroutablepage_tags %}
+{% block sidebarcontent %}
+{% if page.related_fundings %}
+  {% if page.related_fundings.all|length > 0 %}
+  {% for funding in page.related_fundings.all %}
+<div class="floatmarginbox">
+   <h3>{{funding.snippet.agency }}: {{funding.snippet.project_number }}</h3>
+   <p>
+     {% if funding.snippet.project_url %}<a href="{{funding.snippet.project_url}}">{% endif %}
+     {{funding.snippet.title}}
+     {% if funding.snippet.project_url %}</a>{% endif %}
+   </p>
+   <p class="action"><a class="button notext" href="{% routablepageurl page 'edit_funding' funding.snippet.id %}"><span class="icon-surr"><i class="fa fa-edit"></i></span><span class="text">edit</span></a>
+     <a class="button notext" href="{% routablepageurl page 'delete_funding' funding.snippet.id %}"><span class="icon-surr"><i class="fa fa-fw fa-trash"></i></span><span class="text">delete</span></a>
+   </p>
+</div>
+
+
+  {% endfor %}
+{% else %}
+<div class="floatmarginbox">
+   <h3>{% trans "Add funding information to your project." %}</h3>
+   <p>{% blocktrans %}
+   If your project in RUBION is (partially) funded by a funding agency, please
+   provide the corresponding information here. 
+   {% endblocktrans %}</p>
+   {% if not has_been_asked %}
+   <p>{% blocktrans %}To proceed without entering this information, click
+   the <strong>Cancel</strong> button below the form.{% endblocktrans %}
+   </p>
+   {% endif %}
+</div>
+  {% endif %}
+{% endif %}
+{% endblock %}
+{% block content %}
+<h2>{%trans "Add funding" %}</h2>
+  <form action="." method="POST" novalidate>
+    {% csrf_token %}
+    <fieldset>
+      <legend>{% trans "Funded project information" %}</legend>
+    {% for element in form.visible_fields %}
+      {% form_element element %}
+    {% endfor %}
+    {% for element in form.hidden_fields %}
+      {{ element }}
+    {% endfor %}
+    </fieldset>
+
+    <p class="action">
+      <button name="next" value="add_funding" type="submit" class="button
+      viewmore"><span class="icon-surr"><i class="fa fa-plus-square"></i></span><span class="text">Save and add
+      another funding source</span></button>
+      <button name="next" value="finish" type="submit"  class="button
+      viewmore"><span class="icon-surr"><i class="fa fa-cloud-upload"></i></span><span class="text">Save and
+      finish</span></button>
+    </p>
+    <p class="action">
+      <button name="next" value="cancel" type="submit" class="button
+      viewmore disabled"><span class="icon-surr"><i class="fa fa-ban"></i></span><span class="text">Cancel</span></button>
+    </p>
+  </form>			 
+{% endblock %}
+{% block extra_css %}
+   <link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+   <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+{% endblock %}

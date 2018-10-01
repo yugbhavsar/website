@@ -1,0 +1,70 @@
+{% load wagtailcore_tags i18n website_tags wagtailroutablepage_tags %}
+{% userinfo as user %}
+{% if user.logged_in %}
+  {% if user.rubion_user %}
+    <div class="floatmarginbox buttonlist">
+      <h3>{{ user.rubion_user.first_name }} {{ user.rubion_user.name }}</h3>
+      <ul>
+	<li><a href="{% routablepageurl user.rubion_user 'edit' %}" class="button fullwidth"><span class="icon-surr"><i class="fa fa-edit"></i></span><span class="text">{% trans "edit personal data" %}</span></a></li>
+	<li><a href="{% pageurl user.rubion_user.get_workgroup %}" class="button fullwidth"><span class="icon-surr"><i class="fa fa-edit"></i></span><span class="text">{% trans "Workgroup page" %}</span></a></li>
+	<li><a href="{% pageurl user.rubion_user.get_workgroup %}project/" class="button fullwidth"><span class="icon-surr"><i class="fa fa-edit"></i></span><span class="text">{% trans "Project list" %}</span></a></li>
+      </ul>
+  
+  {% else %}
+    {% if user.admin %}
+      <div class="floatmarginbox warning">
+        <h3>{% trans "Attention" %}</h3>
+        <p>
+          {% blocktrans %}
+	    You are viewing this page with a superuser account. Be careful.
+  	  {% endblocktrans %}
+        </p>
+    {% else %}
+      <div class="floatmarginbox info">
+        <h3>{% trans "Information" %}</h3>
+        <p>
+          {% blocktrans %}
+            You are currently viewing this page with an account that is not linked to a user of RUBION.
+          {% endblocktrans %}
+        </p>
+    {% endif %}
+  {% endif %}
+{% else %}
+    <div class="floatmarginbox buttonlist">
+      <h3>{% trans "Login" %}</h3>
+      {% loginform as form %}
+      <form action="{% pageurl form.login_page %}" method="post">
+	{% csrf_token %}
+	<table class="fullwidth loginform">
+	  <tr>
+	    <td>{{ form.form.username.label_tag }}</td>
+	  </tr>
+	  <tr>
+	    <td>{{ form.form.username }}</td>
+	  </tr>
+	  <tr>
+	    <td>{{ form.form.password.label_tag }}</td>
+	  </tr>
+	  <tr>
+	    <td>{{ form.form.password }}</td>
+	  </tr>
+	</table>
+	<p class="action">
+	<button type="submit" class="button fullwidth"><span class="icon-surr"><i class="fa fa-sign-in"></i></span><span class="text">Login</span></button></p>
+
+      </form>
+      <br style="clear:right;margin-bottom:3em;">
+      <p>
+         {% blocktrans %}
+           If you are not yet a registered member of RUBION, 
+         {% endblocktrans %}
+      </p>
+      <ul class="buttonlist">
+        <li>
+	  <a class="button fullwidth" href="{% pageurl settings.website.ImportantPages.registration_page %}"><span class="icon"><i class="fa fa-cubes fa-fw"></i></span><span class="text">{% trans "Register" %}</span></a>
+	</li>
+     </ul>
+{% endif %}
+</div>
+
+

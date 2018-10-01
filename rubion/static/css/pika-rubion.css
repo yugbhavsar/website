@@ -1,0 +1,54 @@
+.pika-single.rubion {
+    color: #003560;
+    background: #f3f7ee;
+    border: 1px solid #709708;
+}
+.rubion .pika-title {
+    background-color: #e8efcf;
+}
+.rubion .pika-label {
+    background-color: #e8efcf;
+}
+
+.rubion .pika-prev,
+.rubion .is-rtl .pika-next {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAQAAACGG/bgAAAAQ0lEQVR4Ae3KIQ4AIBTD0N0/IeHGI3UIRA3ut/Zl+ltXc5++htVAmIAwAWECwgSEKbgthEoIlRAqIVRCqINQB9nDgQd7ktwFo6UpWQAAAABJRU5ErkJggg==');
+}
+
+.rubion .pika-next,
+.rubion .is-rtl .pika-prev {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAeCAQAAACGG/bgAAAAP0lEQVQ4y+3TMQoAMAgEwfwfAvvjTZ1uGzuvHhBPPGczEG+FRqqRaqQaqUaqkX6QBmmjacvQ6qEVTjsh+xizebvlaWptGXZAAAAAAElFTkSuQmCC');
+}
+
+.rubion .pika-table th {
+    color: #003560;
+    border:none;
+}
+
+.rubion .pika-button {
+    color: #003560;
+    background: #e8efcf;
+}
+
+.rubion .pika-week {
+    color: #999;
+}
+
+.rubion .is-today .pika-button {
+}
+
+.rubion .is-selected .pika-button {
+    color: #fff;
+    background: #003560;
+    box-shadow: inset 0 1px 3px #999;
+}
+
+.rubion .is-disabled .pika-button {
+    color: #999;
+    opacity: .3;
+}
+
+.rubion .pika-button:hover {
+    color: #003560 !important;
+    background: #f3f7ee!important;
+}

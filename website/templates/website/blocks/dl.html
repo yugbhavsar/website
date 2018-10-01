@@ -1,0 +1,6 @@
+{% load wagtailcore_tags %}
+<dl>
+  {% for item in self %}
+  {% include_block item %}
+  {% endfor %}
+</dl>

@@ -1,0 +1,11 @@
+{% load i18n wagtailcore_tags %}
+{% if methods %}
+<h3>{% trans 'Related Methods' %}</h3>
+<ul>
+{% for method in methods.all %}
+  <li>
+    <a href="{% pageurl method.method %}">{{method.method.specific.title_trans}}</a>
+  </li>
+{% endfor %}
+</ul>
+{% endif %}

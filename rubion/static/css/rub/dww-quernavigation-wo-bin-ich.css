@@ -1,0 +1,44 @@
+@charset "utf-8";
+/* CSS Document */
+
+ul#u1 a.uni1,ul#u2 a.uni2,ul#u3 a.uni3,ul#u4 a.uni4,ul#u5 a.uni5,ul#u6 a.uni6,ul#u7 a.uni7,ul#u8 a.uni8,ul#u9 a.uni9,
+ul#f1 a.forschung1,
+ul#f2 a.forschung2,
+ul#f3 a.forschung3,
+ul#f4 a.forschung4,
+ul#f5 a.forschung5,
+ul#f6 a.forschung6,
+ul#f7 a.forschung7,
+ul#f8 a.forschung8,
+
+ul#s1 a.studium1,
+ul#s2 a.studium2,
+ul#s3 a.studium3,
+ul#s4 a.studium4,
+ul#s5 a.studium5,
+ul#s6 a.studium6,
+ul#s7 a.studium7,
+ul#s8 a.studium8,
+
+ul#w1 a.wissen1,
+ul#w2 a.wissen2,
+ul#w3 a.wissen3,
+ul#w4 a.wissen4,
+ul#w5 a.wissen5,
+ul#w6 a.wissen6,
+ul#w7 a.wissen7,
+ul#w8 a.wissen8,
+
+ul#h1 a.hauptnavipunkt1,
+ul#h2 a.hauptnavipunkt2,
+ul#h3 a.hauptnavipunkt3,
+ul#h4 a.hauptnavipunkt4,
+ul#h5 a.hauptnavipunkt5,
+ul#h6 a.hauptnavipunkt6,
+ul#h7 a.hauptnavipunkt7,
+ul#h8 a.hauptnavipunkt8,
+ul#h9 a.hauptnavipunkt9
+
+
+
+{background-color:#003560}

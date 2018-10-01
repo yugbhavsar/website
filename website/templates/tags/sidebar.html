@@ -1,0 +1,23 @@
+{% load i18n wagtailimages_tags wagtailsettings_tags %}
+{% if contacts.all %}
+<div class="floatmarginbox">
+  <h3>{% trans 'Contact person' %}</h3>
+  {% for contact in contacts.all %}
+  <div class="contact">
+  <h4>{{ contact.person.grade|add:" " }}{{ contact.person.get_first_name }} {{ contact.person.get_last_name }}</h4>
+  {% if contact.person.picture %}
+  {% image contact.person.picture fill-120x120-c50 %}
+  {% endif %}
+  <dl>
+    <dt><i class="fa fa-envelope"></i></dt>
+    <dd><a href="mailto:{{contact.person.get_email }}">{{contact.person.get_email }}</a></dd>
+    <dt><i class="fa fa-phone"></i></dt>
+    {% get_settings use_default_site=True %}
+    <dd><a href="tel:{{settings.website.ContactSettings.base_phone_number}}{{contact.person.phone }}">{{contact.person.phone}}</a></dd>
+    <dt><i class="fa fa-home"></i></dt>
+    <dd>{{contact.person.room }}</dd>
+  </dl>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

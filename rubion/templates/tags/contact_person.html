@@ -1,0 +1,29 @@
+{% load website_tags i18n wagtailimages_tags %}
+{% if contacts|length > 0  %}
+  <div class="floatmarginbox contact">
+    <h3>{% trans "Contact person" %}</h3>
+    <p>{% blocktrans %}
+      For questions or additional information, please contact:
+      {% endblocktrans %}
+    </p>
+    {% for cp in contacts %}
+      {% with person=cp.person %}
+      {% if person.picture %}
+
+        <span class="contactimage">{% image person.picture fill-100x100-c100 %}</span>
+      {% endif %}
+     <div>
+	<dl>
+	  <dt class="name">{{ person.grade|add:" " }}{{ person.first_name }} {{ person.last_name }}</dt>
+	  <dt>{% trans "E-Mail" %}</dt><dd>
+	    <a href="mailto:{{ person.get_email }}">{{ person.get_email}}</a></dd>
+	  
+	<dt>{% trans "room" %}</dt><dd>{{person.room}}</dd>
+	<dt>{% trans "phone" %}</dt><dd>{{person.phone}}</dd>
+      </dl>				       
+    </div>
+      {% endwith %}
+    {% endfor %}
+
+  </div>
+{% endif %}

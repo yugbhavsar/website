@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n website_tags static wagtailcore_tags  wagtailroutablepage_tags %}
+{% block sidebarcontent %}
+{% if page.related_fundings %}
+  {% if page.related_theses.all|length > 0 %}
+  {% for thesis in page.related_theses.all %}
+<div class="floatmarginbox">
+   <h3>{{thesis.snippet.author }} {{thesis.snippet.year }}</h3>
+   <p>
+       {{thesis.snippet.thesis_type.get_display_name}}  {{thesis.snippet.title}}
+   </p>
+   <p class="action">
+     <a class="button notext
+   viewmore" href="{% routablepageurl page 'edit_thesis' thesis.snippet.id  %}"><span class="icon-surr"><i class="fa fa-edit
+   fa-fw"></i></span><span class="text">edit</span></a>
+     <a class="button notext" href="{% routablepageurl page 'delete_thesis' thesis.snippet.id %}"><span class="icon-surr"><i class="fa fa-fw fa-trash"></i></span><span class="text">delete</span></a>
+   </p>
+</div>
+
+  {% endfor %}
+  {% else %}
+<div class="floatmarginbox">
+   <h3>{% trans "Add publications to your project." %}</h3>
+   <p>{% blocktrans %}
+     If theses have been published that are related to your project in RUBION,
+     please add them here. 
+   </p>
+   {% endblocktrans %}</p>
+   {% if not has_been_asked %}
+   <p>{% blocktrans %}To proceed without adding a thesis, click
+   the <strong>Cancel</strong> button below the form.{% endblocktrans %}
+   </p>
+   {% endif %}
+</div>
+  
+  {% endif %}
+
+{% endif %}
+{% endblock %}
+{% block content %}
+<h2>{%trans "Add thesis" %}</h2>
+  <form action="." method="POST" novalidate>
+    {% csrf_token %}
+    <fieldset>
+      <legend>{% trans "Thesis information" %}</legend>
+    {% for element in form.visible_fields %}
+      {% form_element element %}
+    {% endfor %}
+    {% for element in form.hidden_fields %}
+      {{ element }}
+    {% endfor %}
+    </fieldset>
+
+    <p class="action">
+      <button name="next" value="add_thesis" type="submit" class="button
+      viewmore"><span class="icon-surr"><i class="fa fa-plus-square"></i></span><span class="text">Save and add
+      another thesis</span></button>
+      <button name="next" value="finish" type="submit"  class="button
+      viewmore"><span class="icon-surr"><i class="fa fa-cloud-upload"></i></span><span class="text">Save and
+      finish</span></button>
+    </p>
+    <p class="action">
+      <button name="next" value="cancel" type="submit" class="button
+      viewmore disabled"><span class="icon-surr"><i class="fa fa-ban"></i></span><span class="text">Cancel</span></button>
+    </p>
+  </form>			 
+{% endblock %}
+{% block extra_css %}
+   <link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+   <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+{% endblock %}

@@ -1,0 +1,76 @@
+.calendar,
+.calendar table
+{
+    width:100%;
+}
+.calendar table,
+.calendar table tr,
+.calendar table tr td,
+.calendar table tr td table,
+.calendar table tr td table tr,
+.calendar table tr td table tr td,
+.calendar table tr td table tr th
+{
+    border:none;
+}
+.calendar > table tr{
+    border-bottom:2px solid #003560;
+}
+.calendar table table td{
+    height:30px;
+}
+.calendar table table td.r2{
+    background-color:#eee;
+}
+.calendar table table td.unavailable{
+    background-color:#555;
+}
+
+.calendar table table tr.selected td,
+.calendar table table tr.selected-first td{
+    background-color:#8dae10;
+}
+.calendar table table.past th,.calendar table table.past td
+{
+    color:#666;
+}
+.calendar table table.holiday th,.calendar table table.holiday td
+{
+    background-color:#fee;
+}
+.calendar table table.past.holiday th,.calendar table table.past.holiday td
+{
+    background-color:#eee;
+}
+
+.timevalues, .timevalues table{
+    background-color:#fff;
+}
+.timevalues table tr{
+    background-color:#fff;
+    border:none;
+}
+.timevalues table td,
+.timevalues table th{
+    text-align:right;
+    background-color:transparent;
+}
+
+
+.is-posted .calendar{
+    display:none;
+}
+.is-posted form{
+    display:block;
+}
+.is-empty form{
+    display:none;
+}
+.is-empty .calendar{
+    display:block;
+    margin-top:2em;
+}
+
+.calendar nav{
+    margin:3em 0;
+}

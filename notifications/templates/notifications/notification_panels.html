@@ -1,0 +1,37 @@
+{% load i18n wagtailadmin_tags website_tags static %}
+{% csrf_token %}
+<script>
+  function rubion_ajaxify( elements, success_fnc, data_fnc ){
+    var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+    $(elements).each( 
+      function(){
+        var btn = $(this);
+        btn.click(
+          function( ev ){
+            ev.preventDefault();
+            var dataObj = {}
+            if (data_fnc){
+              dataObj['data'] = data_fnc(btn);
+//              dataObj['processData'] = false;
+            }
+            $.ajax($.extend(dataObj, {
+              'beforeSend': function(xhr, settings){
+                if (!this.crossDomain){
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+              },
+              'url' : $(this).attr('href'),
+              'method' : 'POST',
+              'success' : function(data, status, jqXHR){success_fnc(data, status, jqXHR, btn);}
+            }));
+          }
+        );
+      }
+    );
+    
+  }
+</script>
+{% if notifications %}
+  {{ notifications|safe }}
+{% endif %}
+

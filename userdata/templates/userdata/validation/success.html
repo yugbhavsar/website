@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block content %}
+  <h3 class="registration">{% trans "Registration successful!" %}</h3>
+
+  <div class="box large success">
+    <i class="fa fa-check-square-o fa-3x"></i>
+    <span>{% trans "Enter your data." %}</span>
+  </div>
+  <div class="box large success">
+    <i class="fa fa-envelope-o fa-3x"></i>
+    <span>{% trans "We send an e-mail to you containing a link to validate your e-mail address." %}</span>
+  </div>
+  <div class="box large success">
+    <i class="fa fa-check-square-o fa-3x"></i> 
+    <span>
+    {% blocktrans %}
+    Open the e-mail and click the link to
+    validate your e-mail address and to complete the registration.
+    {% endblocktrans %}
+    </span>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/blocks.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+{% endblock %}

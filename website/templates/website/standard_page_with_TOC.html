@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags i18n wagtailcore_tags website_tags %}
+{% block sidebarcontent %}
+<div class="floatmarginbox">
+<h3>{% trans "Contents" %}</h3>
+<ul>
+{% for heading in headings %}
+  <li><a href="#{{heading|slugify}}">{{heading}}</a></li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}
+{% block content %}
+<h2>{{ page.title_trans }}</h2>
+{% if page.introduction %}
+<div class="introduction">
+{{page.introduction}}
+</div>
+{% endif %}
+<div>
+{% if page.body %}
+{% for block in page.body %}
+{% if block.block_type == 'heading' %}
+  <h3 class="intoc"><a name="{{block.value|slugify}}">{{block.value}}</a></h3>
+{% else %}
+  {% include_block block %}
+{% endif %}
+{% endfor %}
+</div>
+{% endif %}
+{% block related_content %}
+{% if page.related %}
+<h3>{% trans "Related pages" %}</h3>
+<ul>
+{% for p in page.related.all %}
+<li><a href="{% pageurl p.page %}">{{ p.page.title }}</a></li>
+{% endfor %%}
+</ul>
+{% endif %}
+{% endblock %}
+{% endblock %}
+
+{% block headerimage %}
+{% if page.title_image %}
+  {% image page.title_image width-713 width="100%" %}
+{% else %}
+  {{ block.super }}
+{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+{% endblock %}

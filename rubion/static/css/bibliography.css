@@ -1,0 +1,52 @@
+ul.publications li{
+    margin-bottom:1em;
+}
+.publications .pub_authors:after{
+    content: ': '
+}
+.publications .pub_title{
+    font-style:italic;
+}
+.publications .pub_title:after{
+    content: '.'
+}
+.publications .pub_journal:after{
+    content: ','
+}
+.publications .pub_volume:after{
+    content: ')'
+}
+.publications .pub_volume:before{
+    content: '('
+}
+.publications .authorgreater6,
+.publications .authorgreater6 + .pub_author_separator{
+/*    display:none;*/
+}
+
+.csl-entry{
+    margin: .5em;
+    padding: .5em;
+    line-height:1.4;
+}
+.csl-entry:nth-child(even){
+    background:#e7e7e7;
+    color:#000;
+}
+
+#publication_list .newer{
+
+}
+#publication_list .older{
+    float: right;
+}
+#publication_list h3{
+    text-align:center;
+}
+#publication_list h4{
+    clear:both;
+}
+#publication_list nav{
+    display:block;
+    clear:both;
+}

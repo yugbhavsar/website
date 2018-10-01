@@ -1,0 +1,12 @@
+{% load i18n %}
+<span class="connections userdata">
+{% if user.orcid %}
+<a href="https://orcid.org/{{ user.orcid }}"><i class="fa fa-lg ai ai-orcid"></i></a>
+{% endif %}
+{% if user.researchgate %}
+<a href="https://researchgate.net/profile/{{ user.researchgate }}"><i class="fa fa-lg ai ai-researchgate"></i></a>
+{% endif %}
+{% if user.gnd %}
+<a href="https://bibliographie.ub.rub.de/beta/search?q=*:*&core=hb2&filter=pndid:{{ user.gnd }}"><i class="fa fa-lg fa-university" styly="font-style:normal"></i></a>
+{% endif %}
+</span>

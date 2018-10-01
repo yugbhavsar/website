@@ -1,0 +1,156 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n courses_tags static %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block extra_css %}
+    {{ view.media.css }}
+    <link rel="stylesheet" href="{% static "css/admin/courses/course-inspect.css" %}">
+{% endblock %}
+
+{% block extra_js %}
+    {{ view.media.js }}
+{% endblock %}
+
+{% block content %}
+    <div>
+
+        {% block header %}
+            {% include "modeladmin/includes/breadcrumb.html" %}
+            {% include "wagtailadmin/shared/header.html" with title=view.get_page_title subtitle=view.get_page_subtitle icon=view.header_icon %}
+        {% endblock %}
+
+        {% block content_main %}
+            <div class="nice-padding">
+
+                <p class="back"><a href="{{ view.index_url }}" class="icon icon-arrow-left">{% blocktrans with view.verbose_name as model_name %}Back to {{ model_name }} list{% endblocktrans %}</a></p>
+		<div class="summary">
+		<h2>{% trans "Summary" %}</h2>
+		<table class="listing full-width">
+		  <thead>
+		    <tr>
+		      <th>Status</th>
+		      {% for at in instance.attendee_types.all %}
+		      <th>{{at.get_attendee_class.display_name_plural}}</th>
+		      {% endfor %}
+		      <th>{% trans "Total" %}</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th style="text-align:left">
+			{% trans "Confirmed Participation, fee payed" %}
+		      </th>	
+		      {% for at in instance.attendee_types.all %}
+		      <td>
+			{% get_n_confirmed_attendees at instance True%}
+			{% if at.max_attendees %} / {{ at.max_attendees }}{% endif %}
+		      </td>
+		      {% endfor %}
+		      <td>
+			{% get_n_total_confirmed instance True %} / {{ instance.get_max_attendees }}
+		      </td>
+		    </tr>
+		    <tr>
+		      <th style="text-align:left">
+			{% trans "Confirmed Participation, fee open" %}
+		      </th>	
+		      {% for at in instance.attendee_types.all %}
+		      <td>
+			{% get_n_confirmed_attendees at instance False %}
+			{% if at.max_attendees %} / {{ at.max_attendees }}{% endif %}
+		      </td>
+		      {% endfor %}
+		      <td>
+			{% get_n_total_confirmed instance False %} / {{ instance.get_max_attendees }}
+		      </td>
+		    </tr>
+		    <tr>
+		      <th style="text-align:left">
+			{% trans "Waiting for validation" %}
+		      </th>	
+		      {% for at in instance.attendee_types.all %}
+		      <td>
+			{% get_n_recent_unconfirmed_attendees at instance %}
+			{% if at.max_attendees %} / {{ at.max_attendees }}{% endif %}
+		      </td>
+		      {% endfor %}
+		      <td>
+			{% get_n_total_recent_unconfirmed instance %} / {{ instance.get_max_attendees }}
+		      </td>
+		    </tr>
+		    <tr>
+		      <th style="text-align:left">
+			{% trans "Waiting for confirmation (from waitlist)" %}
+		      </th>	
+		      {% for at in instance.attendee_types.all %}
+		      <td>
+			{% get_n_recent_unconfirmed_attendees_waitlist at instance %}
+			{% if at.max_attendees %} / {{ at.max_attendees }}{% endif %}
+		      </td>
+		      {% endfor %}
+		      <td>
+			{% get_n_total_recent_unconfirmed instance %} / {{ instance.get_max_attendees }}
+		      </td>
+		    </tr>
+
+		    <tr style="border-top:3px solid gray">
+		      <th style="text-align:left">
+			{% trans "Validation expired" %}
+		      </th>	
+		      {% for at in instance.attendee_types.all %}
+		      <td>
+			{% get_n_expired_unconfirmed_attendees at instance %}
+			{% if at.max_attendees %} / {{ at.max_attendees }}{% endif %}
+		      </td>
+		      {% endfor %}
+		      <td>
+			{% get_n_expired_unconfirmed instance %}
+		      </td>
+		    </tr>
+		    <tr>
+		      <th style="text-align:left">
+			{% trans "Waitlist" %}
+		      </th>	
+		      {% for at in instance.attendee_types.all %}
+		      <td>
+			{% get_n_attendees_waitlist at instance %}
+		      </td>
+		      {% endfor %}
+		      <td>
+			{% get_n_waitlist instance %}
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+              </div>
+		<ul class="tab-nav merged">
+		  {% for at in instance.attendee_types.all %}
+  		  <li {%if forloop.counter0 == 0 %}class="active"{%endif%}><a {%if forloop.counter0 == 0 %}class="active"{%endif%}href="#{{at.get_attendee_class.display_name|cut:" "}}">{{at.get_attendee_class.display_name_plural}}</a></li>
+		  {% endfor %}
+		</ul>
+		<div class="tab-content">
+		  {% for at in instance.attendee_types.all %}		  
+  		  <section id="{{at.get_attendee_class.display_name|cut:" "}}" {%if forloop.counter0 == 0 %}class="active"{%endif%}>
+		    {% specific_attendee_list at instance %}
+		  </section>
+		  {% endfor %}
+		</div>
+
+            </div>
+        {% endblock %}
+
+    </div>
+
+    {% block footer %}
+        {% if buttons %}
+            <footer>
+                <div class="button-group">
+                    {% for button in buttons %}
+                        {% include "modeladmin/includes/button.html" %}
+                    {% endfor %}
+                </div>
+            </footer>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

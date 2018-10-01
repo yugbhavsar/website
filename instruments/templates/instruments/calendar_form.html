@@ -1,0 +1,71 @@
+{% extends "base_wide.html" %}
+{% load instruments_tags static i18n website_tags wagtailroutablepage_tags %}
+{% block content %}
+<h2>{% trans "Book" %} {{page.title_trans}}</h2>
+<div id="calendarcontainer" class="{%if is_posted%}is-posted{%else%}is-empty{%endif%}">
+  <form action="." method="POST">
+    {% csrf_token %}
+    {% for hd in form.hidden_fields %}{{ hd }}{% endfor %}
+    {% for field in form.visible_fields %}
+    {% form_element field %}
+    {% endfor %}
+    <div class="actioncontainer">
+      <p class="action">{% trans "Select different date" as cancel_text %}
+	{% include 'tags/submit_button.html' with text=submit %}
+	{% include 'tags/button.html' with text=cancel_text icon="times" route="book" classes=" light"%}
+      </p>
+    </div>
+  </form>
+  <div class="calendar">
+  <nav>
+    <div>
+      <a style="float:right" class="button hidden" 
+	 href="{% routablepageurl page "book_with_date" year nextweek %}"><span 
+         class="text">{% trans "two weeks forward" %}</span><span
+         class="icon"><i class="fa fa-fw fa-forward"></i></span></a>
+      <a class="button hidden" 
+	 href="{% routablepageurl page "book_with_date" year prevweek %}"><span
+         class="icon"><i class="fa fa-fw fa-backward"></i></span><span 
+         class="text">{% trans "two weeks back" %}</span></a>
+    </div>
+  </nav>    
+    <p>
+    <table width="100%">
+      <colgroup>
+	<col width="10%" />
+	<col width="18%" />
+	<col width="18%" />
+	<col width="18%" />
+	<col width="18%" />
+	<col width="18%" />
+      </colgroup>
+      {% for week in weeks %}
+      {% cal_week year week %}
+      {% endfor %}
+    </table>
+  <nav>
+    <div>
+      <a style="float:right" class="button hidden"  
+	 href="{% routablepageurl page "book_with_date" year nextweek %}"><span 
+         class="text">{% trans "two weeks forward" %}</span><span
+         class="icon"><i class="fa fa-fw fa-forward"></i></span></a>
+      <a class="button hidden" 
+	 href="{% routablepageurl page "book_with_date" year prevweek %}"><span
+         class="icon"><i class="fa fa-fw fa-backward"></i></span><span 
+         class="text">{% trans "two weeks back" %}</span></a>
+    </div>
+  </nav>
+  </div>
+</div>
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/calendar.css'%}"></link>
+<link rel="stylesheet" href="{% static 'css/forms.css'%}"></link>
+<link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}"></link>
+{% endblock %}
+{% block extra_js %}
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/calendar-form.js' %}"></script>
+
+{% endblock %}
+

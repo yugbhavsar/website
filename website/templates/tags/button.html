@@ -1,0 +1,3 @@
+{% load wagtailroutablepage_tags %}
+<a class="button {{classes}}{% if disabled %} disabled{% endif %}"
+   {% if not disabled %} href="{% routablepageurl page route %}"{% endif %}><span class="icon"><i class="fa fa-{{icon}} fa-fw"></i></span><span class="text">{{text}}</span></a>

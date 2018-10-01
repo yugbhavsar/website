@@ -1,0 +1,54 @@
+{% load i18n wagtailadmin_tags website_tags static %}
+{% if booking_requests %}
+    <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
+        <section>
+            <h2>{% trans 'Instrument booking requests' %}</h2>
+            <table class="listing">
+                <col width="10%"/>
+                <col />
+		<col width="10%"/>
+		<col width="10%"/>
+                <col width="10%"/>
+		<thead>
+                    <tr>
+                        <th class="title">{% trans "Instrument" %}</th>
+                        <th>{% trans "Description" %}</th>
+                        <th>{% trans "Workgroup" %}</th>
+			<th>{% trans "Project" %}</th>
+                        <th>{% trans "User" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for req in booking_requests %}
+                        <tr>
+                            <td class="title" valign="top">
+                                <h2>{{ req.instrument }}</h2>
+				<ul class="actions">
+				  <li>
+				    <a href="{% url 'rubionadmin:instrument_cal_form' req.id %}" class="button button-small
+				    button-secondary instrument-cal-btn">{% trans "select date and time" %}</a>
+				  </li>
+				  <li></li>
+				</ul>
+                            </td>
+                            <td class="type" valign="top">
+				{{ req.description }}
+                            </td>
+                            <td class="type" valign="top">
+				{{ req.project.specific.get_workgroup_info }}
+                            </td>
+                            <td valign="top">
+			      {{ req.project }}
+                                {#{{ revision.page.specific.get_workgroup_info }}#}
+                            </td>
+                            <td class="type" valign="top">
+			      {{ req.booked_by.last_name}}, {{ req.booked_by.first_name }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endif %}
+

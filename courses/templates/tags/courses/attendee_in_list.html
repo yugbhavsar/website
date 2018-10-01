@@ -1,0 +1,4 @@
+{% load wagtailroutablepage_tags %}
+{% if available %}
+ <li><a href="{% routablepageurl page "register" type.get_attendee_class.identifier %}">{% if type.get_attendee_class.display_name_plural %}{{ type.get_attendee_class.display_name_plural }}{% else %}{{ type.get_attendee_class.display_name }}s{% endif %}</a></li>
+{% endif %}

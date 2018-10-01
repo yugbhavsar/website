@@ -1,0 +1,26 @@
+.multiform-indicator{
+    list-style-type: None;
+    list-style-image : None;
+    margin: 2em 0;
+    padding:0;
+}
+
+.multiform-indicator:after{
+    clear:left;
+    content:'.';
+    display:block;
+    height:0;
+    visibility:'hidden';
+}
+.multiform-indicator li{
+    float:left;
+    display:block;
+    margin:0;
+    margin-right:.25em;
+}
+
+.multiform-indicator li .button .text{
+    background:#fff;
+    color:#003560;
+    padding-left:.23em;
+}

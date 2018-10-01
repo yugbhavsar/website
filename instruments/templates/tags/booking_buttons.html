@@ -1,0 +1,24 @@
+{% load i18n website_tags wagtailcore_tags %}
+{% if direct or apply_button %}
+<div class="floatmarginbox buttonlist">
+<ul>
+{% if apply_button and not is_instrument_page%}
+{% trans 'apply for measurement' as apply%}
+<li>{% include 'tags/button.html' with icon="flask" text=apply classes="fullwidth" route="apply"%}</li>
+{% endif %}
+{% trans 'book' as book_trans %}
+{% for instrument in direct %}
+  <li>
+    {% if is_instrument_page %}
+      {% trans 'book this instrument' as book_this_in %}
+      {% include 'tags/button.html' with text=book_this_in icon='calendar-check-o' route="book" classes='fullwidth' %}
+    {% else %}
+      {% with instr=" "|add:instrument.get_short_name %}
+        {% include 'tags/button.html' with text=book_trans|add:instr icon='calendar-check-o' route="book" classes="fullwidth" page=instrument%}
+      {% endwith %}
+    {% endif %}
+  </li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}

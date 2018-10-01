@@ -1,0 +1,22 @@
+{% extends "wagtailadmin/home.html" %}
+{% load i18n static %}
+{% block branding_welcome %}{% trans "RUBION administration" %}{% endblock %}
+{% block extra_js %}
+  <script src="{% static 'wagtailadmin/js/vendor/jquery.datetimepicker.js' %}"></script>
+  <script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+  <script src="{% static 'js/wagtailadmin/datetimechooser.js' %}"></script>
+  <script src="{% static 'js/wagtailadmin/reject.js' %}"></script>
+  <script src="{% static 'js/wagtailadmin/instrument_cal.js' %}"></script>  
+  <script src="{% static 'js/wagtailadmin/method_cal.js' %}"></script>
+  <script>
+    window.rubionadmin = { 
+      'reject_form_url' : "{% url 'rubionadmin:reject_moderation_form' %}",
+      'instrument_cal_url' : "{% url 'rubionadmin:instrument_cal_form' %}",
+      'method_cal_url' : "{% url 'rubionadmin:method_cal_form' %}",
+    };
+  </script>
+{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/calendar.css' %}"></link>
+  <link rel="stylesheet" href="{% static 'css/admin-calendar.css' %}"></link>
+{% endblock %}

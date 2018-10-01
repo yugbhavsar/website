@@ -1,0 +1,5 @@
+Dear {{ name }}!
+
+This is a registration mail. Please confirm by clicking the following link: 
+
+ {{ link }}

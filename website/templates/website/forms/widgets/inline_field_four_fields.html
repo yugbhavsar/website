@@ -1,0 +1,223 @@
+{% load i18n %}
+<datalist id="chemicalelements">
+<option value="H">
+<option value="He">
+<option value="Li">
+<option value="Be">
+<option value="B">
+<option value="C">
+<option value="N">
+<option value="O">
+<option value="F">
+<option value="Ne">
+<option value="Na">
+<option value="Mg">
+<option value="Al">
+<option value="Si">
+<option value="P">
+<option value="S">
+<option value="Cl">
+<option value="Ar">
+<option value="K">
+<option value="Ca">
+<option value="Sc">
+<option value="Ti">
+<option value="V">
+<option value="Cr">
+<option value="Mn">
+<option value="Fe">
+<option value="Co">
+<option value="Ni">
+<option value="Cu">
+<option value="Zn">
+<option value="Ga">
+<option value="Ge">
+<option value="As">
+<option value="Se">
+<option value="Br">
+<option value="Kr">
+<option value="Rb">
+<option value="Sr">
+<option value="Y">
+<option value="Zr">
+<option value="Nb">
+<option value="Mo">
+<option value="Tc">
+<option value="Ru">
+<option value="Rh">
+<option value="Pd">
+<option value="Ag">
+<option value="Cd">
+<option value="In">
+<option value="Sn">
+<option value="Sb">
+<option value="Te">
+<option value="I">
+<option value="Xe">
+<option value="Cs">
+<option value="Ba">
+<option value="La">
+<option value="Ce">
+<option value="Pr">
+<option value="Nd">
+<option value="Pm">
+<option value="Sm">
+<option value="Eu">
+<option value="Gd">
+<option value="Tb">
+<option value="Dy">
+<option value="Ho">
+<option value="Er">
+<option value="Tm">
+<option value="Yb">
+<option value="Lu">
+<option value="Hf">
+<option value="Ta">
+<option value="W">
+<option value="Re">
+<option value="Os">
+<option value="Ir">
+<option value="Pt">
+<option value="Au">
+<option value="Hg">
+<option value="Tl">
+<option value="Pb">
+<option value="Bi">
+<option value="Po">
+<option value="At">
+<option value="Rn">
+<option value="Fr">
+<option value="Ra">
+<option value="Ac">
+<option value="Th">
+<option value="Pa">
+<option value="U">
+<option value="Np">
+<option value="Pu">
+<option value="Am">
+<option value="Cm">
+<option value="Bk">
+<option value="Cf">
+<option value="Es">
+<option value="Fm">
+<option value="Md">
+<option value="No">
+<option value="Lr">
+<option value="Rf">
+<option value="Db">
+<option value="Sg">
+<option value="Bh">
+<option value="Hs">
+<option value="Mt">
+<option value="Ds">
+<option value="Rg">
+<option value="Cn">
+<option value="Uut">
+<option value="Fl">
+<option value="Uup">
+<option value="Lv">
+<option value="Uus">
+<option value="Uuo">
+</datalist>
+<fieldset id="fieldset_{{widget.name}}">
+<legend id="legend_{{widget.name}}"></legend>
+<table>
+  <thead>
+    <tr>
+      <th>{{head1}}</th>
+      <th>{{head2}}</th>
+      <th>{{head3}}</th>
+      <th>{{head4}}</th>
+    </tr>
+  </thead>
+  <tbody id="tbody_id_{{widget.name}}">
+    <tr id="row_{{widget.name}}_0">
+      <td><input list="chemicalelements" type="text" name="{{widget.name}}0_0"></td>
+      <td><input type="text" name="{{widget.name}}1_0"></td>
+      <td><input type="text" name="{{widget.name}}2_0"></td>
+      <td><input type="text" name="{{widget.name}}3_0"></td>
+    </tr>
+  </tbody>
+</table>
+<button type="button" class="button" id="addbutton_id_{{widget.name}}"><span class="icon"><i class="fa fa-plus-square"></i></span><span class="text">{% trans "add row" %}</span></button>
+<button type="button" class="button" id="removebutton_id_{{widget.name}}"><span class="icon"><i class="fa fa-minus-square"></i></span><span class="text">{% trans "remove row" %}</span></button>
+<script>
+
+  var {{widget.name}}_row_count = 0;
+
+  
+
+  function update_value_{{widget.name}}(){
+      var res = [];
+      for (var i=0; i<={{widget.name}}_row_count; i++){
+          console.log(i);
+          res[i] = [$('input[name={{widget.name}}0_'+i+']').val(), $('input[name={{widget.name}}1_'+i+']').val(), $('input[name={{widget.name}}2_'+i+']').val(), $('input[name={{widget.name}}3_'+i+']').val()]
+      }
+      $('#id_{{widget.name}}').val(JSON.stringify(res));						 
+  }
+  
+  for (var i = 0; i<4; i++){
+    $('input[name={{widget.name}}'+i+'_0]').on('change', update_value_{{widget.name}});
+  } 
+
+  function addRow_{{widget.name}}(){
+    {{widget.name}}_row_count++;
+    $('#tbody_id_{{widget.name}}').append('<tr id="row_{{widget.name}}_'+{{widget.name}}_row_count+'">\n'+
+   '<td><input  list="chemicalelements" type="text" name="{{widget.name}}0_'+{{widget.name}}_row_count+'"></td>'+
+   '<td><input type="text" name="{{widget.name}}1_'+{{widget.name}}_row_count+'"></td>'+
+   '<td><input type="text" name="{{widget.name}}2_'+{{widget.name}}_row_count+'"></td>'+
+   '<td><input type="text" name="{{widget.name}}3_'+{{widget.name}}_row_count+'"></td>'+
+   '</tr>');
+  }		       
+  
+  $('#addbutton_id_{{widget.name}}').click(function(){
+     addRow_{{widget.name}}();
+     for (var i = 0; i<4; i++){
+      $('input[name={{widget.name}}'+i+'_'+{{widget.name}}_row_count+']').on('change', update_value_{{widget.name}});
+     }
+  });
+  $('#removebutton_id_{{widget.name}}').click(function(){    
+    if ({{widget.name}}_row_count >= 0){
+      $('#row_{{widget.name}}_'+{{widget.name}}_row_count).remove();
+      {{widget.name}}_row_count--;
+      update_value_{{widget.name}}();      		       
+    }
+		       
+  });
+	
+
+</script>
+</fieldset>
+{% include "django/forms/widgets/hidden.html" %}
+<script>
+  $('#legend_{{widget.name}}').html(
+    $('label[for=id_{{widget.name}}]').html()
+  );
+  $('label[for=id_{{widget.name}}]').remove();
+
+  function showHide{{widget.name}}(){
+    if ($('input[type=checkbox][data-{{depending_field}}]:checked').length > 0){
+      $('#fieldset_{{widget.name}}').show();
+    } else {
+      $('#fieldset_{{widget.name}}').hide();
+    }					 	  
+  }
+
+  $('input[type=checkbox][data-{{depending_field}}]').on('change', showHide{{widget.name}});
+  showHide{{widget.name}}();
+  if ($('#id_{{widget.name}}').val() != ''){
+    var obj = JSON.parse($('#id_{{widget.name}}').val());
+    for (var n in obj){
+      if ({{widget.name}}_row_count < n){
+        addRow_{{widget.name}}();		       
+      }
+      $('input[name={{widget.name}}0_'+n+']').val(obj[n][0]).prop('disabled',true);
+      $('input[name={{widget.name}}1_'+n+']').val(obj[n][1]).prop('disabled',true);
+      $('input[name={{widget.name}}2_'+n+']').val(obj[n][2]).prop('disabled',true);
+      $('input[name={{widget.name}}3_'+n+']').val(obj[n][3]).prop('disabled',true);
+    }
+    $('#addbutton_id_{{widget.name}}').remove();
+    $('#removebutton_id_{{widget.name}}').remove();				      
+  }						  
+</script>
+

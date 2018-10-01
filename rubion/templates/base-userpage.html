@@ -1,0 +1,64 @@
+{% load website_tags static wagtailuserbar %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>
+      {% block title %}
+      {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+      {% endblock %}
+      {% block title_suffix %}
+      {% with self.get_site.site_name as site_name %}
+      {% if site_name %}- {{ site_name }}{% endif %}
+      {% endwith %}
+      {% endblock %}
+    </title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    {# Global stylesheets #}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/auswahl-3spaltig-mit-bild.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/rubion.css' %}">
+    
+    {% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+    {% endblock %}
+    {% block extra_head_js %}
+    {# Override this in templates to add extra js to the head #}
+    {% endblock %}
+  </head>
+  
+  <body class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
+    <div class="page_margins">
+      <div class="page">
+	{% include "header_start.html" %}
+	{% block headerimage %}
+	<img width="100%" src="https://www.rubion.rub.de/bilder/med-implanter-2.jpg" />
+      {% endblock %}
+	{% include "header_end.html" %}
+	{% include "topnav.html" %}
+	{% include "teaser.html" %}
+	
+	<div id="main">
+	  <div id="inhalt">
+	    <a id="rub-inhalt" name="rub-inhalt"></a>
+            {% block content %}{% endblock %}
+	  </div>
+	</div>
+	{% include "footer.html" %}
+      </div>
+      <div id="border-bottom">
+	<div id="edge-bl"></div>
+	<div id="edge-br"></div>
+      </div>
+    </div>
+    {# Global javascript #}
+    <script type="text/javascript" src="{% static 'js/rubion2017.js' %}"></script>
+    
+    {% block extra_js %}
+    {# Override this in templates to add extra javascript #}
+    {% endblock %}
+  </body>
+</html>

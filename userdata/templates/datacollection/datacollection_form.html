@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags $}
+
+{% block content %}
+<form action="{% pageurl page %}">
+  {{ form.as_table }}
+  <input type="submit">
+</form>
+{% endblock %}

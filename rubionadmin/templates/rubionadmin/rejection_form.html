@@ -1,0 +1,55 @@
+{% load wagtailimages_tags %}
+{% load i18n %}
+{% trans "Send rejection mail" as choose_str %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 tabbed=1 icon="fa-envelope-o fa" %}
+
+<ul class="tab-nav merged">
+  {% if lang %}
+  <li class="active"><a href="#reasons-{{lang}}" >
+      {% if lang == 'de' %}
+      {% trans "German" %}
+      {% else %}
+      {% trans "English" %}
+      {% endif %}
+  </a></li>
+  {% else %}
+  <li class="active"><a href="#reasons-de" >{% trans "German" %}</a></li>
+  <li><a href="#reasons-en" >{% trans "English" %}</a></li>
+  {% endif %}
+</ul>
+    <form class="rejection-form" action="{% url 'rubionadmin:reject_moderation_form' revision.id %}" method="POST" autocomplete="off" novalidate>
+      {% csrf_token %}
+      <div class="tab-content">
+	<section id="reasons-de" class="active nice-padding">
+	  <div style="color:red; font-weight:bold">
+	  {% if form.errors %}
+	  {{ form.non_field_errors }}
+	  {% endif %}
+	  </div>
+	  <ul class="fields">
+	    <li>
+	      <p style="white-space: pre-line; font-weight:bold">{{intro_de}}</p>
+	      {{form.reasons_de}}
+	      <p style="white-space: pre-line;font-weight:bold">{{footer_de}}</p>
+	    </li>
+            <li>
+              <button type="submit" class="button" name="send_mail" >{% trans 'send mail' %}</button>
+            </li>
+	</section>
+	<section id="reasons-en" class="nice-padding">
+	  {% if form.errors %}
+	  {{form.errors}}
+	  {% endif %}
+	  <ul class="fields">
+	    <li>
+	      <p style="white-space: pre-line; font-weight:bold">{{intro_en}}</p>
+	      {{form.reasons_en}}
+	      <p style="white-space: pre-line; font-weight:bold">{{footer_de}}</p>
+	    </li>
+            <li>
+              <button type="submit" class="button" name="send_mail">{% trans 'Send mail' %}</button>
+            </li>
+	</section>
+      </div>
+    </form>
+</div>

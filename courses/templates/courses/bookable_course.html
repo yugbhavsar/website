@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags i18n %}
+{% block content %}
+<form action = "{% pageurl page %}?choices={{choice}}" method="post">
+{% csrf_token %}
+  {% csrf_token %}
+  <table class="fullwidth">
+  {{ form.as_table }}
+  </table>
+  <button>{% trans "submit data" %}</button>
+</form>
+{% endblock %}

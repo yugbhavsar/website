@@ -1,0 +1,34 @@
+{% extends "modeladmin/inspect.html" %}
+{% load i18n %}
+
+{% block fields_output %}
+<h2>{% trans "Members" %}</h2>
+<div>
+<h3>{% trans "Head of the workgroup" %}</h3>
+  {% include "userinput/admin/members_in_workgroup.html" with users=head %}
+</div>
+<div>
+<h3>{% trans "Members of the workgroup" %}</h3>
+  {% if members %}
+    {% include "userinput/admin/members_in_workgroup.html" with users=members %}
+  {% else %}
+   <p><em>{% trans "No workgroup members have been added." %}</em></p>
+  {% endif %}
+</div>
+<h2 style="margin-top:3em">{% trans "Projects" %}</h2>
+<div>
+<h3>{% trans "Current projects of the workgroup" %}</h3>
+  {% if active_projects %}
+    {% include "userinput/admin/projects_in_workgroup.html" with projects=active_projects %}
+  {% else %}
+    <p><em>{% trans "No projects have been added." %}</em></p>
+  {% endif %}
+</div>
+{% if old_projects %}
+<div>
+<h3>{% trans "Former projects of the workgroup" %}</h3>
+    {% include "userinput/admin/projects_in_workgroup.html" with projects=old_projects %}
+</div>
+  {% endif %}
+
+{% endblock %}

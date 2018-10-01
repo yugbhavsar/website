@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load i18n website_tags static %}
+{% block sidebarcontent %}
+<div class="floatmarginbox">
+  <h3>{% trans "Your action requires identification" %}</h3>
+  <dl>
+    <dt>{% trans "RUB members"%}:</dt>
+    <dd>
+      {% trans "Identify by your RUB-ID and password." %}
+    </dd>
+    <dt>{% trans "Externals" %}:</dt>
+    <dd>
+      {% blocktrans %}
+      Identify by your e-mail address: We will send an email to the email
+      address you provide which contains a unique link for identification.
+      {% endblocktrans %}
+    </dd>
+  </dl>
+</div>
+{% endblock %}
+{% block content %}
+<h2>{% trans 'Please identify' %}</h2>
+{% if form.errors %}
+  {{ form.errors }}
+{% endif %}
+<form action="." method="POST">
+  {% csrf_token %}
+  {% for element in form.visible_fields %}
+    {% form_element element %}
+  {% endfor %}
+  {% for element in form.hidden_fields %}
+    {{ element }}
+  {% endfor %}
+
+  <p class="action">
+    <button type="submit" class="button viewmore"><span class="icon-surr"><i class="fa fa-check"></i></span><span class="text">{% trans "Identify" %}</span></button>
+  </p>
+
+</form>
+{% endblock %}
+{% block extra_css %}
+   <link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+   <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+{% endblock %}
+{% block extra_js %}
+   <script language="javascript">
+     function findAncestorDIV( el ){
+         while ((el = el.parentElement) && el.tagName != 'DIV');
+         return el;
+     }
+
+     function show(which){
+         var shows = ['id_rub_id', 'id_rub_pwd'];
+         var hides = ['id_email'];
+    
+         if (which == 'EXT'){
+             var hides = ['id_rub_id', 'id_rub_pwd'];
+             var shows = ['id_email'];
+         }
+         for (var i = 0; i < hides.length; ++i){
+             findAncestorDIV(document.getElementById(hides[i])).style.display = 'none';
+         }
+         for (i = 0; i < shows.length; ++i){
+             findAncestorDIV(document.getElementById(shows[i])).style.display = 'block';
+         }
+     }
+     document.getElementById('id_usertype').onchange = function(){
+	 show(document.getElementById('id_usertype').value);
+     }
+     show(document.getElementById('id_usertype').value);			 
+   </script>
+{% endblock %}

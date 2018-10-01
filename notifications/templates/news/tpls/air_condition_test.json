@@ -1,0 +1,11 @@
+function(modal){
+    modal.respond('setvalues', {
+	"title_de" : "Lüftungswartung",
+	"title_en" : "Ventilation maintenance",
+	"content_de" : "<p>An alle Nutzerinnen und Nutzer des RUBION!</p><p>Am</p><ul><li><strong>{{data.date|date:'j. n. Y' }} findet in der Zeit zwischen {{data.start|date:'H:i'}} Uhr und {{data.end|date:'H:i'}} Uhr</strong></li></ul><p>die Lüftungswartung statt.</p><p>Während dieser Zeit darf das Labor nicht betreten werden.</p><p>Wir bitten um Beachtung.</p>",
+	"content_en" : "<p>Dear users of RUBION!</p><p>There will be maintenace work on the ventilation on</p><ul><li><strong>{{data.date}} from {{data.start}} to  {{data.end|date:'H:i'}}</strong></li></ul><p>During this time, the laboratory is closed.</p><p>Please plan your experiments accordingly.</p>",
+	"send_mail_to_all" : true
+    });
+    modal.close();
+}
+

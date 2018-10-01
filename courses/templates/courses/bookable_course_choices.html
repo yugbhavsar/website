@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<h2>{% trans "Registration for " %} {{ page.get_parent.specific.title }}</h2>
+<h3>{% trans "Date" %}: {{page.title}}</h3>
+
+{% if choices %}
+<div class="courses choices"> 
+{% for choice in choices %}
+<div class="choice">
+  <h3>{% trans "Register as" %} {{choice.title_en}}</h3>
+  <dl>
+    <dt>{% trans "Availability" %}</dt><dd>{{ choice.get_status_display }}</dd>
+    <dt>{% trans "Registration fee" %}</dt><dd>{{ choice.price }}€</dd>
+  </dl>
+  <div class="viewmorewrapper">
+    <a class="button viewmore" href="{% pageurl page %}?choice={{choice.id}}">
+      <span class="icon"></span><span class="text">{%trans "Register now" %}</span>
+    </a>
+  </div>
+</div>
+{% endfor %}
+</div>
+{% endif %}
+{% endblock %}
+
+
+{% block headerimage %}
+{% if page.title_image %}
+  {% image page.title_image width-713 width="100%" %}
+{% else %}
+  {{ block.super }}
+{% endif %}
+{% endblock %}
+

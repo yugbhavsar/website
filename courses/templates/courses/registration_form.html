@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags website_tags courses_tags i18n static %}
+
+{% block content %}
+<h3>{% trans "Register for course:" %} {{ page.get_parent.specific.title_trans }}</h3>
+<h4>{% trans "Date:" %} {{page.title_trans}}</h4>
+  <form action="{% block formurl %}{%endblock%}" method="post" novalidate enctype="multipart/form-data">
+  {{ form.errors }}
+  {% csrf_token %}
+  {% block formcontent %}{% endblock %}
+  <p class="action">
+  <button class="button viewmore"
+    type="submit"><span class="icon"></span><span class="text">
+      {% trans "Register" %}{% if price > 0 %} {% trans "for" %} {{price}}€{% endif %}</span></button>
+  </p>
+  </form>
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/pikaday.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/pika-rubion.css" %}"></link>
+{% endblock %}
+{% block extra_js %}
+<script src="{% static "js/moment-with-locales.js" %}"></script>
+<script src="{% static "js/pikaday.js" %}"></script>
+<script>
+  var d = document.getElementsByClassName('datepicker');
+  for (var i = 0; i < d.length; i++){
+    new Pikaday({
+      field : d[i],
+       theme: 'rubion',    
+       format: 'YYYY-MM-DD',
+       minDate :  moment().subtract(85, 'years').toDate(),
+       maxDate :  moment().subtract(18, 'years').toDate(),
+       yearRange : [
+           moment().subtract(85, 'years').get('year'), 
+           moment().subtract(18, 'years').get('year')
+       ]
+    });
+  }
+</script>
+{% endblock %}

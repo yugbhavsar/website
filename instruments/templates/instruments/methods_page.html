@@ -1,0 +1,21 @@
+{% extends "website/standard_page.html" %}
+{% load i18n wagtailcore_tags instruments_tags %}
+{% block sidebarcontent %}
+{{block.super}}
+{% render_booking_buttons page %}
+{% endblock %}
+
+{% block related_content %}
+{% if page.related %}
+{% if page.related.all|length == 1 %}
+<h3>{% trans "Related instrument" %}</h3>
+{% else %}
+<h3>{% trans "Related instruments" %}</h3>
+{% endif %}
+<ul>
+{% for p in page.related.all %}
+<li><a href="{% pageurl p.page %}">{{ p.page.title_trans }}</a></li>
+{% endfor %%}
+</ul>
+{% endif %}
+{% endblock %}

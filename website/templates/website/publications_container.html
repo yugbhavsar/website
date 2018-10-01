@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags i18n static %}
+
+{% block content %}
+<h2>{{ page.title_trans }}</h2>
+{% if page.introduction %}
+<p> {{ page.introduction }}</p>
+{% endif %}
+<div id="publication_list">
+  <noscript>
+    {% blocktrans %}
+    <p>Importing the publication list from RUB's research bibliography
+    requires javascript. You can find the <a href="https://bibliographie.ub.rub.de/search?q=RUBION&fq=zentraleeinheit:%22RUBION%22">list of RUBION's publications here</a>.
+    {% endblocktrans %}
+  </noscript>
+</div>
+{% endblock %}
+{# https://static.ub.rub.de/bibliographie/js/citations.js #}
+{% block extra_js %}
+<script src="{% static "js/bibliography.js" %}"></script>
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static "css/bibliography.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "css/spinner.css" %}">
+{% endblock %}

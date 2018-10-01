@@ -1,0 +1,11 @@
+function(modal){
+    modal.respond('setvalues', {
+	"title_de" : "Notstromprobe",
+	"title_en" : "Emergency power test",
+	"content_de" : "<p>An alle Nutzerinnen und Nutzer des RUBION,</p><p>im Zusammenhang mit der halbjährlichen Notstromprobe wird am</p><ul><li><b>{{data.date|date:'j. n. Y'}} von {{data.start|date:'H:i'}} Uhr bis {{data.end|date:'H:i'}} Uhr</b></li></ul><p>die Normalstromversorgung abgeschaltet.</p><p>Betroffen von dieser Maßnahme sind die Beleuchtung, Belüftung, Aufzüge, Klimakonstanträume, Phytokammern, Wärme- und Wasserversorgung, Kälteversorgung sowie die Laborstromversorgung. (Stromleisten oberhalb der Arbeitstische!)</p><p>Bitte berücksichtigen Sie diese Einschränkungen bei der Planung Ihrer Versuche.</p>",
+	"content_en" : "<p>Dear users of RUBION!</p><p>The next bi-annual emergency power test will be on</p><ul><li><b>{{data.date}} from {{data.start}} to {{data.end}}</b></li></ul><p>During this time, the normal power will not be available. This comprises the light, air condition, elevators, heating and water supply. The power supply of the laboratories is switched of, too.</p><p>Please plan your experiments accordingly.</p>",
+	"send_mail_to_all" : true
+    });
+    modal.close();
+}
+

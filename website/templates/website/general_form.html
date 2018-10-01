@@ -1,0 +1,21 @@
+{% extends "website/standard_page.html" %}
+{% load website_tags static %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+<form action='.' method="POST" novalidate>
+{% csrf_token %}
+{% for hd in form.hidden_fields %}{{hd}}{% endfor %}
+{{ form.non_field_errors }}
+{% for el in form.visible_fields %}
+{% form_element el %}
+{% endfor %}
+<p class="action">
+  {% include 'tags/submit_button.html' with text=submit %}
+</p>
+</form>
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}"></link>
+{% include 'website/fontawesome.html' %}
+{% endblock %}

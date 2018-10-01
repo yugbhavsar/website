@@ -1,0 +1,23 @@
+{% load i18n website_tags%}
+<div id="teaser">
+  <div class="subcolumns">
+    <div class="c75l">
+      <div class="subcl">
+	<div id="history">
+	  <a href="https://www.rub.de/" title="Homepage RUB">RUB&nbsp;»&nbsp;</a>
+	  {% block breadcrumb %}{% breadcrumb page %}{% endblock %}
+	</div>
+      </div>
+    </div>
+    <div class="c25l">
+      <div class="subcl">
+	{% get_current_language as LANGUAGE_CODE %}
+	{% if LANGUAGE_CODE == "en" %}
+	<a class="different_language flagge-deutsch-vor" href="{% change_lang 'de'%}">Deutsch</a>
+	{% else %}
+	<a class="different_language flagge-englisch-vor" href="{% change_lang 'en'%}">english</a>
+	{% endif %}
+      </div>
+    </div>
+  </div>
+</div>

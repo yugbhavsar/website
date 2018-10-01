@@ -1,0 +1,68 @@
+{% load i18n wagtailadmin_tags website_tags static %}
+{% if key_applications %}
+    <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
+        <section>
+            <h2>{% trans 'Key applications' %}</h2>
+            <table class="listing" id="key-applications-list">
+                <col width="20%"/>
+		<col width="20%"/>
+		<col width="20%">
+		<col width="20%"/>
+                <col width="20%"/>
+		<thead>
+                    <tr>
+                        <th class="title">{% trans "Name" %}, {% trans "First name" %}</th>
+                        <th>{% trans "Workgroup" %}</th>
+                        <th>{% trans "Methods used by the group" %}</th>
+			<th>{% trans "Key number" %}</th>
+			<th>{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in key_applications %}
+                    <tr>
+                      <td class="title" valign="top">
+                        <h2>{{ user.title }}</h2>
+                      </td>
+                      <td class="type" valign="top">
+			{{ user.get_workgroup }}
+                      </td>
+                      <td class="type" valign="top">
+			<ul style="margin-top:0; list-style-type:square; padding-left:2em">
+			  {% for method in user.get_workgroup.get_methods %}
+			  <li>{{ method.title_trans }}</li>
+			  {% endfor %}
+			</ul>
+                      </td>
+                      <td class="type" valign="top">
+			<input type="text" value="{{ user.key_number }}" id="user_key_number_id_{{forloop.counter}}" >
+                      </td>
+		      <td>
+			<a data-counter="{{forloop.counter}}" href="{% url 'rubionadmin:user_keys_accept' user.id %}" id="user_key_accept_{{forloop.counter}}"  class="button ajax-button">{% trans "Accept" %}</a>
+			<a href="{% url 'rubionadmin:user_keys_reject' user.id %}" class="button no">{% trans "Reject" %}</a>
+		      </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+<script>
+$(document).ready(
+  function(){
+    rubion_ajaxify(
+      '#key-applications-list .ajax-button',
+      function(data, status, jqXHR, btn){
+        if (!data['wrong']){
+          window.location.href = data['redirect'];
+        }
+      },
+      function(btn){
+        return {'keyId' : $('#user_key_number_id_'+$(btn).data('counter')).val()};
+      }
+    );
+  }
+);
+</script>
+{% endif %}
+

@@ -1,0 +1,27 @@
+{% load i18n website_tags %}
+<fieldset id="billing">
+  <legend>{% trans "Billing address" %}</legend>
+  <div>
+  {% form_element form.billing_address_company %}
+  </div>
+  <div>
+  {% form_element form.billing_address_department %}
+  </div>
+  <div>
+  {% form_element form.billing_address_street %}
+  </div>
+  <div>
+  {% form_element form.billing_address_additional %}
+  </div>
+  <div>
+    <div class="c33">
+      {% form_element form.billing_address_zip %}
+    </div>  
+    <div class="c67">
+      {% form_element form.billing_address_city %}
+    </div>  
+  </div>
+  <div>
+  {% form_element form.billing_address_country %}
+  </div>
+</fieldset>

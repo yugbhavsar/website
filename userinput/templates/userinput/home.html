@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static i18n website_tags wagtailcore_tags wagtailroutablepage_tags %}
+{% block sidebarcontent %}
+{% if RUBIONUser %}
+<div class="floatmarginbox">
+   <h3>{% trans "personal data" %}</h3>
+   <dl>
+     <dt>{% trans "Name" %}, {% trans "first name" %}</dt>
+     <dd>{{ RUBIONUser.name }}, {{RUBIONUser.first_name }}</dd>
+     <dt>{% trans "academic title" %}</dt>
+     <dd>{{ RUBIONUser.get_academic_title_display }}</dd>
+     <dt>{% trans "email" %}</dt>
+     <dd>{{ RUBIONUser.email }}</dd>
+   </dl>
+   <div class="viewmorewrapper">
+   <p class="action"><a class="button hidden viewmore" href="{% routablepageurl RUBIONUser 'edit' %}"><span class="icon-surr"><i class="fa
+   fa-edit"></i></span><span class="text">{% trans "edit" %}</span></a></p>
+   </div>
+</div>
+{% with workgroup=RUBIONUser.get_workgroup %}
+{% if RUBIONUser.may_anything %}
+<div class="floatmarginbox buttonlist">
+
+  <ul>
+    
+    {% if allowed_to_add.project %}
+     <li>
+       <a class="button fullwidth"  
+	href="{% pageurl workgroup.create_project_page %}"><span class="icon"><i class="fa fa-flask fa-fw"></i></span><span 
+	class="text">{% trans "Apply for new project" %}</span></a>
+     </li>
+     {% endif %}
+     {% if allowed_to_add.member %}
+     {% if not awaits_approval %}
+     <li>
+       <a class="button fullwidth"  
+	href="{% pageurl workgroup.create_member_page %}"><span class="icon"><i class="fa fa-user fa-fw"></i></span><span 
+	class="text">{% trans "Add workgroup member" %}</span></a>
+     </li>
+     {% endif %}
+     {% endif %}
+  </ul>
+</div>
+{% endif %}  
+{% endwith %}
+{% endif %}  
+{% endblock %}
+{% block content %}
+{% if RUBIONUser %}
+{% with workgroup=RUBIONUser.get_workgroup %}
+  <h2>{{ RUBIONUser.name }}, {{RUBIONUser.first_name }}</h2>
+  {% if awaits_approval %}
+  <div class="message warning">
+    <i class="icon fa fa-exclamation-triangle"></i>
+    {% blocktrans %}
+    Your workgroup currently awaits approval by the RUBION team. We strongly 
+    recommend to 
+    {% endblocktrans %}
+    <a href="{% pageurl workgroup.create_project_page %}">
+      {% trans 'apply for a project' %}</a>. 
+    {% blocktrans %}
+    This information is helpful for us to see what
+    you want to do and thus helps us to assess your application.
+    {% endblocktrans %}
+  </div>
+  {% endif %}
+  <h3>{% trans "Personal data" %}</h3>
+  <dl>
+    <dt>{% trans "Name" %}, {% trans "First name" %}</dt>
+    <dd>{{ RUBIONUser.name }}, {{RUBIONUser.first_name }}</dd>
+  <h3>{% trans "Work group" %}</h3>
+      <p>{{ workgroup }}</p>
+  {% endwith %}
+{% else %}
+<h2>{% trans "You are not a user of RUBION" %}</h2>
+{% endif %}  
+  <h2>{% trans "Safety Instructions" %}</h2>
+  <p>{% blocktrans %}For your work in RUBION, you need the following safety instructions:{% endblocktrans %}</p>
+  <ul>
+    {% if RUBIONUser.needs_safety_instructions.all|length > 0 %}
+      {% for ins in RUBIONUser.needs_safety_instructions.all %}
+        <li>{{ins.title}}</li>
+      {% endfor %}
+    {% else %}
+      <li>{% trans "No safety instructions required" %}</li>
+    {% endif %}
+  </ul>
+{% endblock %}
+{% block extra_css %}
+   <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+{% endblock %}

@@ -1,0 +1,10 @@
+function(modal){
+    modal.respond('setvalues', {
+	"title_de" : "Hausalarmprobe",
+	"title_en" : "Alarm test",
+	"content_de" : "<p>Am <strong>{{data.date|date:'j. n. Y' }}</strong> wird in der Zeit von {{data.start|date:'H:i'}} Uhr bis {{data.end|date:'H:i'}} Uhr eine Hausalarmprobe durchgeführt. Diese Signale bedeuten keinen  Hausalarm.</p>",
+	"content_en" : "<p>On the <strong>{{data.date|date:'Y/m/d'}}</strong>, a test of the alarm will be carried out from {{data.start|date:'H:i'}} o'clock to {{data.end|date:'H:i'}} o'clock. The signals do not indicate an actual alarm.</p>",
+	"send_mail_to_all" : false
+    });
+    modal.close();
+}

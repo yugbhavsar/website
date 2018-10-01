@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags i18n  wagtailcore_tags courses_tags %}
+
+{% block content %}
+{% render_next_dates page %}
+<h2>{{ page.title }}</h2>
+{% if page.introduction %}
+<div class="introduction">
+{{page.introduction}}
+</div>
+{% endif %}
+{% if page.body %}
+<div class="introduction">
+{{page.body}}
+</div>
+{% endif %}
+{% if page.related %}
+<h3>{% trans "Related pages" %}</h3>
+<ul>
+{% for p in page.related.all %}
+<li><a href="{% pageurl p.page %}">{{ p.page.title }}</a></li>
+{% endfor %%}
+</ul>
+{% endif %}
+{% endblock %}
+
+{% block headerimage %}
+{% if page.title_image %}
+  {% image page.title_image width-713 width="100%" %}
+{% else %}
+  {{ block.super }}
+{% endif %}
+{% endblock %}
+

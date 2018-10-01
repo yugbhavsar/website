@@ -1,0 +1,31 @@
+{% load instruments_tags i18n %}
+<tr>
+  <th></th>
+  <th>{% trans "Monday" %}</th>
+  <th>{% trans "Tuesday" %}</th>
+  <th>{% trans "Wednesday" %}</th>
+  <th>{% trans "Thursday" %}</th>
+  <th>{% trans "Friday" %}</th>
+</tr>
+<tr>
+  <th class="timevalues">
+    <table>
+      <tr><th>{% trans "time" %}</th></tr>
+      <tr><td>8:00</td></tr>
+      <tr><td>9:00</td></tr>
+      <tr><td>10:00</td></tr>
+      <tr><td>11:00</td></tr>
+      <tr><td>12:00</td></tr>
+      <tr><td>13:00</td></tr>
+      <tr><td>14:00</td></tr>
+      <tr><td>15:00</td></tr>
+      <tr><td>16:00</td></tr>
+      <tr><td>17:00</td></tr>
+    </table>
+  </th>
+  {% for day in days %}
+  <td>
+    {% cal_day year week day %}
+  </td>
+  {% endfor %}
+</tr>

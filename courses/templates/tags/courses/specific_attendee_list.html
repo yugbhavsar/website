@@ -1,0 +1,89 @@
+{% load i18n courses_tags %}
+{% if has_attendees %}
+  <table class="full-width listing">
+    <thead>      
+      <tr>
+	<th>{% trans "last name" %}</th>
+	<th>{% trans "first name" %}</th>
+	<th>{% trans "title" %}</th>
+	<th>{% trans "e-mail" %}</th>
+	{% for field in additional_fields_title %}
+	<th>{{field}}</th>
+	{% endfor %}
+	<th>{% trans "registered at" %}</th>
+	<th>{% trans "on waitlist for" %}</th>
+{#	{% colspan=additional_fields|len|add:5 %} #}
+      </tr>
+    </thead>
+    <tbody>
+      {% for attendee in attendees.all %}
+      <tr {% if attendee.is_validated == False %}style="background-color:#e9b04d"{% endif %}>
+	<td>{{ attendee.last_name }}</td>
+	<td>{{ attendee.first_name }}</td>
+	<td>{% if attendee.academic_title %}{{ attendee.get_academic_title_display }}{% endif %}</td>
+	<td>{{ attendee.email }}</td>
+	{% for field in additional_fields %}
+	<td>{% get_value attendee field %}</td>
+	{% endfor %}
+	<td>{{ attendee.created_at }}</td>
+	<td>{% if attendee.waitlist_course %}{{ attendee.waitlist_course }}{% endif %}</td>
+      </tr>
+      <tr style="border-top:none; padding-top:0">
+	<td class="buttons" colspan="{{colspan}}" style="border-top:none; padding-top:0">
+	  <ul class="actions" style="margin-top:0em">
+	  {% attendee_buttons attendee %}
+	  </ul>
+	</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if has_waitlist %}
+  <h3>{% trans "waitlist" %}</h3>
+  <table class="full-width listing">
+    <thead>      
+      <tr>
+	<th>{% trans "last name" %}</th>
+	<th>{% trans "first name" %}</th>
+	<th>{% trans "title" %}</th>
+	<th>{% trans "e-mail" %}</th>
+	{% for field in additional_fields_title %}
+	<th>{{field}}</th>
+	{% endfor %}
+	<th>{% trans "registered at" %}</th>
+	<th>{% trans "for course" %}</th>	
+	<th>{% trans "asked for participation" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for attendee in waitlist.all %}
+      <tr {% if attendee.add2course_mail_sent %} class="is-asked"{% endif %}>
+	<td>{{ attendee.last_name }}</td>
+	<td>{{ attendee.first_name }}</td>
+	<td>{% if attendee.academic_title %}{{ attendee.get_academic_title_display }}{% endif %}</td>
+	<td>{{ attendee.email }}</td>
+	{% for field in additional_fields %}
+	<td>{% get_value attendee field %}</td>
+	{% endfor %}
+	<td>{{ attendee.created_at }}</td>
+	<td>{{ attendee.related_course }}</td>
+	<td>{% if attendee.add2course_mail_sent_at %}{{ attendee.add2course_mail_sent_at }}{% else %}{% trans "not asked" %}{% endif %}</td>
+      </tr>
+      <tr style="border-top:none">
+	<td class="buttons" colspan="7">
+	  <ul class="actions">
+	  {% attendee_buttons attendee %}
+	  </ul>
+	</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% endif %}
+  
+
+{% else %}
+{% trans "No registration yet." %}
+{% endif %}
+

@@ -1,0 +1,37 @@
+.listofchildren{
+    margin-left:2em;
+}
+.listofchildren .child{
+    clear:left;
+}
+.listofchildren.has-sidebar .child{
+    clear:left;
+}
+.listofchildren .child + .child{
+    border-top:2px solid #e7e7e7;
+    padding-top:1em;
+    margin-top:.5em;
+}
+.listofchildren .child .childcontent .childimage{
+    float:left;
+    margin-left:-135px
+}
+
+.listofchildren .child .childimage img{
+    border:thin solid #333;
+    border-radius:5px;
+}
+.listofchildren .child .childcontent{
+    margin-left:2em;
+}
+.listofchildren .child .childcontent.withimage{
+    margin-left:135px;
+    display:block;
+    min-height:150px;
+}
+.listofchildren .child .childcontent h3{
+    margin-top:0 !important;
+}
+.introduction{
+    margin-bottom: 1em;
+}

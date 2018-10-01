@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load i18n wagtailcore_tags static %}
+{% block sidebarcontent %}
+<div class="floatmarginbox">
+  <h3>{% trans "Workgroup" %}</h3>
+  {% with wg=page.get_parent.specific %}
+  <dl>
+    <dt>{{ wg.title_trans }}</dt>
+    <dd>{{ wg.get_head.full_name }}</dd>
+    <dd>{{ wg.institute }}</dd>
+    {% if wg.department %}<dd>{{ wg.department }}</dd>{% endif %}
+    <dd>{{ wg.university }}</dd>
+    {% if wg.homepage %}<dd><a href="{{ wg.homepage }}">{% trans "Homepage" %}</a></dd>{% endif %}
+  </dl>
+  {% endwith %}
+</div>
+{% endblock %} 
+{% block content %}
+<h2>{{ page.get_parent.specific.title_trans }}: {% trans 'Projects' %}</h2>
+<div class="listofchildren">
+{% for project in page.get_visible_children %}
+{% if not project.is_confidential and not project.under_revision %}
+<div class="child">
+  <div class="childcontent">
+    <h3>{{ project.title_trans }}</h3>
+    <p>{{ project.summary }}</p>
+    <div class="viewmorewrapper">
+      <p class="action">
+	{% include 'website/buttons/view_more.html' with hidden=1 page=project %}
+      </p>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+</div>
+{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/container.css' %}"></link>
+{% endblock %}

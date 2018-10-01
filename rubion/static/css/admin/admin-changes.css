@@ -1,0 +1,29 @@
+.richtext, .tagit, input, select, textarea {
+     border: 1px solid #666!important; 
+ }
+
+.status-tag{
+    color:#666!important;
+}
+
+.richtext:disabled, .richtext:disabled:hover, .richtext[disabled], .richtext[disabled]:hover, .tagit:disabled, .tagit:disabled:hover, .tagit[disabled], .tagit[disabled]:hover, input:disabled, input:disabled:hover, input[disabled], input[disabled]:hover, select:disabled, select:disabled:hover, select[disabled], select[disabled]:hover, textarea:disabled, textarea:disabled:hover, textarea[disabled], textarea[disabled]:hover{
+    color: #666!important;
+    border:none!important;
+}
+
+input[type=checkbox]:disabled:before{
+    border-color:transparent!important;
+    cursor:default;
+}
+
+.summary{
+    background-color:#d9d9d9;/*#e9b04d;*/
+    padding:2rem;
+    padding-bottom:4rem;
+}
+
+.summary table, .summary table thead tr, .summary table tbody tr,
+.summary table thead tr th, .summary table tbody tr td ,
+.summary .listing.full-width th, .listing.full-width tr:hover{
+    background-color:transparent;
+}

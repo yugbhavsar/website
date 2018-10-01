@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% load i18n website_tags wagtailcore_tags %}
+{% block content %}
+  <h2>{{ page.name }}, {{ page.first_name }}</h2>
+  <p>{% trans "E-mail" %}: {{page.email}}
+{% endblock %}

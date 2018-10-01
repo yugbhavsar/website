@@ -1,0 +1,13 @@
+h1 {
+    font-size:1rem;
+    text-transform:None;
+}
+
+h1 span{
+    text-transform:uppercase;
+    font-weight:inherit;
+    font-size:150%;
+    padding-left:.2em;
+}
+
+

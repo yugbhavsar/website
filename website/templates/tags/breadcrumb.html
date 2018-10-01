@@ -1,0 +1,9 @@
+{% load wagtailcore_tags i18n %}
+{% get_current_language as LANGUAGE_CODE %} 
+{% if root.url %}
+<a href="{% pageurl root %}">{{ root }}</a>
+{% endif %}
+{% for page in pages.specific %}
+ » <a href="{% pageurl page %}">{{ page.title_trans }}</a>
+</a>
+{% endfor %}

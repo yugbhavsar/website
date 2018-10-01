@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load i18n website_tags wagtailcore_tags wagtailroutablepage_tags static%}
+{% block sidebarcontent %}
+<div class="floatmarginbox">
+  <h3>{% trans "Workgroup data"%}</h3>
+  <p>
+    <strong>{{ page.title_trans }}</strong><br />
+    {{ page.institute }}<br/>
+    {{ page.department|append_if_not_none_or_empty:'<br />' }}
+    {{ page.university }}
+  </p>
+  {% if page.homepage %}
+  <p>Homepage: <a href="{{page.homepage}}">{{page.homepage}}</a></p>
+  {% endif %}
+  {% if user_may_edit %}
+  <div class="viewmorewrapper">
+  <p class="action">
+    <a class="button hidden viewmore" href="{% pageurl page %}edit/">
+      <span class="icon-surr"><i class="fa fa-edit"></i></span><span class="text">edit</span>
+    </a>
+  </p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+{% block content %}
+<h2>{{ page.title_trans }}</h2>
+  {% if page.under_revision %}
+  <div class="message warning">
+    {% trans "This workgroup awaits revision by the RUBION team." %} 
+  </div>
+  {% endif %}
+{% with head=page.get_head %}
+{% if head %}
+<h3>{% trans "Head of group" %}</h3>
+{{ head.get_academic_title_display }} {{ head.title }}
+{% endif %}
+{% endwith %}
+
+<h2>{% trans "Projects"%} 
+{% if user_may_add_projects %}
+  <a class="button viewmore hidden"
+  style="float:right" href="{% pageurl page.create_project_page %}"><span class="icon-surr"><i class="fa
+  fa-plus-square"></i></span><span class="text">{% trans "Apply for a new project" %}</span></a>
+{% endif %}
+</h2>
+<div class="listofchildren">
+  {% for project in page.get_projects %}
+  {% if project.locked %}
+  {% else %}
+  {% if project.is_confidential or project.has_unpublished_changes %}
+    {% if user_is_workgroup_member %}
+  <div class="child">
+    <div class="childcontent">
+      <h3><a href="{% pageurl project %}">{{project.title_trans}}</a> 
+	{% if project.is_confidential %}<i class="fa fa-eye-slash light" title="{% trans "This project is hidden from the public" %}"></i>{% endif %}
+	{% if project.has_unpublished_changes %}<i class="fa fa-gears light" title="{% trans "This project is under revision" %}"></i>{% endif %}
+      </h3>
+      <p>{{ project.summary}}</p>
+    </div>
+  </div>
+    {% endif %}
+  {% else %}
+  <div class="child">
+    <div class="childcontent">
+      <h3><a href="{% pageurl project %}">{{project.title_trans}}</a></h3>
+      <p>{{ project.summary}}</p>
+    </div>
+  </div>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+</div>
+<h2>
+  {% trans "Members"%}
+  {% if user_may_add_members %}
+  <a class="button viewmore hidden" href="{% pageurl page.create_member_page %}"><span class="icon-surr"><i class="fa fa-plus-square"></i></span><span class="text">{% trans "Add a workgroup member" %}</span></a>
+  {% endif %}
+</h2>
+<div class="listofchildren">
+  {% for member in page.get_members %}
+  <div class="child">
+    <div class="childcontent"><h3>{{member.title}}{% if user_may_add_members %} <a href="{% routablepageurl member 'delete' %}"><i class="fa fa-minus-circle" title="{% trans "Remove from workgroup" %}"></i></a> {% endif %}</h3></div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/container.css" %}"></link>
+{% endblock %}

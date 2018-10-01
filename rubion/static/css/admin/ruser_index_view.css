@@ -1,0 +1,21 @@
+.status-tag.primary.info{
+    background-color:#189370;
+    color:#fff;
+}
+.status-tag.primary.warn{
+    background-color:#e9b04d;
+    color:#000;
+}
+
+.status-tag.primary.alarm{
+    background-color:#cd3238;
+    color:#fff;
+}
+
+ul.si-list{
+    margin-top:0;
+}
+
+ul.si-list li + li{
+    margin-top:.5em;
+}

@@ -1,0 +1,52 @@
+{% load i18n wagtailcore_tags website_tags %}
+<ul id="sf-normal" class="sf-menu">
+{% for item in menu_root.get_children %}
+  {% with menuitem=item.specific %}
+    {% with children=menuitem.get_children %}
+      {% if children|length == 0 %}
+        {% if menuitem.linked_page %}
+      <li><a class="hauptnavipunkt2" href="{% pageurl menuitem.linked_page %}">{{ menuitem.title_trans }}</a></li>
+        {% else %}
+      <li><a class="hauptnavipunkt2" href="{% pageurl menuitem %}">{{ menuitem.title_trans }}</a></li>
+        {% endif %}
+      {% else %}
+        <li>
+	  {% if menuitem.linked_page %}
+	  <a class="hauptnavipunkt2 sf-with-ul" href="{% pageurl menuitem.linked_page %}">{{ menuitem.title_trans }}</a>
+	  {% else %}
+	  <a class="hauptnavipunkt2 sf-with-ul" href="{% pageurl menuitem %}">{{ menuitem.title_trans }}</a>
+	  {%endif %}
+           <ul>
+	       {% for c in children %}
+	          {% with child=c.specific %}
+	            <li><a href="{% pageurl child.linked_page %}">{{child.title_trans}}</a></li>
+	          {% endwith %}
+               {% endfor %}
+           </ul>
+        </li>
+ 
+      {% endif %}
+    {% endwith %}
+  {% endwith %}
+{% endfor %}
+<li class="additional_link">
+  {% if logged_in %}
+        <a class="hauptnavipunkt2" href="{% url 'userhome' %}">{% trans "My RUBION" %}</a>
+	<ul>
+	  
+	  {% if rubion_user %}
+	  <li>
+	    <a href="{% pageurl rubion_user.get_workgroup %}">{% trans "My workgroup"%}</a>
+	  </li>
+	  {% endif %}
+	  {% if page %}
+	    <li><a href="{% url 'logout' %}?next_page={% pageurl page %}">{% trans "Logout" %}</a></li>
+          {% else %}
+	    <li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
+          {% endif %}
+	</ul>
+  {% else %}
+    <a class="hauptnavipunkt2" href="{% get_login_url %}">{% trans "Login" %}</a>
+  {% endif %}
+</li>
+</ul>

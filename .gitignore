@@ -1,0 +1,17 @@
+*.pyc
+*.log
+*.swp
+*.retry
+*.pdf
+*.ttf
+.env
+*~
+.~*
+publish_rubion.py
+media/*
+rubion/settings/local.py
+rubion/settings/production.py
+rubion/settings/dev.py
+migrations
+__pycache__
+!.gitignore

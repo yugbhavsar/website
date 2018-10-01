@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n static %}
+{% block content %}
+<form action="." method="POST" novalidate>
+  {% csrf_token %}
+  {{ form }}
+  <p class="action">
+    <button class="button viewmore" type="submit">
+      <span class="icon"></span><span class="text">
+	{% trans "Submit" %}
+      </span>
+    </button>
+  </p>
+</form>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/pikaday.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/pika-rubion.css" %}"></link>
+{% endblock %}

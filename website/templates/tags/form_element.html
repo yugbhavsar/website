@@ -1,0 +1,21 @@
+{% load website_tags %}
+<div class="{% if element.errors %}error{% endif %} {% if dateselect %}dateselect{% endif %}"> 
+  {% if checkbox %}
+  <div class="checkbox">
+    {{ element }}<label class="button" for="{{ element.id_for_label }}"><span 
+    class="icon fa fa-fw"></span><span class="text">{{element.label}}</span></label>
+  </div>
+  {% elif termsconditions %}
+  <div class="checkbox">
+    {{element}}
+    <label class="button" for="{{ element.id_for_label }}"><span 
+    class="icon fa fa-fw"></span><span class="text">{{element.label}}</span></label>
+  {% else %} 
+    <p>{{ element.label_tag }}</p>
+    <p {% if select %} class="select" {% endif %}>{{ element }}</p>
+  {% endif %}
+  {% if element.help_text %}
+  <p class="help_text">{{ element.help_text }}</p>
+  {% endif %}
+  {{ element.errors }}
+</div>

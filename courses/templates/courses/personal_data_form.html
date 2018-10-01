@@ -1,0 +1,19 @@
+{% load i18n website_tags %}
+<fieldset id="personal_data">
+  <legend>{% trans "Personal data" %}</legend>
+  <div class="c33 closecols">
+  {% form_element_select form.salutation %}
+  </div>
+  <div class="c50">
+  {% form_element form.name %}
+  </div>
+  <div class="c50">
+  {% form_element form.first_name %}
+  </div>  
+  <div class="c50">
+  {% form_element form.email %}
+  </div>  
+  <div class="c50">
+  {% form_element form.secondary_email %}
+  </div>
+</fieldset>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n website_tags static wagtailcore_tags  wagtailroutablepage_tags %}
+{% block content %}
+<h2>{%trans "Confirm deletion" %}</h2>
+  <form action="." method="POST">
+    {% csrf_token %}
+    <fieldset>
+      <legend>{% trans "Warning" %}</legend>
+      <div>
+      <p>{% trans "You are going to delete the" %} {{object_type}}
+      <strong>»{{object_title}}«</strong> {%trans "from the project" %} <em>{{project_title}}</em>.</p>
+      <p class="very-important">{% trans "Are you sure" %}?</p>
+      </div>
+    </fieldset>
+
+    <p class="action">
+      <button name="next" value="confirm" type="submit" class="button
+      disabled"><span class="icon-surr"><i class="fa
+      fa-trash-o"></i></span><span class="text">{% trans "Delete"%} {{object_type}}</span></button>
+      <button name="next" value="cancel" type="submit"  class="button
+      viewmore"><span class="icon-surr"><i class="fa
+      fa-ban"></i></span><span class="text">{% trans "Cancel" %}</span></button>
+    </p>
+  </form>			 
+{% endblock %}
+{% block extra_css %}
+   <link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+   <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+{% endblock %}

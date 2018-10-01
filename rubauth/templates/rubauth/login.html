@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n static wagtailcore_tags website_tags %}
+{% block sidebarcontent %}
+<div class="floatmarginbox">
+  <p>{{ page.introduction }}</p>
+</div>
+{% endblock %}
+{% block content %}
+<h2>{{ page.title_trans }}</h2>
+
+{% if form.errors %}
+<p>
+{% blocktrans %}
+Your username and password didn't match. Please try again.
+{% endblocktrans %}
+</p>
+{% endif %}
+
+   
+{% if user.is_authenticated %}
+<div class="alert-box note">
+  <div class="icon"><i class="fa fa-info-circle"></i></div>
+  <div class="content">    
+    <p>{% trans "You are already logged in." %}</p>
+  </div>
+</div>
+{% else %}
+<form method="post" action=".">
+{% csrf_token %}
+    {% for element in form.visible_fields %}
+      {% form_element element %}
+    {% endfor %}
+    {% for element in form.hidden_fields %}
+      {{ element }}
+    {% endfor %}
+   <p class="action">
+     <button type="submit" class="button viewmore"><span class="icon-surr"><i class="fa fa-sign-in"></i></span><span class="text">Login</span></button>
+    </p>
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+{% endif %}
+{# Assumes you setup the password_reset view in your URLconf #}
+{# <p><a href="{% url 'password_reset' %}">Lost password?</a></p> #}
+
+{% endblock %}
+{% block extra_css %}
+   <link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+   <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% load i18n wagtailadmin_tags website_tags static %}
+{% if page_revisions_for_moderation %}
+    <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
+        <section>
+            <h2>{% trans 'Projects awaiting approval' %}</h2>
+            <table class="listing">
+                <col />
+		<col width="15%"/>
+                <col width="15%"/>
+                <col width="5%"/>
+                <col width="25%"/>
+                <col width="15%"/>
+		<thead>
+                    <tr>
+                        <th class="title">{% trans "Title" %}</th>
+                        <th>{% trans "Workgroup" %}</th>
+                        <th>{% trans "Methods" %}</th>
+                        <th>{% trans "GMOs" %}</th>
+                        <th>{% trans "Comments from user" %}</th>
+                        <th>{% trans "Application filed by" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for revision in page_revisions_for_moderation %}
+                        <tr>
+                            <td class="title" valign="top">
+                                <h2>
+                                    <a href="{% url 'wagtailadmin_pages:edit' revision.page_id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_admin_display_title }}</a>
+
+                                    {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
+                                    {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.page %}
+                                </h2>
+                                <ul class="actions">
+                                    <li>
+                                         <form action="{% url 'rubionadmin:approve_moderation' revision.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="submit" class="button button-small button-secondary" value="{% trans 'Approve' %}">
+                                        </form>
+                                    </li>
+                                    <li class="no-border">
+                                        <form action="{% url 'rubionadmin:reject_moderation' revision.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input id="reject_button_{{ loopcount0 }}"
+						   type="submit"
+						   class="reject-button button button-small button-secondary no" value="{% trans 'Reject' %}">
+                                        </form>
+                                    </li>
+                                    <li><a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
+                                </ul>
+                            </td>
+                            <td valign="top">
+                                {{ revision.page.specific.get_workgroup_info }}
+                            </td>
+                            <td class="type" valign="top">
+			      <ul>
+				{% for method in revision.page.specific.related_methods.all %}
+                                  <li>{{ method.page }}</li>
+                                {% endfor %}
+			      </ul>
+                            </td>
+                            <td class="type" valign="top">
+			      {% if revision.page.specific.uses_gmos %}
+                                {% trans 'yes' %}
+			      {% else %}
+			        <i>{% trans 'no' %}</i>
+			      {% endif %}
+                            </td>
+                            <td class="type" valign="top">
+			      {% with id=revision.page_id %}
+			      {% if id in user_comments.keys %}
+			        {% for comment in user_comments|get_value_from_dict:id %}
+			          {{ comment.text }}
+			        {% endfor %}
+			      {% endif %}
+			      {% endwith %}
+                            </td>
+                            <td valign="top">
+			      {{ revision.user.get_full_name|default:revision.user.get_username }} 
+                              <div class="human-readable-date" title="{{ revision.created_at|date:"d M Y H:i" }}">{% blocktrans with time_period=revision.created_at|timesince %}{{ time_period }} ago{% endblocktrans %} </div>
+                                 
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endif %}
+

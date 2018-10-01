@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n website_tags wagtailroutablepage_tags static %}
+{% with parent=page.get_parent.specific %}
+{% block sidebarcontent %}{{parent}}{% render_sidebar parent %}{% endblock %}
+{% block content %}
+<h2>{% trans "Registration successful" %}</h2>
+<p>{%trans "You are now registered for the course" %} {{ parent.title_trans }} {% trans "from" %} {{ page.title }}.</p>
+<p>{% blocktrans %}
+  You will receive a confirmation e-mail soon.
+{% endblocktrans %}</p>
+
+{% endblock %}
+{% endwith %}
+{% block extra_css %}
+  {% include "website/fontawesome.html" %}
+  <link rel="stylesheet" type="text/css" href="{% static "css/multiform-indicator.css" %}" />
+  <link rel="stylesheet" type="text/css" href="{% static "css/forms.css" %}" />
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "modeladmin/index.html" %}
+{% block content %}
+  {% csrf_token %}
+  {{ block.super }}
+{% endblock %}
+{% block extra_js %}
+  {{block.super}}
+  <script>
+function rubion_ajaxify( elements, success_fnc, data_fnc ){
+  var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+  $(elements).each( 
+    function(){
+      var btn = $(this);
+      btn.click(
+        function( ev ){
+          ev.preventDefault();
+          var dataObj = {}
+          if (data_fnc){
+            dataObj['data'] = data_fnc(btn);
+          }
+          $.ajax($.extend(dataObj, {
+            'beforeSend': function(xhr, settings){
+              if (!this.crossDomain){
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+              }
+            },
+            'url' : $(this).attr('href'),
+            'method' : 'POST',
+            'success' : function(data, status, jqXHR){success_fnc(data, status, jqXHR, btn);}
+          }));
+        }
+      );
+    }
+  );
+}
+
+
+$(document).ready(function(){
+    rubion_ajaxify(
+	$('.si_add_link'), 
+	function(data, status, jqXHR, btn)
+	{
+           location.reload(true);
+	}
+    );
+});
+
+  </script>
+{% endblock %}
+  

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n website_tags static wagtailcore_tags  wagtailroutablepage_tags %}
+{% block content %}
+<h2>{%trans "Close project" %}</h2>
+  <form action="." method="POST">
+    {% csrf_token %}
+    <fieldset>
+      <legend>{% trans "Note" %}</legend>
+      <div>
+      <p>{% blocktrans %}
+	Do you really want to close this project? If you decide to work on it
+	again, you will have to apply for a new project.
+	{% endblocktrans %}
+      </p>
+      </div>
+    </fieldset>
+
+    <p class="action">
+      <button name="next" value="close" type="submit" class="button
+      disabled"><span class="icon-surr"><i class="fa
+      fa-times"></i></span><span class="text">{% trans "Close project" %}</span></button>
+      <button name="next" value="cancel" type="submit"  class="button
+      viewmore"><span class="icon-surr"><i class="fa
+      fa-ban"></i></span><span class="text">{% trans "Cancel" %}</span></button>
+    </p>
+  </form>			 
+{% endblock %}
+{% block extra_css %}
+   <link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+   <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+{% endblock %}

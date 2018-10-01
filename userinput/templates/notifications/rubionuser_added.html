@@ -1,0 +1,143 @@
+{% load i18n userinput_admin_tags %}
+<div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
+  <section>
+    <h2>{% trans 'New users' %}</h2>
+  </section>
+  <table class="listing" id="rubion-user-add-panel">
+    <col width="20%"/>
+    <col width="20%"/>
+    <col width="20%">
+    <col width="10%"/>
+    <col width="10%"/>
+    <col width="20%"/>
+    <thead>
+      <tr>
+        <th class="title">{% trans "Last name" %}, {% trans "First name" %},
+        {% trans "Academic title" %}</th>
+	<th>{% trans "Adding user's comment" %}</th>
+        <th>{% trans "Work group" %}</th>
+	<th>{% trans "Methods used by the group" %}</th>
+	<th>{% trans "Dosemeter" %}</th>
+	<th>{% trans "Safety instructions" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for noti in objects %}
+      {% with user=noti.page.specific %}
+      <tr>
+        <td class="title" valign="top">
+          <h2 style="margin-bottom:1em";>
+	    {{ user.name }}, {{ user.first_name}} 
+	    {% if user.academic_title %}({{ user.get_academic_title_display }}){% endif %}
+	  </h2>
+	  <span style="margin-left:0" class="status-tag {% if user.is_leader %}primary{% endif %}">
+	    {% trans "wg leader" %}
+	  </span>
+	  {% if user.is_leader %}
+	  <span class="status-tag primary">
+	    {% trans "Add members" %}
+	  </span>
+	  <span class="status-tag primary">
+	    {% trans "Add projects" %}
+	  </span>
+
+	  {% else %}
+	  <span class="status-tag {% if user.may_add_members %}primary{% endif %}">
+	    {% trans "Add members" %}
+	  </span>
+	  <span class="status-tag {% if user.may_create_projects %}primary{% endif %}">
+	    {% trans "Add projects" %}
+	  </span>
+	  {% endif %}
+	  <span class="status-tag {% if user.needs_key %}primary{% endif %}">{% trans "Key requested" %}</span>
+        </td>
+        <td class="type" valign="top">
+	  {{ user.creation_comment }}
+        </td>
+        <td class="type" valign="top">
+	  {{ user.get_workgroup }}<br />
+	  ({{ user.get_workgroup.get_head.full_name }})
+        </td>
+        <td class="type" valign="top">
+	  <ul style="list-style-type:square; margin-top:0;margin-left:2em">
+	    {% for method in user.get_workgroup.get_methods %}
+	    <li>{{ method.title_trans }}</li>
+	    {% endfor %}
+	  </ul>
+        </td>
+	<td class="type" valign="top">
+	  {% if request.user|may_change_dosemeter:user %}
+	  <div class="c-dropdown u-para t-default" data-dropdown aria-hidden="true">
+	    <a class="c-dropdown__button u-btn-current" {% if user.dosemeter_not_set %}{% else %}style="background-color:#43b1b0; border-color:#43b1b0; color:#fff"{% endif %}>
+	      {% dosemeter_short user.dosemeter %}
+	      <div data-dropdown-toggle class="o-icon c-dropdown__toggle [ icon ] icon-arrow-down"></div>
+	    </a>
+	    <div class="t-dark">
+	      <ul role="menu" class="c-dropdown__menu u-toggle u-arrow u-arrow--tl u-background">
+		{% for dm in user.DOSEMETER_CHOICES %}
+		{% if user.dosemeter != dm|first_item %}
+		<li class="c-dropdown__item">
+		  <a href="{% url 'rubionadmin:user_set_dosemeter' user.id dm|first_item %}" class="u-link">{% dosemeter_short dm|first_item %}</a>
+		</li> 
+		{% endif %}
+		{% endfor %}
+	      </ul>
+	    </div>
+	    {% else %}
+	    <span class="status-tag primary">{% dosemeter_short user.dosemeter %}</span>
+	    {% endif %}
+	</td>
+	<td class="type" valign="top">
+	  <ul style="margin-top:0">
+	  {% for si in safety_instructions %}
+	  <li style="margin-bottom: .2em">
+	  {% if si in user.needs_safety_instructions.all %}
+	  <a href=" {% url 'rubionadmin:user_safety_instruction_del' user.id si.id %}" class="button button-small ajax-button ajax-boolean">{{ si }}</a>
+	  {% else %}
+	  <a href="{% url 'rubionadmin:user_safety_instruction_add' user.id si.id %}" class="button button-small button-secondary ajax-button ajax-boolean">{{ si }}</a>
+	  {% endif %}
+	  </li>
+	  {% endfor %}
+	</td>
+      </tr>
+      <tr style="border:none">
+	<td></td>
+	<td></td>
+	<td></td>
+	<td colspan="2">{% if user.needs_official_dosemeter %}
+	  {% if user.data_has_been_submitted %}
+	  <span class="status-tag primary">{% trans "Data submitted to central radiation office" %}</span>
+	  {% if user|radiation_safety_data_complete %}{%else%}<span class="status-tag">{% trans "Personal data incomplete" %}</span>{%endif%}
+	  {% else %}
+	  <div class="dropdown dropdown-button match-width">
+            <button value="drop up" class="button icon icon-{% if user|radiation_safety_data_complete %}tick{%else%}cross{%endif%}">{% trans "Personal data" %}: {% if user|radiation_safety_data_complete %}{% trans "complete" %}{%else%}{% trans "incomplete" %}{%endif%}</button>
+            <div class="dropdown-toggle icon icon-arrow-down"></div>
+            <ul role="menu">
+              <li><a href="{% url "rubionadmin:user_send_data_to_cro" user.id %}">{% trans "Submit data to central radiation office" %}</a></li>
+              <li><a href="{% url "rubionadmin:user_cro_knows_data" user.id %}">{% trans "Data has been submited manually" %}</a></li>
+            </ul>
+          </div>
+	  {% endif %}
+	  {% endif %}
+	</td>
+	<td valign="top" align="right">
+	  <a href="{% url 'rubionadmin:notification_seen' noti.id %}" class="button">{% trans "Notificationn seen" %}</a>
+	</td>
+      </tr>
+      {% endwith %}
+      {% endfor %}
+    </tbody>
+  </table>
+<script>
+function safety_instruction_success(data, status, jqXHR, btn){
+   if (data['needs_it']){
+     btn.removeClass('button-secondary');
+     btn.attr('href', data['del_link']);
+   } else {
+     btn.addClass('button-secondary');
+     btn.attr('href', data['add_link']);
+   }
+}
+   $(document).ready(function(){rubion_ajaxify('#rubion-user-add-panel .ajax-button', safety_instruction_success, false);});
+ </script>
+</div>

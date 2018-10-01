@@ -1,0 +1,24 @@
+{% load i18n wagtailcore_tags%}
+<div class="child">
+  <div class="childcontent">
+    <h3>{{ page.title_trans }}</h3>
+    <span class="workgroupinfo">{{ page.get_workgroup_info }}</span>
+    <div>
+      <p>
+	{{ page.summary }}
+      </p>
+      {% if page.related_fundings.all|length > 0 %}
+      <p style="color:#666">
+	{% trans "Funded by:" %}
+	  {% for funding in page.related_fundings.all %}{% if forloop.counter0 > 0 %}, {% endif %}{{ funding.snippet.agency }}{% endfor %}
+      </p>
+      {% endif %}
+
+      <div class="viewmorewrapper">
+	<p class="action">
+	  {% include 'website/buttons/view_more.html' with hidden=1 %}
+	</p>
+      </div>
+    </div>
+  </div>
+</div>

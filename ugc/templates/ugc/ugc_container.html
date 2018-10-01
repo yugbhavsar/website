@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h2>{{ page.title_trans }}</h2>
+{% if page.introduction %}
+<p class="introduction">{{introduction}}</p>
+{% endif %}
+<div class="listofchildren">
+{% for sub in page.get_visible_children %}
+  {{ sub.render_as_child }}
+{% endfor %}
+</div>
+{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/container.css' %}"></link>
+{% endblock %}
+

@@ -1,0 +1,19 @@
+{% include "django/forms/widgets/textarea.html" %}
+<script>
+  $(document).ready(function(){
+
+    var par = $($('#id_{{widget.name}}').parents('div')[0]);
+    if ( $('#id_{{depends_on}}').is(':checked') ){
+      par.show();
+      $('label[for=id_{{widget.name}}]').addClass('required');
+    } else {
+      par.hide();
+      $('label[for=id_{{widget.name}}]').removeClass('required');
+    }
+    $('#id_{{depends_on}}').on('change', function(){
+      $($('#id_{{widget.name}}').parents('div')[0]).toggle();
+      $('label[for=id_{{widget.name}}]').toggleClass('required');
+      
+  });
+  });
+</script>

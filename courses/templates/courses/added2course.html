@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags website_tags courses_tags i18n static %}
+{% block sidebarcontent %}
+{% with parent=page.get_parent.specific %}
+{% render_sidebar parent %}
+{% endwith %}
+{% endblock %}
+{% block content %}
+<h3>{% trans "You have been registered for the course from" %}
+  {{course.start}} {% trans "to" %} {{course.end}}</h3>
+
+
+  {% if old_course %}
+<p>
+  {% trans "You are deleted from the list for the course from " %}
+  {{ old_course.start }} {% trans "to" %} {{old_course.end }}
+</p>
+  {% endif %}
+
+{% endblock %}

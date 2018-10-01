@@ -1,0 +1,45 @@
+{% load wagtailimages_tags userdata_staff_tags i18n static %}
+<div class="child"> 
+
+  <div class="childcontent withimage staff">
+  <div class="childimage">
+{% if self.picture %}
+    {% image self.picture fill-125x125 %}
+{% else %}
+    <img src="{% static "images/icons/staff-placeholder.png" %}" width="125"
+    height="125" alt=""/>
+{% endif %}
+  </div>
+    <h4>
+      {% if roles %}
+        <span class="roles">{{roles}}</span>
+      {% endif %}
+      {{self.grade|add:" "}}{{self.first_name}} {{self.last_name}}{% if self.has_connections %}{% render_connections self %}{% endif %}
+    </h4>
+    <p class="userdata role">{{self.role}}</p>
+    <table class="userdata contactdata">
+      <tr>
+	<th class="icon"><i class="fa fa-envelope"></i></th>
+	<td><a href="mailto:{{ self.get_email }}">{{self.get_email}}</a></td>
+	<th class="icon"><i class="fa fa-phone"></i></th>
+	<td>{{ self.phone }}</td>
+      </tr>
+      <tr>
+	<th class="icon"><i class="fa fa-home"></i></th>
+	{% if self.fax %}
+	<td>{{ self.room }}</td>
+	<th class="icon"><i class="fa fa-fax" title="{% trans "fax" %}"></i></th>
+	<td>{{ self.fax }}</td>
+	{% else %}
+	<td colspan="3">{{ self.room }}</td>
+	{% endif %}
+      </tr>
+      {% if self.link %}
+      <tr>
+	<th class="icon"><i class="fa fa-external-link"></i></th>
+	<td colspan="3"><a href="{{ self.link }}">{{ self.link }}</td>
+      </tr>
+	{% endif %}	
+      </table>
+  </div>
+</div>

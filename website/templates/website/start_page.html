@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load website_tags wagtailcore_tags i18n static %}
+{% block sidebarcontent %}
+{% include "website/user_sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+<h2>
+{% if page.headline %} {{ page.headline }}{% else %}{{page.title}}{% endif %}
+</h2>
+{{ page.body }}
+{% news_list %}
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}">
+{% endblock %}

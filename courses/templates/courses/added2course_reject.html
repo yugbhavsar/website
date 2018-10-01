@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags website_tags courses_tags i18n static %}
+
+{% block sidebarcontent %}
+{% with parent=page.get_parent.specific %}
+{% render_sidebar parent %}
+{% endwith %}
+{% endblock %}
+
+{% block content %}
+<h3>{% trans "Course registration" %}</h3>
+<h4>{{wl_course.get_parent}}</h4>
+<h4>{% trans "You have been removed from the wait list for the course from " %}
+  {{wl_course.start}} {% trans "to" %} {{wl_course.end}}</h4>
+
+
+  {% if course %}
+<p>
+  {% trans "You are registered for the course  from" %}
+  {{ course.start }} {% trans "to" %} {{ course.end }}
+</p>
+  {% endif %}
+
+{% endblock %}

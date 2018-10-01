@@ -1,0 +1,52 @@
+{% load wagtailimages_tags %}
+{% load i18n instruments_tags %}
+{% trans "Book instrument" as choose_str %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 tabbed=1 icon="fa-calendar-check-o fa" %}
+
+<ul class="tab-nav merged">
+  <li {% if not form.errors %}class="active"{% endif %}><a href="#calendar" >{% trans "Calendar" %}</a></li>
+  <li {% if form.errors %}class="active"{% endif %}><a href="#direct" >{% trans "Direct input" %}</a></li>
+</ul>
+    <form class="instrument-cal-form" action="{% url 'rubionadmin:instrument_cal_form' booking.id %}" method="POST" autocomplete="off" novalidate>
+      {% csrf_token %}
+      <div class="tab-content">
+	<section id="calendar" class="{% if not form.errors %}active {% endif %} nice-padding">
+	  <div class="button-group">
+	    <a class="cal-nav button bicolor icon icon-fa-backward" href="{% url 'rubionadmin:instrument_cal_form' booking.id year prevweek %}">{% trans 'Two weeks back' %}</a>
+	    <a class="cal-nav button bicolor icon icon-fa-forward" href="{% url 'rubionadmin:instrument_cal_form' booking.id year nextweek  %}">{% trans 'Two weeks forward' %}</a>
+	  </div>
+	  <div class="calendar">
+	  <table width="100%">
+	    {% for week in weeks %}
+	    {% cal_week year week %}
+	    {% endfor %}
+	  </table>
+	  </div>
+	</section>
+	<section id="direct" class="{% if form.errors %}active {% endif %}nice-padding">
+	  <div style="color:red; font-weight:bold">
+	  {% if form.errors %}
+	  {{ form.non_field_errors }}
+	  {% endif %}
+	  </div>
+	  <ul class="fields">
+	    {% for field in form.hidden_fields %}
+	    {{ field }}
+	    {% endfor %}
+	    {% for field in form.visible_fields %}
+	    <li>
+	      {{ field.label }}
+	      {{ field }}	      
+	      {{ field.help_text }}
+	      <div style="color:red; font-weight:bold">{{field.errors}}</div>
+	    </li>
+	    {% endfor %}
+            <li>
+              <button type="submit" class="button" name="Book">{% trans 'Book' %}</button>
+              <a href="{% url 'wagtailadmin_home' %}" class="button">{% trans 'Cancel' %}</a>
+            </li>
+	  </ul>
+	</section>
+      </div>
+    </form>
+</div>

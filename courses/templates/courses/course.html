@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags i18n wagtailcore_tags static website_tags courses_tags wagtailroutablepage_tags %}
+
+{% block sidebarcontent %}
+{% with parent=page.get_parent.specific %}
+{% render_sidebar parent %}
+{% with dsp=page.get_data_sharing_page %}
+{% if dsp %}
+  <div class="floatmarginbox buttonlist">
+    <ul class="buttonlist">
+      <li><a class="button fullwidth" href="{% pageurl dsp %}"><span class="icon"><i class="fa fa-share-alt"></i></span><span class="text">{% trans "Get or share data for this course" %}</span></a></li>
+    </ul>
+  </div>
+{% endif %}
+{% endwith %}
+{% endwith %}
+{% endblock %}
+{% block content %}
+{% with parent=page.get_parent.specific %}
+<h2>{{ parent.title_trans }}</h2>
+<h3>{% trans "Course from" %} {{page.title_trans}}</h3>
+<div class="introduction">{{ parent.introduction }}</div>
+{{ page.body }}
+{% if page.is_bookable %}
+  <h3>{% trans "Register" %}</h3>
+  {% if page.started_in_past %}
+    {% trans "The beginning of this course is in the past, you cannot register anymore." %}
+  {% else %}
+    {% if fully_booked %}
+      {% blocktrans %}
+        This course is fully booked, you cannot register anymore.
+      {% endblocktrans %}
+    {% else %}
+      {% if page.get_attendee_types %}
+        <p>{% trans "This course is available for" %}:<p>
+        <ul>
+          {% for type in page.get_attendee_types.all %}
+            {% attendee_in_list page type %}
+          {% endfor %}
+       </ul>
+     {% endif %}
+   {% endif %}
+{% if show_waitlist_info %}
+<h3>{% trans "Upcoming courses and waitlist" %}</h3>
+<p>{% blocktrans %}
+Please note: During the registration for one of the following courses you can opt-in 
+Other participants can register for one of the following courses. During the registration process, you can select to be added to the waitlist for the course from  
+{% endblocktrans %}</p>
+<dl>
+{% for attendee, ucourses in free_courses.items %}
+  <dt>{{attendee}}</dt>
+  {% for uc in ucourses %}
+  
+    <dd><a href="{% pageurl uc %}">{% trans "Course" %} {% if uc.end %}{%trans "From" %} {{uc.start}} {% trans "to" %} {{uc.end}}{% else %}{% trans "on" %}{{uc.start{%endif %}</a></dd>
+  {% endfor %}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endif %}
+
+{% endwith %}
+{% endblock %}
+
+{% block extra_css %}
+  {% include "website/fontawesome.html" %}
+{% endblock %}

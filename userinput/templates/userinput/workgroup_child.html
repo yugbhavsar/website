@@ -1,0 +1,23 @@
+{% load website_tags wagtailcore_tags i18n %}
+<div class="child">
+  <div class="childcontent" >
+    <h3>{{ page.title_trans }}</h3>
+    <div>
+      {% with head=page.get_head %} 
+      {% if head.academic_title %}{{ head.get_academic_title_display }} {% endif %}{{head.first_name}}
+      {{head.last_name}}<br />
+      {% endwith %}
+      {{ page.institute|add:', ' }}
+      {{ page.department|append_if_not_none_or_empty:', '}} 
+      {{ page.university }} <br />
+      {% if page.homepage %}
+      <a href="{{page.homepage|addhttp}}">Homepage</a>
+      {% endif %}
+{#      <div class="viewmorewrapper"> #}
+{#      <p class="action">            #}
+{#	  {% include 'website/buttons/view_more.html' with hidden=1 %} #}
+{#      </p>   #}
+{#      </div> #}
+    </div>
+  </div>
+</div>

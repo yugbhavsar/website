@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n wagtailcore_tags static %}
+{% block content %}
+<h2>{{ page.get_parent.specific.title_trans }}: {% trans 'members' %}</h2>
+<div class="listofchildren">
+{% for member in page.get_visible_children %}
+<div class="child">
+  <div class="childcontent">
+    <h3>{{ member.title }}</h3>
+  </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/container.css' %}"></link>
+{% endblock %}

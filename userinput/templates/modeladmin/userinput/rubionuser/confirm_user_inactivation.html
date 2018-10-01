@@ -1,0 +1,28 @@
+{% extends "modeladmin/delete.html" %}
+{% load i18n %}
+
+{% block content_main %}
+<div class="nice-padding">
+{% if leader_warning %}
+<p>{{leader_warning}}</p>
+{% endif %}
+<form method="POST" action="." novalidate>
+
+            {% csrf_token %}
+
+            <ul class="fields">
+	      {% for field in form %}
+                {% include "wagtailadmin/shared/field_as_li.html" %}
+	      {% endfor %}
+            </ul>
+
+<p><a href="{{view.index_url}}" class="button">{% trans 'Go back to listing' %}</a></p>
+
+<p>{{confirmation_warning}}</p>
+
+<input type="submit" value = "{% trans "inactivate user" %}" class="button serious">
+
+
+</form>
+</div>
+{% endblock %}

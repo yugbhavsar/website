@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load website_tags static %}
+{% block content %}
+<h2>{{page.title}}</h2>
+{% if page.introduction %}
+<div class="introduction">
+{{ page.introduction }}
+</div>
+{% endif %}
+<div class="listofchildren">
+{% for child in page.get_children %}
+{% render_as_child child %}
+{% endfor %}
+</div>
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/container.css" %}"/>
+<link rel="stylesheet" href="{% static "css/usercontainer.css" %}"/>
+{% endblock %}

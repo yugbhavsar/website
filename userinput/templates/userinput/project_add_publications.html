@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load i18n website_tags static wagtailcore_tags  wagtailroutablepage_tags %}
+{% block sidebarcontent %}
+{% if page.related_publications %}
+  {% if page.related_publications.all|length > 0 %}
+  {% for pub in page.related_publications.all %}
+<div class="floatmarginbox">
+   <h3>{{pub.snippet.authors }}, {{pub.snippet.year }}</h3>
+   <p>
+     {{ pub.snippet.title }}.<br />
+     <strong>{{pub.snippet.journal}}
+     {{pub.snippet.year}}</strong>, {{pub.snippet.volume}}{% if pub.snippet.pages %}: {{pub.snippet.pages}}{% endif %}<br />
+     DOI: <a href="https://doi.org/{{pub.snippet.doi}}">{{pub.snippet.doi}}</a>
+   </p>
+   <p class="action"><a class="button notext" href="{% routablepageurl page 'edit_funding' pub.snippet.id %}"><span class="icon-surr"><i class="fa fa-edit"></i></span><span class="text">edit</span></a>
+     <a class="button notext" href="{% routablepageurl page 'delete_publication' pub.snippet.id %}"><span class="icon-surr"><i class="fa fa-fw fa-trash"></i></span><span class="text">delete</span></a>
+   </p>
+</div>
+  {% endfor %}
+
+  {% else %}
+<div class="floatmarginbox">
+   <h3>{% trans "Add publications to your project." %}</h3>
+   <p>{% blocktrans %}
+   If you have publications connected to your project, please add them here. 
+     Note that for publications that have a DOI, you can simply enter the DOI
+     in the first form field and the remaining values will be added
+     automatically.
+   </p>
+   {% endblocktrans %}</p>
+   {% if not has_been_asked %}
+   <p>{% blocktrans %}To proceed without adding a publication, click
+   the <strong>Cancel</strong> button below the form.{% endblocktrans %}
+   </p>
+   {% endif %}
+</div>
+  
+  {% endif %}
+{% endif %}
+{% endblock %}
+{% block content %}
+<h2>{%trans "Add publications" %}</h2>
+  <form action="." method="POST" novalidate>
+    {% csrf_token %}
+    <fieldset>
+      <legend>{% trans "Publication" %}</legend>
+    {% for element in form.visible_fields %}
+      {% form_element element %}
+    {% endfor %}
+    {% for element in form.hidden_fields %}
+      {{ element }}
+    {% endfor %}
+    </fieldset>
+
+    <p class="action">
+      <button name="next" value="add_publication" type="submit" class="button
+      viewmore"><span class="icon"></span><span class="text">Save and add
+      another publication</span></button>
+      <button name="next" value="finish" type="submit"  class="button
+      viewmore"><span class="icon"></span><span class="text">Save and
+      finish</span></button>
+    </p>
+    <p class="action">
+      <button name="next" value="cancel" type="submit" class="button
+      viewmore disabled"><span class="icon-surr"><i class="fa fa-ban"></i></span><span class="text">Cancel</span></button>
+    </p>
+  </form>			 
+{% endblock %}
+{% block extra_css %}
+   <link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+   <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+   <link rel="stylesheet" type="text/css" href="{% static "css/spinner.css" %}">
+   <script language="javascript" src="{% static "js/doi.js" %}"></script>
+{% endblock %}
+{% block extra_js %}
+  <script>
+    doi.init('id_doi',{
+      'title'   : 'id_title',
+      'author'  : 'id_authors',
+      'journal' : 'id_journal', 
+      'volume'  : 'id_volume',
+      'pages'   : 'id_pages',
+      'year'    :  'id_year'
+    });
+  </script>
+{% endblock %}

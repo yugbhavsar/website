@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block content %}
+  <h3 class="registration">{% trans "Registration nearly completed!" %}</h3>
+  <p> 
+    {% blocktrans%}
+    The registration is a three-step process. You still have to accomplish step&nbsp;3. 
+    {% endblocktrans %}
+  </p>
+  <div class="box large success">
+    <i class="fa fa-check-square-o fa-3x status"></i>
+    <i class="fa fa-table fa-3x"></i>
+    <span>{% trans "Enter your data." %}</span>
+  </div>
+  <div class="box large success">
+    <i class="fa fa-check-square-o fa-3x status"></i>
+    <i class="fa fa-envelope-o fa-3x"></i>
+    <span>{% trans "We send an e-mail to you containing a link to validate your e-mail address." %}</span>
+  </div>
+  <div class="box large message">
+    <i class="fa fa-hand-pointer-o fa-3x"></i>
+    <i class="fa fa-square-o fa-3x status"></i> 
+    <span>
+    {% blocktrans %}
+    Open the e-mail and click the link to
+    validate your e-mail address and to complete the registration.
+    {% endblocktrans %}
+    </span>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/blocks.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+{% endblock %}

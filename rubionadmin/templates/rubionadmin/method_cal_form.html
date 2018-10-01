@@ -1,0 +1,38 @@
+{% load wagtailimages_tags %}
+{% load i18n instruments_tags %}
+{% trans "Book instrument" as choose_str %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 tabbed=1 icon="fa-calendar-check-o fa" %}
+
+<ul class="tab-nav merged">
+  <li class="active"><a href="#selector" >{% trans "Select instrument" %}</a></li>
+</ul>
+<form class="method-cal-form" action="{% url 'rubionadmin:method_cal_form' booking.id %}" method="POST" autocomplete="off" novalidate>
+  {% csrf_token %}
+  <div class="tab-content">
+    <section id="selector" class="active nice-padding">
+      <div style="color:red; font-weight:bold">
+	{% if form.errors %}
+	{{ form.non_field_errors }}
+	{% endif %}
+      </div>
+      <ul class="fields">
+	{% for field in form.hidden_fields %}
+	{{ field }}
+	{% endfor %}
+	{% for field in form.visible_fields %}
+	<li >
+	  {{ field.label }}
+	  {{ field }}	      
+	  {{ field.help_text }}
+	  <div style="color:red; font-weight:bold">{{field.errors}}</div>
+	</li>
+	{% endfor %}
+        <li>
+          <button type="submit" class="button" name="Select">{% trans 'Select instrument' %}</button>
+          <a href="{% url 'wagtailadmin_home' %}" class="button">{% trans 'Cancel' %}</a>
+        </li>
+	  </ul>
+    </section>
+  </div>
+</form>
+

@@ -1,0 +1,48 @@
+{% extends "website/standard_page.html" %}
+{% load wagtailimages_tags i18n  wagtailcore_tags static website_tags courses_tags %}
+{% block sidebarcontent %}
+{% render_sidebar page %}
+{% render_next_dates page %}
+{% endblock %}
+{% block content %}
+<h2>{{ page.title_trans }}</h2>
+{% if page.course_id %}
+<div class="courses vvz">
+  {% trans "Number in course register" %}: {{page.course_id}}
+</div>
+{% endif %}
+{% if page.introduction %}
+<div class="introduction">
+{{page.introduction}}
+</div>
+{% endif %}
+{% if page.body %}
+<div>
+{{page.body}}
+</div>
+{% endif %}
+{% endblock %}
+{% block related_content %}
+{% if page.related %}
+<h3>{% trans "Related pages" %}</h3>
+<ul>
+{% for p in page.related.all %}
+<li><a href="{% pageurl p.page %}">
+    {% if p.page.title_trans %}
+      {{ p.page.title_trans }}
+    {% else %}
+      {{ p.pgae.title }}
+    {% endif %}</a></li>
+{% endfor %%}
+</ul>
+{% endif %}
+{% endblock %}
+
+{% block headerimage %}
+{% if page.title_image %}
+  {% image page.title_image width-713 width="100%" %}
+{% else %}
+  {{ block.super }}
+{% endif %}
+{% endblock %}
+

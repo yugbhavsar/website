@@ -1,0 +1,34 @@
+{% load i18n website_tags %}
+<table class="listing full-width" style="margin-bottom:0">
+  <colgroup>
+    <col width="50%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="20%" />
+  </colgroup>
+  <thead>
+
+    <th scope="col">{% trans "Title" %}</th>
+    <th scope="col">{% trans "Application filed" %}</th>
+    <th scope="col">{% trans "Approval date" %}</th>
+    <th scope="col">{% trans "Expiry date" %}</th>
+    <th scope="col">{% trans "Methods" %}</th>
+  </thead>
+  <tbody>
+    {% for project in projects %}
+    <tr>
+      <td>{{project.get_admin_display_title}}</td>
+      <td>{{project.first_published_at}}</td>
+      <td>{{project.go_live_at}}</td>
+      <td>{{project.expire_at}}</td>
+      <td><ul>
+	  {% for method in project.get_methods %}
+	  <li>{{method}}</li>
+	  {% endfor %}
+      </ul></td>
+    <tr>
+    {% endfor %}
+  </tbody>
+</table>
+

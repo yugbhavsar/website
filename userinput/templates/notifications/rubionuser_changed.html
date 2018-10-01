@@ -1,0 +1,68 @@
+{% load i18n userinput_admin_tags %}
+<div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
+  <section>
+    <h2>{% trans 'Changed users' %}</h2>
+  </section>
+  <table class="listing" id="rubion-user-changed-panel">
+    <col width="10%"/>
+    <col width="35%"/>
+    <col width="35%"/>
+    <col width="5%">
+    <col width="5%"/>
+    <col width="5%"/>
+    <col width="5%"/>
+    <thead>
+      <tr>
+	<th></th>
+        <th class="title">{% trans "Last name" %}</th>
+	<th>{% trans "First name" %}</th>
+	<th>{% trans "Academic title" %}</th>
+        <th>{% trans "Labcoat size" %}</th>
+	<th>{% trans "Overshoe size" %}</th>
+	<th>{% trans "Entrance" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for noti in objects %}
+      {% with user=noti.page.specific %}
+      {% get_previous_revision user as previous %}
+      <tr class="newval">
+	<th class="title" valign="top">{% trans "New" %}</th>
+        <td class="title{% ifnotequal user.name previous.name %} changed{%endifnotequal%}" valign="top">{{ user.name }}</td>
+        <td class="type{% ifnotequal user.first_name previous.first_name %} changed{%endifnotequal%}" valign="top">{{ user.first_name }}</td>
+        <td class="type{% ifnotequal user.get_academic_title_display previous.get_academic_title_display %} changed{%endifnotequal%}" valign="top">{{ user.get_academic_title_display }} </td>
+        <td class="type{% ifnotequal user.get_labcoat_size_display previous.get_labcoat_size_display %} changed{%endifnotequal%}" valign="top">{{user.get_labcoat_size_display}}</td>
+	<td class="type{% ifnotequal user.get_overshoe_size_display previous.get_overshoe_size_display %} changed{%endifnotequal%}" valign="top">{{user.get_overshoe_size_display}}</td>
+	<td class="type{% ifnotequal user.get_entrance_display previous.get_entrance_display %} changed{%endifnotequal%}" valign="top">{{user.get_entrance_display}}</td>
+      </tr>
+      <tr class="oldval">
+	<th class="title" valign="top">{% trans "Old" %}</th>
+        <td class="title{% ifnotequal user.name previous.name %} changed{%endifnotequal%}" valign="top">{{ previous.name }}</td>
+        <td class="type{% ifnotequal user.first_name previous.first_name %} changed{%endifnotequal%}" valign="top">{{ previous.first_name }}</td>
+        <td class="type{% ifnotequal user.get_academic_title_display previous.get_academic_title_display %} changed{%endifnotequal%}" valign="top">{{ previous.get_academic_title_display }} </td>
+        <td class="type{% ifnotequal user.get_labcoat_size_display previous.get_labcoat_size_display %} changed{%endifnotequal%}" valign="top">{{previous.get_labcoat_size_display}}</td>
+	<td class="type{% ifnotequal user.get_overshoe_size_display previous.get_overshoe_size_display %} changed{%endifnotequal%}" valign="top">{{previous.get_overshoe_size_display}}</td>
+	<td class="type{% ifnotequal user.get_entrance_display previous.get_entrance_display %} changed{%endifnotequal%}" valign="top">{{previous.get_entrance_display}}</td>
+      </tr>
+      <tr style="border:none">
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td></td>
+	<td valign="top" align="right">
+	  <a href="{% url 'rubionadmin:notification_seen' noti.id %}" class="button">{% trans "Okay" %}</a>
+	</td>
+      </tr>
+      {% endwith %}
+      {% endfor %}
+    </tbody>
+  </table>
+<script>
+$(document).ready(function(){
+  $(".newval .changed").css('background-color','#a6f3a6');
+  $(".oldval .changed").css('background-color','#f8cbcb');
+});
+
+ </script>
+</div>

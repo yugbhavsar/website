@@ -1,0 +1,31 @@
+.box.success{
+    color: #4F8A10;
+    background-color: #DFF2BF;
+}
+.box.message{
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+.box.large{
+    font-size:150%;
+    padding:2em;
+}
+.box .fa{
+    float:left;
+    margin-top:-.25em;
+    margin-right:.25em;
+    display:block;
+}
+.box .fa.status{
+    float:right;
+    margin-right:0em;
+    margin-left:.25em;
+}
+
+.box{
+    margin-bottom:1em
+}
+
+#inhalt h3.registration{
+    font-size:300%;
+}

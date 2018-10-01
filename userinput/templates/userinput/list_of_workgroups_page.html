@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load website_tags static i18n wagtailcore_tags %}
+{% block sidebarcontent %}
+<div class="floatmarginbox buttonlist">
+  <ul class="buttonlist"> 
+    {% if settings.website.ImportantPages.projects_list %}
+    <li>
+      <a class="button fullwidth" href="{% pageurl settings.website.ImportantPages.projects_list %}"><span class="icon"><i class="fa-fw fa fa-flask"></i></span><span class="text">{% trans "List of projects" %}</span></a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+{% endblock %}
+{% block content %}
+<h2>{{page.title_trans}}</h2>
+{% if page.introduction %}
+<div class="introduction">
+{{ page.introduction }}
+</div>
+{% endif %}
+<div class="listofchildren">
+{% for child in workgroups %}
+  {% if child.is_active %}
+  {% render_as_child child %}
+  {% endif %}
+{% endfor %}
+</div>
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static "css/container.css" %}"/>
+{% include "website/fontawesome.html" %}
+{% endblock %}

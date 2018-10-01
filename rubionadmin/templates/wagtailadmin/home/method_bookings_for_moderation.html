@@ -1,0 +1,59 @@
+{% load i18n wagtailadmin_tags website_tags static %}
+{% if booking_requests %}
+    <div class="panel nice-padding">{# TODO try moving these classes onto the section tag #}
+        <section>
+            <h2>{% trans 'Method booking requests' %}</h2>
+            <table class="listing">
+                <col width="20%"/>
+                <col />
+		<col width="10%"/>
+		<col width="10%"/>
+                <col width="10%"/>
+		<thead>
+                    <tr>
+                        <th class="title">{% trans "Method" %}</th>
+                        <th>{% trans "Description" %}</th>
+                        <th>{% trans "Workgroup" %}</th>
+			<th>{% trans "Project" %}</th>
+                        <th>{% trans "User" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for req in booking_requests %}
+                        <tr>
+                            <td class="title" valign="top">
+                                <h2>{{ req.method }}</h2>
+				<ul class="actions">
+				  {% if req.method.has_organized_instruments %}
+				  <li>
+				    <a href="{% url 'rubionadmin:method_done' req.id %}" class="button button-small
+				    button-secondary method-cal-btn">{% trans "Select instrument, date and time" %}</a>
+				  </li>
+				  {% endif %}
+				  <li>
+				    <a href="{% url 'rubionadmin:method_done' req.id %}" class="button button-small
+				    button-secondary">{% trans "Done" %}</a>
+				  </li>
+				</ul>
+                            </td>
+                            <td class="type" valign="top">
+				{{ req.description }}
+                            </td>
+                            <td class="type" valign="top">
+				{{ req.project.specific.get_workgroup_info }}
+                            </td>
+                            <td valign="top">
+			      {{ req.project }}
+                                {#{{ revision.page.specific.get_workgroup_info }}#}
+                            </td>
+                            <td class="type" valign="top">
+			      {{ req.booked_by.last_name}}, {{ req.booked_by.first_name }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+{% endif %}
+

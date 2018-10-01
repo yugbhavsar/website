@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static ugc_tags website_tags %}
+{% block content %}
+  <form name="ugc_form" action ="." method="post" novalidate>
+    {% csrf_token %}
+    {{form.errors}}
+    {% for legend, items in fieldsets.items %}
+    <fieldset>
+      <legend>{{legend}}</legend>
+      {% for item in items %}
+        {% with field=form|keyvalue:item %}
+        {% form_element field %}
+        {% endwith %}
+      {% endfor %}
+    <fieldset>
+    {% endfor %}
+    <input type="submit" value="submit">
+  </form>
+{% endblock %} 
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+  <link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+{% endblock %}

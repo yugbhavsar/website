@@ -1,0 +1,29 @@
+{% load i18n website_tags %}
+<fieldset id="student_data">
+  <legend>{% trans "Extended personal data" %}</legend>
+  <div class="explanation">
+  <p class="explanation">{% blocktrans %}The following data is required for the certificate you
+  will receive after successful participation in the course.{% endblocktrans %}</p>
+  </div>
+  <div class="c33">
+  {% form_element form.date_of_birth %}
+  </div>
+  <div class="c33">
+  {% form_element form.place_of_birth %}
+  </div>
+  <div class="c33">
+  {% form_element form.country_of_birth %}
+  </div>
+<!--  <div class="c67">
+  {% form_element form.street %}
+  </div>
+  <div class="c33 closecols thirdinput">
+  {% form_element form.street_number %}
+  </div>  
+  <div class="c33">
+  {% form_element form.zip_code %}
+  </div>
+  <div class="c67">
+  {% form_element form.city %}
+  </div>-->
+</fieldset>

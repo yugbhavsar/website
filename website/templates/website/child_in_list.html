@@ -1,0 +1,21 @@
+{% load wagtailimages_tags website_tags %}
+<div class="child">
+{% if page.title_image %}
+  <div class="childcontent withimage">
+  <div class="childimage">
+{% image page.title_image fill-125x125 %}
+  </div>
+{% else %}
+  <div class="childcontent">
+{% endif %}
+    <h3>{{ page.title_trans }}</h3>
+    {% if page.introduction %}
+    <div class="introduction">
+      {{ page.introduction }}
+    </div>
+    {% endif %}
+    {% if page.body %}
+    {% viewmore page %}
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,8 @@
+{% load i18n wagtailcore_tags %}
+{% if page.is_bookable %}
+<h3>{% trans Registration %}</h3>
+{% if available %}
+
+{% else %}
+{% trans "The course is completely booked." %}
+{% endif %}

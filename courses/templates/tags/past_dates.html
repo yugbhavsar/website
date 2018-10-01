@@ -1,0 +1,12 @@
+{% load i18n wagtailcore_tags %}
+{% if children %}
+<div class="floatmarginbox">
+<h3>{% trans "past courses" %}</h3>
+<dl>
+{% for child in children %}
+  <dt>{{ child.start_date }}–{{ child.end_date }}</dt>
+  <dd> <a class="button viewmore" href="{% pageurl child %}">{% trans "register" %}</a></dd>
+{% endfor %}
+</dl>
+</div>
+{% endif %}

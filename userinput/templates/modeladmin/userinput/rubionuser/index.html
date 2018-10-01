@@ -1,0 +1,5 @@
+{% extends "modeladmin/index.html" %}
+{% block content %}
+  {% csrf_token %}
+  {{ block.super }}
+{% endblock %}

@@ -1,0 +1,90 @@
+{% load website_tags static wagtailuserbar %}
+<!DOCTYPE html>
+<html xmlns:m="http://www.w3.org/1998/Math/MathML">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" type="image/png" href="{% static "images/favicon.png" %}" sizes="16x16 32x32">
+    <link rel="icon" type="image/png" href="{% static "images/favicon-lg.png" %}" sizes="64x64 128x128">
+    <link rel="icon" type="image/svg+xml" href="{% static "images/favicon.svg" %}" sizes="any">
+    <title>
+      {% block title %}
+      {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+      {% endblock %}
+      {% block title_suffix %}
+      {% with self.get_site.site_name as site_name %}
+      {% if site_name %}- {{ site_name }}{% endif %}
+      {% endwith %}
+      {% endblock %}
+    </title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    {# Global stylesheets #}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/auswahl-3spaltig-mit-bild.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/rubion.css' %}">
+<!--    <link rel="stylesheet" href="{% static "mathscribe/jqmath-0.4.3.css" --
+  --    %}"> -->
+    {% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+    {% endblock %}
+<!--    <script src="{% static "mathscribe/jquery-1.4.3.min.js" %}"></script>
+    <script src="{% static "mathscribe/jqmath-etc-0.4.6.min.js" %}"></script>
+  -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script type="text/javascript" async
+	    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+
+    {% block extra_head_js %}
+    {# Override this in templates to add extra js to the head #}
+    {% endblock %}
+  </head>
+  
+  <body class="{% block body_class %}{% endblock %}">
+{#     {% wagtailuserbar %} #}
+    <div class="page_margins">
+      <div class="page">
+	{% include "header_start.html" %}
+	{% block headerimage %}
+	<img width="100%" src="{% static 'images/med-implanter-2.jpg' %}" />
+	{% endblock %}
+	{% include "header_end.html" %}
+	{% include "topnav.html" %}
+	    {% if messages %}
+	    <ul class="messages">
+	      {% for message in messages %}
+	      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+		<span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>{{message}}</li>
+	      {% endfor %}
+	    </ul>
+	    {% endif %}
+	{% include "teaser.html" %}
+	<div id="main">
+	  <div id="inhalt">
+	    <a id="rub-inhalt" name="rub-inhalt"></a>
+	    <aside>
+              {% block sidebarcontent %}{% endblock %}
+	    </aside>
+	    <section class="maincontent">
+            {% block content %}{% endblock %}
+	    </section>
+	  </div>
+	</div>
+	{% include "footer.html" %}
+      </div>
+      <div id="border-bottom">
+	<div id="edge-bl"></div>
+	<div id="edge-br"></div>
+      </div>
+    </div>
+    {# Global javascript #}
+    <script type="text/javascript" src="{% static 'js/rubion2017.js' %}"></script>
+    
+    {% block extra_js %}
+    {# Override this in templates to add extra javascript #}
+    {% endblock %}
+  </body>
+</html>

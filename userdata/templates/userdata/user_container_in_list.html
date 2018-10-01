@@ -1,0 +1,6 @@
+{% if page.specific.show_in_list %}
+<h3>{{ page.title_trans }}</h3>
+{% for child in page.get_visible_children.all %}
+  {{ child.render_as_child }}
+{% endfor %}
+{% endif %}

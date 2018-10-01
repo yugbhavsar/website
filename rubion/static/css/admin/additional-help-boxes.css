@@ -1,0 +1,28 @@
+.help-okay{
+    background-color:#e8f5d6;
+}
+
+.help-neutral{
+    background-color:#eaeaea;
+}
+.help-okay, .help-neutral{
+    border-radius: 3px;
+    padding-left: 3.5em;
+    position: relative;
+}
+.help-okay:before, .help-neutral:before{
+    font-family: wagtail;
+    position: absolute;
+    left: 1em;
+    top: .7em;
+    content: "x";
+    font-size: 1.4em;
+}
+
+.help-okay:before{
+    color:#32cd5b;
+}
+.help-neutral:before{
+    color:#666;
+    content:"K"
+}

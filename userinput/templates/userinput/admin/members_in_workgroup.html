@@ -1,0 +1,26 @@
+{% load i18n website_tags %}
+<table class="listing full-width" style="margin-bottom:0">
+  <colgroup>
+  <col width="5%" />
+  <col width="25%" />
+  <col width="15%" />
+  <col width="55%" />
+  </colgroup>
+  <thead>
+    <th scope="col">{% trans "Title" %}</th>
+    <th scope="col">{% trans "Name" %}, {% trans "First name" %}</th>
+    <th scope="col">{% trans "E-Mail" %}</th>
+    <th scope="col">{% trans "Phone" %}</th>
+  </thead>
+  <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{% if user.get_academic_title_display %}{{user.get_academic_title_display}}{% endif %}</td>
+      <td>{{user.name}}, {{user.first_name}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.phone}}</td>
+    <tr>
+    {% endfor %}
+  </tbody>
+</table>
+

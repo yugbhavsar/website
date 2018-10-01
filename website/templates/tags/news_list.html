@@ -1,0 +1,29 @@
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+<h2>{% trans "News" %}</h2>
+<div id="news">
+{% for item in news %}
+{% comment %}
+I do the language selection here. Would be better to implement this in the
+snippet 
+{% endcomment %}
+<div class="newsblock{% if item.image %} hasimage{% endif %}">
+{% get_current_language as LANG %}
+{% if LANG == "de" %}
+<h4>{{ item.title_de }}</h4>
+{% else %}
+<h4>{{ item.title_en }}</h4>
+{% endif %}
+<p>{{ item.date_published }}</p>
+{% if item.image %}
+{% image item.image original as orig %}
+  <span style="float:left;margin:.5em;"><a href="{{orig.url}}">{% image item.image fill-150x150 %}</a></span>
+{% endif %}
+{% if LANG == "de" %}
+{{ item.content_de|richtext }}
+{% else %}
+{{ item.content_en|richtext }}
+{% endif %}
+
+</div>
+{% endfor %}
+</div>

@@ -1,0 +1,2 @@
+<button type="submit" value="{{text}}" class="button {{classes}}{% if disabled %} disabled{% endif %}"
+   {% if not disabled %} href="{{href}}"{% endif %}><span class="icon"><i class="fa fa-{%if icon %}{{icon}}{% else %}arrow-circle-right{% endif %} fa-fw"></i></span><span class="text">{{text}}</span></button>

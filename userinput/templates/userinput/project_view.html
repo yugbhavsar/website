@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load i18n website_tags wagtailcore_tags wagtailroutablepage_tags static %}
+{% block sidebarcontent %}
+{% if user_may_change_project %}
+  {% if not self.locked %}
+<div class="floatmarginbox buttonlist">
+<ul>
+  <li><a href="{% routablepageurl page "edit" %}" class="button fullwidth"><span class="icon"><i class="fa fa-edit fa-fw"></i></span><span 
+     class="text">{% trans "Edit project data" %}</span></a></li>
+  <li><a href="{% routablepageurl page "add_funding" %}" class="button fullwidth"><span class="icon"><i class="fa fa-plus fa-fw"></i></span><span 
+     class="text">{% trans "Add funding information" %}</span></a></li>
+  <li><a href="{% routablepageurl page "add_publication" %}" class="button fullwidth"><span class="icon"><i class="fa fa-plus fa-fw"></i></span><span 
+     class="text">{% trans "Add related publication" %}</span></a></li>
+  <li><a href="{% routablepageurl page "add_thesis" %}" class="button
+  fullwidth"><span class="icon"><i class="fa fa-plus fa-fw"></i></span><span 
+     class="text">{% trans "Add related thesis" %}</span></a></li>
+</ul>
+</div>
+  {% endif %}
+<div class="floatmarginbox">
+  <h3>{% trans "Project data" %}     <i class="fa fa-lock light" title="{% trans "This data is only visible to members of your workgroup"%}"></i></h3>
+  <dl>
+    <dt>{%trans "Project application filed" %}</dt>
+    <dd>{{page.first_published_at }}</dd>
+    {% if not page.under_revision %}
+    <dt>{%trans "Project started at" %}</dt>
+    <dd>{{page.go_live_at}}</dd>
+    <dt>{%trans "Project expires" %}</dt>
+    <dd>{{page.expire_at }}</dd>
+    {% if owner %}
+    <dt>{%trans "Responsible person" %}</dt>
+    <dd>{{owner }}</dd>
+    {% endif %}
+    {% endif %}
+</div>
+  {% if not self.locked %}
+<div class="floatmarginbox buttonlist">
+<ul>
+  <li><a href="{% routablepageurl page "close" %}" class="button fullwidth attention"><span class="icon"><i class="fa fa-close fa-fw"></i></span><span 
+     class="text">{% trans "Close project" %}</span></a></li>
+</ul>
+</div>
+  {% endif %}
+{% else %}
+<div class="floatmarginbox">
+  <h3>{% trans "Workgroup" %}</h3>
+  {% with wg=page.get_workgroup %}
+  <dl>
+    <dt>{{ wg.title_trans }}</dt>
+    <dd>{{ wg.get_head.full_name }}</dd>
+    <dd>{{ wg.institute }}</dd>
+    {% if wg.department %}<dd>{{ wg.department }}</dd>{% endif %}
+    <dd>{{ wg.university }}</dd>
+    {% if wg.homepage %}<dd><a href="{{ wg.homepage }}">{% trans "Homepage" %}</a></dd>{% endif %}
+  </dl>
+  {% endwith %}
+</div>
+{% endif %}
+{% endblock %}
+{% block content %}
+{% if page.under_revision %}
+<div class="message warning">
+{% trans "This project awaits approval by the RUBION team" %}
+</div>
+{% endif %}
+{% if self.locked %}
+<div class="message important">
+  {% trans "This project is closed." %}
+</div>
+{% elif will_expire_soon %}
+{% if user_may_change_project %}
+<div class="message warning">
+  <p>
+  {% trans "This project will expire at" %} <strong>{{self.expire_at }}</strong>.
+  {% blocktrans %}
+  It will be automatically extended if you add a publication, a new funding
+  source or a resulting thesis. 
+  {% endblocktrans %}
+  </p>
+  <p>
+  {% if page.can_prolong %}
+  {% routablepageurl page "prolong" as link_url %}
+  {% blocktrans %}
+  Alternatively, you can <a href="{{link_url}}">prolong the project</a> without updates.
+  {% endblocktrans %}
+  </p>
+  {% endif %}
+</div>
+{% endif %}
+{% endif %}
+<h2>{{ page.title_trans }}</h2>
+<p> {{page.summary}}</p>
+
+
+<div class="listofchildren has-sidebar">
+<div class="child">
+  <h3>{% trans "Methods used" %}</h3>
+  {% with methods=page.related_methods.all %}
+  {% if methods %}
+  <ul>
+  {% for method in methods %}
+  <li><a href="{% pageurl method.page %}">{{ method.page }}</a></li>
+  {% endfor %}
+  </ul>
+  {% else %}
+  {% trans "No method selected." %}
+  {% endif %}
+  {% endwith %}
+</div>
+<div class="child">
+  <h3>{% trans "Funded by" %}</h3>
+  {% with fundings=page.related_fundings.all %}
+  {% if fundings %}
+  <ul>
+  {% for funding in fundings %}
+  <li><strong>{{funding.snippet.agency}}</strong>{% if funding.snippet.project_number %} ({{funding.snippet.project_number }}){% endif %}: {{ funding.snippet.title }}</li> 
+  {% endfor %}
+  </ul>
+  {% else %}
+  {% trans "This project has no funding." %}
+  {% endif %}
+  {% endwith %}
+</div>
+<div class="child">
+  <h3>{% trans "Publications" %}</h3>
+  {% with publications=page.related_publications.all %}
+  {% if publications %}
+  <ul>
+  {% for publication in publications %}
+  <li><strong>{{publication.snippet.authors}}</strong>: 
+    {{ publication.snippet.title }}. 
+    {{ publication.snippet.journal }}
+    {{ publication.snippet.year }}
+    {% if publication.snippet.doi %}
+    <abbr title="Digital Object identifier">DOI</abbr>: <a href="https://doi.org/{{publication.snippet.doi}}">{{publication.snippet.doi}}</a>
+    {% endif %}
+  </li> 
+  {% endfor %}
+  </ul>
+  {% else %}
+  {% trans "This project has no publications." %}
+  {% endif %}
+  {% endwith %}
+</div>
+<div class="child">
+  <h3>{% trans "Theses" %}</h3>
+  {% with theses=page.related_theses.all %}
+  {% if theses %}
+  <ul>
+  {% for thesis in theses %}
+  <li><strong>{{thesis.snippet.author}}</strong>: 
+    {{ thesis.snippet.title }} ({{ thesis.snippet.get_thesis_type_display }}, {{ thesis.snippet.year }})
+  </li> 
+  {% endfor %}
+  </ul>
+  {% else %}
+  {% trans "This project has no theses." %}
+  {% endif %}
+  {% endwith %}
+</div>
+</div>
+
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}"></link>
+<link rel="stylesheet" href="{% static 'css/container.css' %}"></link>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% load i18n wagtailcore_tags %}
+<h2>{{ name }}</h2>
+
+<div  class="c-dropdown u-para t-default" data-dropdown="" aria-hidden="true">
+  <a  class="c-dropdown__button  u-btn-current">
+    {% trans "Prolong" %}
+    <div data-dropdown-toggle="" class="o-icon c-dropdown__toggle [ icon ] icon-arrow-down"></div>
+  </a>
+  <div class="t-dark">
+    <ul role="menu" class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
+      <li class="c-dropdown__item ">{% trans "today" %}</li>
+      {% for instruction in instructions %}
+      <li class="c-dropdown__item ">
+        <a data-usertype="{{usertype}}" data-uid="{{obj.id}}" data-iid="{{instruction.id}}" href="{% url 'rubionadmin:set_safety_instruction_date' obj.id instruction.id usertype%}" class="u-link is-live si_add_link">{{ instruction }}</a>
+      </li>
+      {% endfor %}
+      <li class="c-dropdown__item ">{% trans "Provide date" %}</li>
+      {% for instruction in instructions %}
+      <li class="c-dropdown__item ">
+        <a href="{% url 'userdata:safetyinstruction_addwithpreselection' usertype obj.id  instruction.id %}?next=" class="u-link is-live">{{ instruction }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

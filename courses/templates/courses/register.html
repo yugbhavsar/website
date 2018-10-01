@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load i18n website_tags wagtailroutablepage_tags static %}
+{% block sidebarcontent %}
+{% with parent=page.get_parent.specific %}
+{% render_sidebar parent %}
+{% endwith %}
+{% endblock %}
+{% block content %}
+{% with parent=page.get_parent.specific %}
+<h2>{{ parent.title_trans }}</h2>
+<h3>{% trans "Register for course from" %} {{ page.title }}</h3>
+<p>
+   {% trans "Registration as" %} {{attendee_name}}<br />
+   {% if price > 0 %}
+     <strong>{% trans "The participation fee is" %} {{price}}€.</strong>
+   {% else %}
+     {% trans "Participation in the course is free of charge." %}
+   {% endif %}
+</p>
+{% if free_slots == 0 %}
+<p class="warning">
+  {% blocktrans %}
+  The course is fully booked. You will not be able to complete the
+  registration process.
+  {% endblocktrans %}
+</p>
+{% else %}
+{% if free_slots < 3 %}
+<p class="important">
+  {% blocktrans %}
+  There are only a few places left in the course. It might happen that during
+  your registration process, someone else registers and the course becomes
+  unavailable.
+  {% endblocktrans %}
+</p>
+{% endif %}
+{% endif %}
+<ul class="multiform-indicator">
+  {% for f in forms %}
+  <li {% if forloop.counter0 == current_form %}class="current"{% endif %}>
+  <a class="button{% if forloop.counter0 > current_form %} disabled{% endif %}"{% if forloop.counter0 <= current_form %} href="{% routablepageurl page "register" attendee forloop.counter0 %}"{% endif %} title="{% trans "Step" %} {{ forloop.counter }} {% trans "of" context "x of y" %} {{forms|length}}">
+    <span class="icon"><i class="fa {% if forloop.counter0 < current_form %}fa-check{% endif %}{% if forloop.counter0 == current_form %}fa-dot-circle-o{% endif %}{% if forloop.counter0 > current_form %}fa-circle-o{% endif %}"></i></span>{% if forloop.counter0 == current_form %}<span class="text">{%trans "Step" %} {{ forloop.counter }} of {{forms|length}}</span>{% endif %}</a>
+  </li>
+  {% endfor %}
+</ul>
+<form method="POST" action="." novalidate>
+  {% csrf_token %}
+  {% for field in form.hidden_fields %}
+  {{ field }}
+  {% endfor %}
+  <fieldset>
+    <legend>{{ form.display_text }}</legend>
+    {% for field in form.visible_fields %}
+    {% form_element field %}
+    {% endfor %}
+  </fieldset>
+  {% if show_price_hint %}
+  <p class="action">
+    <button class="button" type="submit"><span class="icon"><i class="fa fa-caret-right"></i></span><span class="text">{% trans "register for " %}{{price}}€</span></button>
+  </p>
+  {% else %}
+  <p class="action">
+    <button class="button" type="submit"><span class="icon"><i class="fa fa-caret-right"></i></span><span class="text">{% trans "submit" %}</span></button>
+  </p>
+  {% endif %}
+</form>
+{% endwith %}
+{% endblock %}
+
+
+{% block extra_css %}
+  {% include "website/fontawesome.html" %}
+  <link rel="stylesheet" type="text/css" href="{% static "css/multiform-indicator.css" %}" />
+  <link rel="stylesheet" type="text/css" href="{% static "css/forms.css" %}" />
+{% endblock %}

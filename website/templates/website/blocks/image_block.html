@@ -1,0 +1,14 @@
+{% load wagtailimages_tags %}
+
+<div class="imageblock {{value.alignment}} w{{value.width}}">
+  {% if value.width == "100" %}
+  {% image value.image width-630  %}
+  {% elif value.width == "75" %}
+  {% image value.image width-473 %}
+  {% elif value.width == "50" %}
+  {% image value.image width-307 %}
+  {% elif value.width == "33" %}
+  {% image value.image width-210 %}
+  {% endif %}
+  <p>{{value.caption}}</p>
+</div>

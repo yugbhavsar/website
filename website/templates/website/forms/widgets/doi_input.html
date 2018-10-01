@@ -1,0 +1,5 @@
+{% load i18n %}
+<span class="doi-input">
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %} /><span><i class="fa fa-search"></i></span>
+<p class="help_text">{% trans "Enter a valid DOI, click in the next field and the system will try to auto-fill the form." %}
+</span>

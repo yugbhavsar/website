@@ -1,0 +1,12 @@
+{% load website_tags wagtailcore_tags i18n %}
+<ul class="angebote">
+  {% for item in menu_root.get_children %}
+  {% with menuitem=item.specific %}
+  {% if menuitem.linked_page %}
+  <li><a href="{% pageurl menuitem.linked_page %}">{{menuitem.title_trans}}</a></li>
+  {% else %}
+  <li><a href="{% pageurl menuitem %}">{{menuitem.title_trans}}</a></li>
+  {% endif %}
+  {% endwith %}
+  {% endfor %}
+</ul>

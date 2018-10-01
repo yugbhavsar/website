@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load i18n static website_tags ugc_tags %}
+{% block sidebarcontent %}
+{% if page.sidebar_text %}
+<div class="floatmarginbox">{{ page.sidebar_text|safe }}</div>
+{% endif %}
+{% if form.SIDEBAR_TEXT_PARS %}
+  <div class="floatmarginbox">
+    <h3>{% trans "Information" %}</h3>
+    {% for par in form.SIDEBAR_TEXT_PARS %}
+    <p>{{par|safe}}</p>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endblock %}
+{% block content %}
+{% if pagetitle %}
+<h2>{{ pagetitle }}</h2>
+{% else %}
+<h2>{{ page.title_trans }}</h2>
+{% endif %}
+{% if form.non_field_errors %}
+{{form.non_field_errors}}
+{% endif %}
+{% include 'website/forms/required_hint.html' %}
+<form action="." method="POST" novalidate>
+  {% csrf_token %}
+  {% if form.fieldsets %}
+  {% for legend, fields in form.fieldsets.items %}
+  <fieldset id="fieldset-{{legend|slugify}}">
+    {% translated_legend form legend as trans_legend %}
+    <legend id="legend-{{legend|slugify}}">{{trans_legend|capfirst}}</legend>
+    <div>
+    {% for field in fields %}
+    {% form_element form|keyvalue:field %} 
+    {% endfor %}
+    </div>
+  </fieldset>
+  {% endfor %}
+  {% else %}
+  {{ form }}
+  {% endif %}
+  <p class="action">
+    <button class="button viewmore" type="submit">
+      <span class="icon"></span><span class="text">
+	{% trans "Submit" %}
+      </span>
+    </button>
+  </p>
+</form>
+{% endblock %}
+
+{% block extra_css %}
+<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
+<link rel="stylesheet" href="{% static "css/font-awesome.min.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/pikaday.css" %}"></link>
+<link rel="stylesheet" href="{% static "css/pika-rubion.css" %}"></link>
+{% if form.alternative_fieldsets %}
+<link rel="stylesheet" href="{% static "css/tabbify.css" %}"></link>
+
+<script type="text/javascript" src="{% static "js/tabbify.js" %}"></script>
+{% endif %}
+{% endblock %}
+{% if form.alternative_fieldsets %}
+{% block extra_js %}
+
+<script type="text/javascript">
+  {% for head, fs in form.alternative_fieldsets.items %}
+  tabbify.init([{% for f in fs %}'{{f|slugify}}',{% endfor %}], '{{head}}')
+  {% endfor %}
+</script>
+{% endblock %}
+{% endif  %}

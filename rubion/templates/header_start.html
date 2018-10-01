@@ -1,0 +1,42 @@
+{% load i18n website_tags static %}
+<div id="header">
+  <a href="http://www.ruhr-uni-bochum.de">
+    <img src="https://www.ruhr-uni-bochum.de/images/logos/rub-schriftzug.gif" alt="Ruhr-Universität Bochum Wortmarke" name="schriftzug" id="schriftzug" style="margin-bottom: 15px;" width="247" height="18">
+  </a>
+  <div id="topnav">
+    <!-- start: skip link navigation -->
+    <a class="skip" title="skip link" href="#navigation">{% trans "Skip to the navigation" %}</a><span class="hideme">.</span> 
+    <a class="skip" title="skip link" href="#rub-inhalt">{% trans "Skip to the content" %}</a><span class="hideme">.</span>
+    <!-- end: skip link navigation -->
+    <a title="Homepage" href="http://www.rub.de">
+      <img src="https://www.ruhr-uni-bochum.de/images/logo/logo-rub-102.gif" alt="RUB Label" name="rublabel" class="logo" id="rublabel" width="102" height="102">
+    </a>
+    <span id="uninavi">
+      <a title="Homepage Ruhr-Universität Bochum" href="http://www.rub.de/index_en.htm">Homepage</a>
+      |
+      <a title="{% trans "A kind of sitemap" %}"
+      href="http://www.ruhr-uni-bochum.de/uebersicht/index_en.htm">{% trans "Overview" %}</a>
+      |
+      <a title="{% trans "Search engine" %}"
+      href="http://www.ruhr-uni-bochum.de/suche/index_en.htm">{% trans "Search" %}</a>
+      |
+      <a title="{% trans "The university from A-Z" %}" href="http://www.ruhr-uni-bochum.de/a-z/index_en.htm">A-Z</a>
+    </span>
+  </div>
+  <div class="subcolumns" id="header-container">
+    <div class="c25l" id="topnav-rubion">
+      <div>
+<!--	<h3><span class="RUB">RUB</span>ION</h3>
+	<h4>{% trans "Central Unit for Ionbeams and Radionuclides" %}</h4>-->
+        <h3>
+	  {% get_current_language as LANG %}
+	  {% if LANG == "de" %}
+	  <img src="{% static "images/logos/rubion_de.svg" %}" alt="RUBION - Central Unit for Ionbeams and Radionuclides" /> 
+	  {% else %}
+	  <img src="{% static "images/logos/rubion_en.svg" %}" alt="RUBION - Central Unit for Ionbeams and Radionuclides" /> 
+	  {% endif %}
+	</h3>
+	{% get_main_menu_container %}
+      </div>
+    </div>
+    <div class="c75r" id="headline">

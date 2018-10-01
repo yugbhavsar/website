@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load ugc_tags i18n courses_tags website_tags static %}
+{% block content %}
+<div class="floatmarginbox">
+  <h3>{% trans "Information" %}</h3>
+  <p>{% blocktrans %}Please note: This page only has a simple protection level and should not be considered safe.{% endblocktrans %}</p>
+  <p>{% blocktrans %}Do not use this page to share sensitive data.{% endblocktrans %}</p>
+</div>
+{% with course_date=page.get_parent.specific %}
+{% with course=course_date.get_parent.specific %}
+<h2>{{ course.title_trans }}</h2>
+<h3>{% trans "Shared data for course from" %} {{course_date.title_trans}}</h3>
+{% endwith %}
+{% endwith %}
+<section id="files">
+<h3>{% trans "Files" %}</h3>
+<dl class="file-listing">
+{% if page.shared_data.all|length > 0 %}
+  {% for data in page.shared_data.all %}
+  <dt>{{ data.file_link.title }}</dt>
+  <dd>{{ data.description }}</dd>
+  <dd class="sub-line">{% trans "uploaded on" %} {{data.uploaded_on|date:"Y-m-d"}} {% trans "at" %} {{data.uploaded_on|date:"h:m"}} {% trans "by:" %} {{ data.uploaded_by }}</dd>
+  <dd><a href="{{ data.file_link.url }}" class="button"><span class="icon"><i class="fa fa-download"></i></span><span class="text">{% trans "Download" %}</span></a></dd>
+  {% endfor %}
+{% else %}
+  <dd>{% trans "No shared files available." %}</dd>
+{% endif %}
+</dl>
+</section>
+<section id="upload">
+  <h3>{% trans "Add a file" %}</h3>
+  <form action="." method="POST" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+      {{form.non_field_errors}}
+    {% endif %}
+    {% include 'website/forms/required_hint.html' %}
+    {% if form.fieldsets %}
+    {% for legend, fields in form.fieldsets.items %}
+    <fieldset id="fieldset-{{legend|slugify}}">
+      {% translated_legend form legend as trans_legend %}
+      <legend id="legend-{{legend|slugify}}">{{trans_legend|capfirst}}</legend>
+      <div>
+	{% for field in fields %}
+	{% form_element form|keyvalue:field %}
+	{% endfor %}
+      </div>
+    </fieldset>
+    {% endfor %}
+    {% else %}
+    {{ form }}
+    {% endif %}
+    <p class="action">
+      <button type="submit" class="button"><span class="icon"><i class="fa fa-upload"></i></span><span class="text">{% trans "upload"%}</span></button>
+    </p>
+  </form>
+</section>
+{% endblock %}
+{% block extra_css %}
+  {% include "website/fontawesome.html" %}
+  <link rel="stylesheet" href="{% static "css/forms.css" %}"></link>
+{% endblock %}

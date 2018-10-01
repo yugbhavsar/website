@@ -1,0 +1,8 @@
+<div{% if element.errors %} class="error"{% endif %}> 
+  <p>{{ element.label_tag }}</p>
+  <p class="select">{{ element }}</p>
+  {% if element.help_text %}
+  <p class="help_text">{{ element.help_text }}</p>
+  {% endif %}
+  {{ element.errors }}
+</div>

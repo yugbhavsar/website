@@ -1,0 +1,8 @@
+{% extends "courses/registration_form.html" %}  
+{% load i18n courses_tags wagtailcore_tags %}
+{% block formurl %}{% pageurl page%}register/e/{% endblock %}
+{% block formcontent %}
+  {% personal_data_form form %}
+  {% extended_personal_data_form form %}
+  {% include "billing_form.html" %}
+{% endblock %}

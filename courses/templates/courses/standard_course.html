@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load website_tags courses_tags %}
+
+
+{% block content %}
+{% with par=page.get_parent %}
+{% render_sidebar par.specific %}
+<h3>{{ par.title }}</h3>
+<h4>{{ page.title }}</h4>
+{% if par.specific.introduction %}
+  <div class="introduction">{{ par.specific.introduction }}</div>
+  {% if par.specific.body %}{% viewmore par %}{% endif %}
+{% endif %}
+{% endwith %}
+{% render_registration_overview page %}
+{% endblock %}
