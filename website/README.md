@@ -1,7 +1,8 @@
 # website
 
 This app comprises models for general content of the website, several useful
-mixins and blocks. Furthermore, it implements sending translated emails.
+mixins and blocks. Furthermore, it implements sending translated emails, some
+settings and the RUBION-Beirat.
 
 ## Translation
 

@@ -638,7 +638,17 @@ class EMailText ( models.Model ):
     better way to provide the identifier as well as a default text.
 
     However, as long as one ensures that all identifiers used somewhere in the
-    code are available in the database, it is a quite easy way to send mails. 
+    code are available in the database, it is a quite easy way to send mails.
+
+    First, one needs the current context, as in the HTML-page template
+    system. It would be very helpful if it would be possible to provide a way
+    to list the available context-dict in the admin panel, but I have not yet
+    found a way. But, given the context, the identifier and the mail address,
+    sending an E-Mail is as simple as:
+
+       mailtext = EMailText.objects.get(identifier = 'abc')
+       mailtext.send( 'mail@test.com', {'context' : 'dict'})
+ 
     '''
     identifier = models.CharField(
         max_length = 512,
@@ -708,7 +718,7 @@ class EMailText ( models.Model ):
 
 
     def send( self, to, context, lang = None, attachements = [], reply_to = None ):
-        
+        # This is the major method of this module. 
         
         if lang != 'de':
             subj_en, en = self.get_english_text( context )
@@ -767,6 +777,10 @@ class EMailText ( models.Model ):
 
 
 class SentMail ( models.Model ):
+    '''
+    A model that is used to store every mail that has been send in the
+    database.
+    '''
     to = models.CharField(
         max_length = 512,
     )
@@ -785,6 +799,8 @@ class SentMail ( models.Model ):
 
     def __str__( self ):
         return _('Sent Mail from') + ' {}'.format(self.sent_at)
+
+
 
 @register_setting
 class ImportantPages( BaseSetting ):
