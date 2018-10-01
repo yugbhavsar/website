@@ -1,7 +1,7 @@
 # website
 
 This app comprises models for general content of the website, several useful
-mixins and blocks. 
+mixins and blocks. Furthermore, it implements sending translated emails.
 
 ## Translation
 

@@ -625,6 +625,21 @@ class PublicationsContainerPage( AbstractContainerPage ):
 
 @register_snippet
 class EMailText ( models.Model ):
+    '''
+    This models is used to send emails with content which can be defined in
+    the admin panel. It uses the template syntax as implemented by wagtail to
+    insert specific content.
+
+    Its implementation is rather weird. Every instance of EMailText needs an
+    identifier, which can be modified in the admin panels. However, this
+    identifier is also hardcoded in the code. this very unstable
+    implementation was used before I stumbled upon
+    https://docs.djangoproject.com/en/2.1/howto/initial-data/ which might be a
+    better way to provide the identifier as well as a default text.
+
+    However, as long as one ensures that all identifiers used somewhere in the
+    code are available in the database, it is a quite easy way to send mails. 
+    '''
     identifier = models.CharField(
         max_length = 512,
     )
