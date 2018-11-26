@@ -127,7 +127,7 @@ class ExportMenuItem(MenuItem):
 
 @hooks.register('register_admin_menu_item')
 def export_menu_entry():
-  return MenuItem(
+  return ExportMenuItem(
     'Export to Excel',
     reverse('rubionadmin:full_xls_list'),
     classnames='icon icon-fa-table',
