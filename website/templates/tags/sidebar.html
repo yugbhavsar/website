@@ -21,3 +21,10 @@
   {% endfor %}
 </div>
 {% endif %}
+{% if other %}
+<div class="floatmarginbox">
+{% for oth in other %}
+  {% include_block oth %}
+{% endfor %}
+</div>  
+{% endif %}
