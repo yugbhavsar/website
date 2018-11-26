@@ -119,10 +119,13 @@ class RUBIONUserInactivateView(InstanceSpecificView):
             # inactivates the wg and all users
             wg = self.instance.get_workgroup().inactivate( user = request.user )
         else:
-            new_leader = RUBIONUser.objects.get(id = new_head)
-            new_leader.is_leader=True
-            new_leader.save_revision_and_publish( user = request.user )
-            self.instance.inactivate(user = request.user )
+            try:
+                new_leader = RUBIONUser.objects.get(id = new_head)
+                new_leader.is_leader=True
+                new_leader.save_revision_and_publish( user = request.user )
+            except RUBIONUser.DoesNotExist:
+                pass
+            self.instance.inactivate( user = request.user )
 
 
 class AddRUBIONUserChooseWorkgroupView( ChooseParentView ):
