@@ -1,4 +1,4 @@
-from datetime import datetime
+bfrom datetime import datetime
 
 from django import template
 from django.conf import settings
@@ -173,17 +173,21 @@ def render_sidebar( page ):
     try:
         return {
             'contacts' : page.contact_persons,
-            'other' : page.sidebar_content
+            'other' : page.sidebar_content,
         }
     except AttributeError:
         try:
             return {
                 'contacts' : page.contact_persons,
-                #            'other' : page.sidebar_content
+                #            'other' : page.sidebar_content                                           
             }
         except AttributeError:
-            return {}
-
+            try:
+                return {
+                    'other' : page.sidebar_content,
+                }
+            except AttributeError:
+                return {}
 
 @register.filter
 def strip_colon(txt):
