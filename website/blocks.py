@@ -62,6 +62,8 @@ class LinkedPageBlock( StructBlock ):
 
 
 class SidebarBlock( StructBlock ):
+    class Meta:
+        template = "website/blocks/sidebar_block.html"
     h3 = CharBlock(
         icon = "title", 
         classname = "title", 
@@ -98,6 +100,8 @@ class SidebarBlock( StructBlock ):
     )
 
 class SidebarStreamBlock( StreamBlock ):
+    class Meta:
+        template = "website/blocks/sidebar_stream_block.html"
     item = SidebarBlock(
         icon = 'doc-full-inverse',
         label = _( 'sidebar content' )
