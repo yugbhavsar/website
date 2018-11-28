@@ -4559,11 +4559,13 @@ msgstr ""
 #: website/templates/website/user_sidebar.html:58
 msgid ""
 "\n"
-"           If you are not yet a registered member of RUBION, \n"
+"           If you are not yet a registered \n"
+"           <br> RUBION-USER: \n"
 "         "
 msgstr ""
 "\n"
-"Wenn Sie kein registriertes RUBION-Mitglied sind\n"
+"Wenn Sie kein registriertes\n"
+"<br> RUBION-NUTZER sind:\n"
 " "
 
 #: website/wagtail_hooks.py:23
