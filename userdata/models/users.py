@@ -463,7 +463,7 @@ class SafetyInstructionsSnippet( models.Model ):
         verbose_name = _('Hazardous materials instructions'),
         help_text = _('Does this instruction include the management of hazardous materials?')
     )
-    
+
     title = TranslatedField( 'title' )
     title_short = TranslatedField( 'title_en_short', 'title_de_short' )
     panels = [
@@ -476,6 +476,9 @@ class SafetyInstructionsSnippet( models.Model ):
         FieldPanel( 'contains_laser_safety' ),
         FieldPanel( 'contains_general_safety_info_radionuclides' ),
         FieldPanel( 'contains_general_safety_info_accelerators' ),
+        FieldPanel( 'contains_crane_license' ),
+        FieldPanel( 'contains_forklift_license' ),
+        FieldPanel( 'contains_hazardous_materials_instrucions' ),        
 
     ]
 
