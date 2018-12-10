@@ -121,6 +121,9 @@ class RUsersExpiredSafetyInstructions( ListFilterWithoutAll ):
             'contains_general_safety_info_accelerators',
             'contains_p38_safety_info',
             'contains_laser_safety'
+            'contains_crane_license',
+            'contains_forklift_license',
+            'contains_hazardous_materials_instrucions'            
         ]                
 
         # Show all, if requested
@@ -186,6 +189,9 @@ class RUserSafetyInstructionFilter( admin.SimpleListFilter ):
     GENERAL_ISO = 'general_iso'
     GENERAL_ACC = 'general_acc'
     LASER = 'laser'
+    CRANE = 'crane'
+    FORKLIFT = 'forklift'
+    HAZARDOUS = 'hazardous'    
 
     def __init__(self, request, *args, **kwargs):
         super().__init__(request, *args, **kwargs)
@@ -206,6 +212,9 @@ class RUserSafetyInstructionFilter( admin.SimpleListFilter ):
             ( self.GENERAL_ISO, _( 'General safety instruction (isotope lab)' )),
             ( self.GENERAL_ACC, _( 'General safety instructions (accelerator labs)' )),
             ( self.LASER, _( 'Laser safety instructions' )),
+            ( self.CRANE, _( 'Crane license update' )),
+            ( self.FORKLIFT, _( 'Forklift license update' )),
+            ( self.HAZARDOUS, _( 'Hazardous materials instructions' )),            
         )
 
     def queryset(self, request, queryset):
@@ -219,6 +228,9 @@ class RUserSafetyInstructionFilter( admin.SimpleListFilter ):
             self.GENERAL_ISO: 'contains_general_safety_info_radionuclides',
             self.GENERAL_ACC: 'contains_general_safety_info_accelerators',
             self.LASER : 'contains_laser_safety'
+            self.CRANE : 'contains_crane_license',
+            self.FORKLIFT : 'contains_forklift_license',
+            self.HAZARDOUS : 'contains_hazardous_materials_instrucions'            
         }
 
         if self.related_value() == RUsersExpiredSafetyInstructions.ALL:
