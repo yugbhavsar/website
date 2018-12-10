@@ -2080,7 +2080,7 @@ msgstr "gewählte Auswahl"
 msgid "Submission date"
 msgstr "Absendedatum"
 
-#: userdata/model_admin.py:23 userinput/filters.py:172
+#: userdata/model_admin.py:23 userinput/filters.py:211
 msgid "General safety instructions"
 msgstr "Generelle Sicherheitsunterweisung"
 
@@ -2100,7 +2100,19 @@ msgstr "Sicherheitsunterweisungen (Beschleunigerlabor)"
 msgid "Laser safety"
 msgstr "Laserschutz"
 
-#: userdata/model_admin.py:79
+#: userdata/model_admin.py:44 userdata/models/users.py:452 userinput/filters.py:215
+msgid "Crane license update"
+msgstr "Kran update"
+
+#: userdata/model_admin.py:48 userdata/models/users.py:457 userinput/filters.py:216
+msgid "Forklift license update"
+msgstr "Stapler update"
+
+#: userdata/model_admin.py:52 userdata/models/users.py:463 userinput/filters.py:217
+msgid "Hazardous materials instructions"
+msgstr "Gefahrgut update"
+
+#: userdata/model_admin.py:91
 msgid "Not instructed"
 msgstr "nicht unterwiesen"
 
@@ -2284,7 +2296,19 @@ msgstr "Enthält die Unterweisung eine Strahlenschutzunterweisung nach §38?"
 msgid "Does this instruction include laser radiation safety?"
 msgstr "Enthält die Unterweisung eine Unterweisung im Laserschutz?"
 
-#: userdata/models/users.py:473
+#: userdata/models/users.py:453
+msgid "Does this instruction include crane management?"
+msgstr "Enthält die Unterweisung eine Unterweisung in der Kranführung?"
+
+#: userdata/models/users.py:458
+msgid "Does this instruction include forklift license update?"
+msgstr "Enthält die Unterweisung eine Unterweisung in Förderfahrzeuge?"
+
+#: userdata/models/users.py:464
+msgid "Does this instruction include the management of hazardous materials?"
+msgstr "Enthält die Unterweisung eine Unterweisung in Gefahrgut-Transport?"
+
+#: userdata/models/users.py:492
 msgid "Safety instruction dates for user"
 msgstr "Daten der Sicherheitsunterweisungen der Nutzer"
 
@@ -2437,23 +2461,23 @@ msgstr "Ablaufdatum"
 msgid "expires soon"
 msgstr "bald abgelaufen"
 
-#: userinput/filters.py:148
+#: userinput/filters.py:184
 msgid "required instruction"
 msgstr "benötigte Sicherheitsunterweisungen"
 
-#: userinput/filters.py:171
+#: userinput/filters.py:210
 msgid "Radiation safety instructions (§38)"
 msgstr "Strahlenschutzunterweisung (§38)"
 
-#: userinput/filters.py:173
+#: userinput/filters.py:212
 msgid "General safety instruction (isotope lab)"
 msgstr "Generelle Sicherheitsunterweisung (Radionuklidlabor)"
 
-#: userinput/filters.py:174
+#: userinput/filters.py:213
 msgid "General safety instructions (accelerator labs)"
 msgstr "Generelle Sicherheitsunterweisung (Beschleunigerlabore)"
 
-#: userinput/filters.py:175
+#: userinput/filters.py:214
 msgid "Laser safety instructions"
 msgstr "Laserschutzunterweisung"
 
