@@ -447,7 +447,23 @@ class SafetyInstructionsSnippet( models.Model ):
         verbose_name = _('Laser safety'),
         help_text = _('Does this instruction include laser radiation safety?')
     )
+    contains_crane_license = models.BooleanField(
+        default = False,
+        verbose_name = _('Crane license update'),
+        help_text = _('Does this instruction include crane management?')
+    )
+    contains_forklift_license = models.BooleanField(
+        default = False,
+        verbose_name = _('Forklift license update'),
+        help_text = _('Does this instruction include forklift license update?')
+    )
 
+    contains_hazardous_materials_instrucions = models.BooleanField(
+        default = True,
+        verbose_name = _('Hazardous materials instructions'),
+        help_text = _('Does this instruction include the management of hazardous materials?')
+    )
+    
     title = TranslatedField( 'title' )
     title_short = TranslatedField( 'title_en_short', 'title_de_short' )
     panels = [
