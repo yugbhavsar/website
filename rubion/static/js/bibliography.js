@@ -18,7 +18,7 @@ $R.pubs = {
     get_pubs_by_year: function( elem, year, range ){
 	var style = "perspectives";
 	var url =  [
-	    "https://bibliographie.ub.rub.de/beta/chair/16062416-2/bibliography",
+	    "https://bibliographie.ub.rub.de/bibliography/",
 	    style 
 	];
 	
@@ -29,7 +29,8 @@ $R.pubs = {
 	    var options = {
 		//	    'filter_by_pr' : true,
 		'filter_by_year' : thisyear,
-		'format' : 'html'
+		'format' : 'html',
+		'gnd': '16062416-2'
 	    }
 	    var req_url = [
 		url.join('/'),
