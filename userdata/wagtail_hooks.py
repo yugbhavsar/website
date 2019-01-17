@@ -104,7 +104,7 @@ class StaffUserModelProxy(StaffUser):
 class StaffSafetyInstructionModelAdmin( SafetyModelAdmin ):
     model = StaffUserModelProxy
     menu_label = _('Safety Instructions')
-    list_display = ( 'name', 'safety_instructionp38', 'safety_instruction_general', 'safety_instrucions_il',  'safety_instrucions_acc', 'laser_safety')
+    list_display = ( 'name', 'safety_instructionp38', 'safety_instruction_general', 'safety_instrucions_il',  'safety_instrucions_acc', 'laser_safety', 'crane_license', 'forklift_license', 'hazardous_materials_instrucions')
     lookup_field = 'rubion_staff'
     index_template_name = 'modeladmin/userinput/rubionuserproxymodel/index.html'
 

@@ -13,7 +13,7 @@ from wagtail.contrib.modeladmin.options import ModelAdmin
 
 class SafetyModelAdmin( ModelAdmin ):
     menu_icon = 'fa-exclamation-triangle'#'fa-medkit'
-    list_display = ( 'name', 'safety_instructionp38', 'safety_instruction_general', 'safety_instrucions_il',  'safety_instrucions_acc', 'laser_safety')
+    list_display = ( 'name', 'safety_instructionp38', 'safety_instruction_general', 'safety_instrucions_il',  'safety_instrucions_acc', 'laser_safety', 'crane_license', 'forklift_license', 'hazardous_materials_instrucions')
     index_view_extra_css = ['css/admin/additional-help-boxes.css']
     
 
@@ -38,7 +38,19 @@ class SafetyModelAdmin( ModelAdmin ):
     def laser_safety(self, obj):
         return self._get_si(obj, 'contains_laser_safety')
     laser_safety.short_description = _l('Laser safety')
+    
+    def crane_license( self, obj):
+        return self._get_si(obj, 'contains_crane_license')
+    crane_license.short_description = _l('Crane license update')
 
+    def forklift_license( self, obj):
+        return self._get_si(obj, 'contains_forklift_license')
+    forklift_license.short_description = _l('Forklift license update')
+
+    def hazardous_materials_instrucions(self, obj):
+        return self._get_si(obj, 'contains_hazardous_materials_instrucions')
+    hazardous_materials_instrucions.short_description = _l('Hazardous materials instructions')
+ 
     def _get_si ( self, obj, instruction, rstaff = None ):
 
         required = False
