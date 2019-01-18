@@ -2,7 +2,7 @@ from .forms import RUBUserCreationForm, IdentificationForm
 from .models import Identification
 
 from django.contrib.auth import logout as auth_logout
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
