@@ -227,7 +227,7 @@ class RUserSafetyInstructionFilter( admin.SimpleListFilter ):
             self.GENERAL : 'contains_general_safety_info',
             self.GENERAL_ISO: 'contains_general_safety_info_radionuclides',
             self.GENERAL_ACC: 'contains_general_safety_info_accelerators',
-            self.LASER : 'contains_laser_safety'
+            self.LASER : 'contains_laser_safety',
             self.CRANE : 'contains_crane_license',
             self.FORKLIFT : 'contains_forklift_license',
             self.HAZARDOUS : 'contains_hazardous_materials_instrucions'            
