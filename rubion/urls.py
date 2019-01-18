@@ -17,7 +17,7 @@ from userinput import urls as userinput_urls
 from rubauth import urls as rubauth_urls
 from rubauth.views import logout
 urlpatterns = [
-    url(r'^django-admin/', include(admin.site.urls)),
+    url(r'^django-admin/', admin.site.urls),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^rubionadmin/', include(rubionadmin_urls, namespace='rubionadmin')),
     url(r'^coursesadmin/', include(courses_urls, namespace='coursesadmin')),
