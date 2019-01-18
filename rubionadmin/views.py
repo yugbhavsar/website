@@ -26,9 +26,9 @@ from rubion.utils import iso_to_gregorian
 from userinput.models import Project, WorkGroup, RUBIONUser
 from userdata.models import StaffUser
 
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
-from wagtail.wagtailcore.models import PageRevision, UserPagePermissionsProxy
+from wagtail.admin import messages
+from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.core.models import PageRevision, UserPagePermissionsProxy
 
 from website.models import EMailText, is_beirat
 from website.utils import send_mail

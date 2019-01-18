@@ -1,4 +1,4 @@
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 from django.utils.html import format_html_join, format_html
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType

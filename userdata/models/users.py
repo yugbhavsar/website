@@ -18,14 +18,14 @@ from rubion.helpers import get_unique_value
 
 from userinput.models import RUBIONUser
 
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, MultiFieldPanel,
     FieldRowPanel, InlinePanel
 )
-from wagtail.wagtailcore.models import Page, Orderable, ClusterableModel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.core.models import Page, Orderable, ClusterableModel
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
 
 from website.decorators import simple_panels, only_content
 from website.models import AbstractContainerPage, TranslatedPage, ChildMixin, TranslatedField

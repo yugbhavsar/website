@@ -14,11 +14,11 @@ from django.utils.translation import ugettext as _
 
 import uuid 
 
-from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Page, PageRevision
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.admin.edit_handlers import StreamFieldPanel
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Page, PageRevision
+from wagtail.snippets.models import register_snippet
 
 from website.decorators import default_panels
 from website.models import (

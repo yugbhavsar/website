@@ -3,13 +3,13 @@ from django.utils.translation import ugettext as _
 
 
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.wagtailcore.blocks import (
+from wagtail.core.blocks import (
     CharBlock, RichTextBlock, FieldBlock, 
     StructBlock, StreamBlock, ListBlock, 
     ChoiceBlock, PageChooserBlock, RawHTMLBlock
 )
-from wagtail.wagtaildocs.blocks import DocumentChooserBlock
-from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.images.blocks import ImageChooserBlock
 
 
 

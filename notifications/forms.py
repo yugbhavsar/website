@@ -1,5 +1,5 @@
 from django import forms
-from wagtail.wagtailadmin.widgets import AdminDateInput, AdminTimeInput
+from wagtail.admin.widgets import AdminDateInput, AdminTimeInput
 
 class EmergencyPowerNotificationForm( forms.Form ):
     date = forms.DateField( widget = AdminDateInput() )

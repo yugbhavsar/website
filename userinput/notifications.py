@@ -6,7 +6,7 @@ from notifications.models import (
 from notifications.register import register_notification
 
 from userdata.models import SafetyInstructionsSnippet
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.snippets.models import register_snippet
 
 
 class RUBIONUserAddedNotification( AbstractRUBIONNotification ):

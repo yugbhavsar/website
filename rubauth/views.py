@@ -7,12 +7,12 @@ from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailadmin.utils import (
+from wagtail.admin import messages
+from wagtail.admin.utils import (
     any_permission_required, permission_denied, 
     permission_required
 )
-from wagtail.wagtailusers.wagtail_hooks import add_user_perm
+from wagtail.users.wagtail_hooks import add_user_perm
 
 
 

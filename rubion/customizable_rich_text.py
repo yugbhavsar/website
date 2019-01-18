@@ -1,7 +1,7 @@
-from wagtail.wagtailadmin.rich_text import HalloRichTextArea
+from wagtail.admin.rich_text import HalloRichTextArea
 from django.forms import Media, widgets
 from django.contrib.staticfiles.templatetags.staticfiles import static
-from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
+from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.utils.widgets import WidgetWithScript
 import json
 

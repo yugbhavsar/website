@@ -11,11 +11,11 @@ from notifications.admin_panels import NotificationPanel
 
 from userinput.admin_panels import UserKeyApplicationPanel
 
-from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.admin.menu import MenuItem
 from wagtail.contrib.modeladmin.options import (
     modeladmin_register, ModelAdminGroup)
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailadmin.menu import MenuItem, SubmenuMenuItem, Menu as AdminMenu
+from wagtail.core import hooks
+from wagtail.admin.menu import MenuItem, SubmenuMenuItem, Menu as AdminMenu
 
 from website.models import Menu
 

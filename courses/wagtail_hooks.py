@@ -18,8 +18,8 @@ from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, modeladmin_register
 )
 
-from wagtail.wagtailadmin.menu import MenuItem
-from wagtail.wagtailcore.models import PageViewRestriction
+from wagtail.admin.menu import MenuItem
+from wagtail.core.models import PageViewRestriction
 
 
 

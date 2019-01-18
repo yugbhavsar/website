@@ -4,8 +4,8 @@ from django.utils.translation import ugettext as _
 
 
 from wagtail.contrib.modeladmin.views import IndexView
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailsnippets.views.snippets import get_snippet_edit_handler
+from wagtail.admin import messages
+from wagtail.snippets.views.snippets import get_snippet_edit_handler
 
 from .models import SafetyInstructionUserRelation
 class Project2NuclideIndexView( IndexView ):

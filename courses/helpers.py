@@ -8,7 +8,7 @@ from django.utils.translation import ugettext as _
 from django.urls import reverse
 
 from wagtail.contrib.modeladmin.helpers import ButtonHelper
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 class AttendeeButtonHelper (ButtonHelper):
     delete_from_waitlist_button_classnames = []

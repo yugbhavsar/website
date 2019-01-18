@@ -22,17 +22,17 @@ from userinput.relations import (
 )
 
 
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, MultiFieldPanel, FieldRowPanel,
     PageChooserPanel, InlinePanel, TabbedInterface, ObjectList
 )
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Page, Site
-from wagtail.wagtailimages.edit_handlers import (
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Page, Site
+from wagtail.images.edit_handlers import (
     ImageChooserPanel
 )
 
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.snippets.models import register_snippet
 
 from website.models import TranslatedField, EMailText, KontaktZentralerStrahlenschutz
 

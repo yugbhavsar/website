@@ -49,18 +49,18 @@ import uuid
 from userinput.models import RUBIONUser
 
 
-from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, FieldRowPanel, MultiFieldPanel, InlinePanel,
     TabbedInterface, ObjectList, StreamFieldPanel
 )
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Orderable, PageViewRestriction
-from wagtail.wagtaildocs.models import get_document_model
-from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Orderable, PageViewRestriction
+from wagtail.documents.models import get_document_model
+from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.snippets.models import register_snippet
 
 
 from website.models import (

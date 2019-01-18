@@ -33,15 +33,15 @@ from ugc.models import (
     UGCMainContainer2
 )
 
-from wagtail.contrib.wagtailroutablepage.models import route
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.contrib.routable_page.models import route
+from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, MultiFieldPanel,
     FieldRowPanel, InlinePanel, TabbedInterface, 
     ObjectList, PageChooserPanel 
 )
-from wagtail.wagtailcore.models import Orderable, Page, PageRevision
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.core.models import Orderable, Page, PageRevision
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
 
 from website.decorators import only_content, default_panels
 from website.models import ( 

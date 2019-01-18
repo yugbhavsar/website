@@ -5,15 +5,15 @@ from importlib import import_module
 from django.db import models
 from django.shortcuts import redirect
 from django import forms
-from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from website.models import TranslatedPage
-from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+from wagtail.admin.forms import WagtailAdminPageForm
 from rubion.helpers import bases, distinct_no_order, get_unique_value
 from django.template.defaultfilters import slugify
 from collections import OrderedDict
 from django.utils.translation import ugettext as _
 from website.decorators import only_content
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel
 )
 from django.template.response import TemplateResponse

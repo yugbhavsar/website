@@ -1,7 +1,7 @@
 from .models import UGCCreatePage2
 
 from wagtail.contrib.modeladmin.options import modeladmin_register
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 
 from rubionadmin.admin import HiddenModelAdmin
 

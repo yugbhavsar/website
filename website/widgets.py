@@ -2,7 +2,7 @@ from django import forms
 
 from website.models import TermsAndConditionsPages
 
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 
 class StyledCheckbox(forms.widgets.CheckboxInput):

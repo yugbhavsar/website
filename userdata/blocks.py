@@ -1,4 +1,4 @@
-from wagtail.wagtailcore.blocks import StructBlock, ListBlock, StreamBlock, CharBlock
+from wagtail.core.blocks import StructBlock, ListBlock, StreamBlock, CharBlock
 from django.utils.translation import ugettext as _
 
 

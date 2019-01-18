@@ -9,7 +9,7 @@ from instruments.models import InstrumentByProjectBooking, MethodsByProjectBooki
 
 from userinput.models import WorkGroup, Project, UserComment
 
-from wagtail.wagtailcore.models import UserPagePermissionsProxy
+from wagtail.core.models import UserPagePermissionsProxy
 
 
 

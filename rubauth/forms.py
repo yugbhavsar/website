@@ -1,4 +1,4 @@
-from wagtail.wagtailusers.forms import UsernameForm
+from wagtail.users.forms import UsernameForm
 
 from .auth import fetch_user_info, LDAPBackend
 

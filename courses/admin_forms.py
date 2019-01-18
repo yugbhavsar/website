@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _l
 
 
 
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 class CourseDescriptionChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):

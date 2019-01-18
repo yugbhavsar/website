@@ -19,7 +19,7 @@ from wagtail.contrib.modeladmin.options import (
     modeladmin_register, ModelAdmin, ModelAdminGroup
 )
 
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 from website.mixins import ForcedModelAdminForPageModels
 
 

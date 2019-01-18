@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.snippets.models import register_snippet
 # Create your models here.
 
 

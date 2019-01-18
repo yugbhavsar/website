@@ -17,7 +17,7 @@ from django.views import View
 
 
 from wagtail.contrib.modeladmin.views import ChooseParentView, InspectView
-from wagtail.wagtailadmin import messages
+from wagtail.admin import messages
 
 class AddCourseChooseCourseInfoView( ChooseParentView ):
     def get_context_data( self, *args, **kwargs ):

@@ -1,5 +1,5 @@
 from django.db import models
-from wagtail.wagtailforms.models import AbstractForm
+from wagtail.contrib.forms.models import AbstractForm
 from django.utils.translation import ugettext as _
 import uuid
 from django.template.defaultfilters import slugify

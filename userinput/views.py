@@ -24,7 +24,7 @@ from userdata.models import StaffUser, SafetyInstructionsSnippet, SafetyInstruct
 from ugc.models import UserGeneratedContent2
 
 from wagtail.contrib.modeladmin.helpers.permission import PermissionHelper
-from wagtail.wagtailcore.models import PageRevision, UserPagePermissionsProxy
+from wagtail.core.models import PageRevision, UserPagePermissionsProxy
 
 
 @login_required

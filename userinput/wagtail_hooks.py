@@ -47,9 +47,9 @@ from wagtail.contrib.modeladmin.helpers.button import ButtonHelper
 from wagtail.contrib.modeladmin.helpers.url import PageAdminURLHelper
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, modeladmin_register, ModelAdminGroup)
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailcore.models import PageRevision, PageQuerySet, PageManager
-from wagtail.wagtailcore.signals import page_published
+from wagtail.core import hooks
+from wagtail.core.models import PageRevision, PageQuerySet, PageManager
+from wagtail.core.signals import page_published
 
 from website.mixins import ForcedModelAdminForPageModels
 

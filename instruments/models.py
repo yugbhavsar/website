@@ -19,13 +19,13 @@ from userdata.mixins import (
 
 from userinput.models import Project, RUBIONUser
 
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, MultiFieldPanel, FieldRowPanel,
     StreamFieldPanel, InlinePanel
 )
-from wagtail.wagtailcore.models import Orderable, ClusterableModel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.core.models import Orderable, ClusterableModel
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
 
 from website.models import (
     AbstractContainerPage, AbstractChildPage, TranslatedField

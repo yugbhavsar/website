@@ -36,15 +36,15 @@ from userdata.mixins import (
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, MultiFieldPanel,
     PageChooserPanel, InlinePanel, FieldRowPanel,
     TabbedInterface, ObjectList
 )
-from wagtail.wagtailcore.fields import StreamField
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch import index
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.core.fields import StreamField
+from wagtail.core.models import Page
+from wagtail.search import index
+from wagtail.snippets.models import register_snippet
 
 
 class TranslatedField(object):

@@ -1,14 +1,14 @@
 """Decorators often used for page models"""
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, MultiFieldPanel,
     PageChooserPanel, InlinePanel, FieldRowPanel
 )
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     TabbedInterface, ObjectList
 )
 from django.utils.translation import ugettext as _
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch import index
+from wagtail.core.models import Page
+from wagtail.search import index
 
 def default_panels( cls ):
     panels = [

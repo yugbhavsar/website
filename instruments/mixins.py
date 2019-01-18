@@ -13,11 +13,11 @@ from django.utils.translation import ugettext as _
 
 from rubion.utils import iso_to_gregorian
 
-from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailcore.models import Orderable
-from wagtail.wagtaildocs.models import Document
-from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.core.models import Orderable
+from wagtail.documents.models import Document
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 from website.models import TranslatedField
 

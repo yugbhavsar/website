@@ -10,7 +10,7 @@ from django.urls import reverse
 
 import json
 
-from wagtail.wagtailadmin.modal_workflow import render_modal_workflow
+from wagtail.admin.modal_workflow import render_modal_workflow
 
 
 def notification_seen( request, notification_id ):

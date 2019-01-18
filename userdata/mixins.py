@@ -1,9 +1,9 @@
 """Some handy mixins related to users"""
 from django.db import models
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.admin.edit_handlers import FieldPanel
 from django.utils.translation import ugettext as _
-from wagtail.wagtailcore.models import Orderable
-from wagtail.wagtailforms.models import AbstractForm
+from wagtail.core.models import Orderable
+from wagtail.contrib.forms.models import AbstractForm
 from django.shortcuts import render
 from django.core.mail import send_mail
 from django.template.loader import render_to_string

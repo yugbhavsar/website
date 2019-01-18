@@ -1,7 +1,7 @@
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin
 )
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 
 
 

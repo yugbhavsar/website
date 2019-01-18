@@ -1,6 +1,6 @@
 from wagtail.contrib.modeladmin.helpers import PageButtonHelper
 from wagtail.contrib.modeladmin.options import ModelAdmin
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 
 # Register your models here.
 

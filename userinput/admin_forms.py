@@ -5,7 +5,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 class WorkgroupChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):

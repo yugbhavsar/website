@@ -16,17 +16,17 @@ from importlib import import_module
 
 from rubion.helpers import bases, distinct_no_order
 
-from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
-from wagtail.wagtailadmin.forms import WagtailAdminPageForm
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Orderable, Page, PageRevision
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Orderable, Page, PageRevision
 
 from website.decorators import only_content
 from website.models import (
     TranslatedPage, ChildMixin, OptionalIntroductionMixin,
     SidebarContentMixin
 )
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel
 )
 

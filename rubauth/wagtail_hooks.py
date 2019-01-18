@@ -1,8 +1,8 @@
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 from .views import create
-from wagtail.wagtailadmin.menu import MenuItem
+from wagtail.admin.menu import MenuItem
 from django.core.urlresolvers import reverse
-from wagtail.wagtailusers.wagtail_hooks import add_user_perm
+from wagtail.users.wagtail_hooks import add_user_perm
 from django.conf.urls import url, include
 from django.utils.translation import ugettext as _
 import rubauth.admin_urls 

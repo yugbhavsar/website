@@ -1,7 +1,7 @@
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin.forms import WagtailAdminPageForm
+from wagtail.admin.forms import WagtailAdminPageForm
 
 class RUBIONUserAdminEditForm( WagtailAdminPageForm ):
 

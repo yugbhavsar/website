@@ -6,12 +6,12 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 
 from search import views as search_views
-from wagtail.wagtailadmin import urls as wagtailadmin_urls
+from wagtail.admin import urls as wagtailadmin_urls
 from rubionadmin import urls as rubionadmin_urls
 from courses import admin_urls as courses_urls
 from courses import urls as courses_user_urls
-from wagtail.wagtailcore import urls as wagtail_urls
-from wagtail.wagtaildocs import urls as wagtaildocs_urls
+from wagtail.core import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
 #from userdata import validation_urls, ugc_urls
 from userinput import urls as userinput_urls
 from rubauth import urls as rubauth_urls

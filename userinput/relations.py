@@ -1,11 +1,11 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, MultiFieldPanel, FieldRowPanel,
     PageChooserPanel
 )
-from wagtail.wagtailcore.models import Orderable
+from wagtail.core.models import Orderable
 
 class AbstractRelatedWorkgroup( Orderable ):
     page = models.ForeignKey(

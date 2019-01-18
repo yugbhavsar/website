@@ -8,7 +8,7 @@ from rubionadmin.admin import NoCopyButtonHelper, NoCopyNoDelButtonHelper
 from userdata.models import StaffUser
 
 from wagtail.contrib.modeladmin.helpers import PermissionHelper
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 class RUBIONUserButtonHelper(NoCopyButtonHelper):
     badge_button_classnames = []

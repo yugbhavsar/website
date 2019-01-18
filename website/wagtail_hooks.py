@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _l
 
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, modeladmin_register)
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 
 from .models import SentMail
 

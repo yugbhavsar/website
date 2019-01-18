@@ -1,20 +1,20 @@
 # from django.db import models
 # from django import forms
-# from wagtail.wagtailforms.models import AbstractFormField, AbstractForm
-# from wagtail.wagtailcore.models import Orderable, Page, PageViewRestriction
+# from wagtail.contrib.forms.models import AbstractFormField, AbstractForm
+# from wagtail.core.models import Orderable, Page, PageViewRestriction
 # from modelcluster.fields import ParentalKey
 # from django.utils import translation
-# from wagtail.wagtailsnippets.models import register_snippet
-# from wagtail.wagtailadmin.edit_handlers import (
+# from wagtail.snippets.models import register_snippet
+# from wagtail.admin.edit_handlers import (
 #     FieldPanel, FieldRowPanel, MultiFieldPanel, InlinePanel,
 #     StreamFieldPanel
 # )
 # from django.utils.translation import ugettext as _
 # from modelcluster.models import ClusterableModel
-# from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+# from wagtail.snippets.edit_handlers import SnippetChooserPanel
 # from collections import OrderedDict
 # from userdata.blocks import DataStreamBlock
-# from wagtail.wagtailcore.fields import StreamField
+# from wagtail.core.fields import StreamField
 # from django.utils.text import slugify
 # from django.shortcuts import render
 # from website.models import TranslatedField, TranslatedPage

@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext as _
 
-from wagtail.wagtailadmin.widgets import AdminDateTimeInput
+from wagtail.admin.widgets import AdminDateTimeInput
 
 class RejectionForm ( forms.Form ):
     reasons_de = forms.CharField(
