@@ -1,7 +1,7 @@
 from wagtail.core import hooks
 from .views import create
 from wagtail.admin.menu import MenuItem
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from wagtail.users.wagtail_hooks import add_user_perm
 from django.conf.urls import url, include
 from django.utils.translation import ugettext as _
