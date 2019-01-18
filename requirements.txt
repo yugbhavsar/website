@@ -1,2 +1,10 @@
 Django>=1.11,<1.12
 wagtail>=1.13,<1.14
+wagtailfontawesome
+psycopg2
+dateutils
+ldap3
+reportlab
+PyPDF2
+xlsxwriter
+holidays
