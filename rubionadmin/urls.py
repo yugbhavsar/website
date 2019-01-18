@@ -15,7 +15,7 @@ from userinput.views import (
     user_safety_instruction_add, user_safety_instruction_del, 
     set_safety_instruction_date
 )
-
+app_name = 'rubionadmin'
 urlpatterns = [
     #
     # Moderation of workgroups and projects
