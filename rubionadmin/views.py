@@ -4,7 +4,7 @@ import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseNotAllowed, JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
