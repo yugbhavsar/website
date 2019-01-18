@@ -868,7 +868,8 @@ class Beirat( BaseSetting ):
         related_name = 'prof_naturalsciences_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     prof_natural_staffuser = models.ForeignKey(
@@ -876,7 +877,9 @@ class Beirat( BaseSetting ):
         related_name = 'prof_naturalsciences_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
+        
     )
 
     prof_natural_ruser2 = models.ForeignKey(
@@ -884,7 +887,8 @@ class Beirat( BaseSetting ):
         related_name = 'prof_naturalsciences2_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     prof_natural_staffuser2 = models.ForeignKey(
@@ -892,7 +896,8 @@ class Beirat( BaseSetting ):
         related_name = 'prof_naturalsciences2_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
     )
 
     # engineering
@@ -902,7 +907,8 @@ class Beirat( BaseSetting ):
         related_name = 'prof_engin_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     prof_engin_staffuser = models.ForeignKey(
@@ -910,7 +916,8 @@ class Beirat( BaseSetting ):
         related_name = 'prof_engin_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
     )
 
     prof_engin_ruser2 = models.ForeignKey(
@@ -918,7 +925,8 @@ class Beirat( BaseSetting ):
         related_name = 'prof_engin2_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     prof_engin_staffuser2 = models.ForeignKey(
@@ -926,7 +934,8 @@ class Beirat( BaseSetting ):
         related_name = 'prof_engin2_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
     )
     
     # medicine
@@ -936,7 +945,8 @@ class Beirat( BaseSetting ):
         related_name = 'prof_medicine_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     prof_medicine_staffuser = models.ForeignKey(
@@ -944,7 +954,8 @@ class Beirat( BaseSetting ):
         related_name = 'prof_medicine_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
     )
 
     prof_medicine_ruser2 = models.ForeignKey(
@@ -952,7 +963,8 @@ class Beirat( BaseSetting ):
         related_name = 'prof_medicine2_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     prof_medicine_staffuser2 = models.ForeignKey(
@@ -960,7 +972,8 @@ class Beirat( BaseSetting ):
         related_name = 'prof_medicine2_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
     )
 
     # scientific staff
@@ -970,7 +983,8 @@ class Beirat( BaseSetting ):
         related_name = 'scientificstaff_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     scie_staffuser = models.ForeignKey(
@@ -978,7 +992,8 @@ class Beirat( BaseSetting ):
         related_name = '+',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
     )
 
     scie_ruser2 = models.ForeignKey(
@@ -986,7 +1001,8 @@ class Beirat( BaseSetting ):
         related_name = '+',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     scie_staffuser2 = models.ForeignKey(
@@ -994,7 +1010,8 @@ class Beirat( BaseSetting ):
         related_name = 'scientificstaff2_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
     )
 
     # technicians
@@ -1004,7 +1021,8 @@ class Beirat( BaseSetting ):
         related_name = 'technician_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     tech_staffuser = models.ForeignKey(
@@ -1012,7 +1030,8 @@ class Beirat( BaseSetting ):
         related_name = 'technician_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
     )
 
     tech_ruser2 = models.ForeignKey(
@@ -1020,7 +1039,8 @@ class Beirat( BaseSetting ):
         related_name = 'technician2_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     tech_staffuser2 = models.ForeignKey(
@@ -1028,7 +1048,8 @@ class Beirat( BaseSetting ):
         related_name = 'technician2_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
     )
 
 
@@ -1039,7 +1060,8 @@ class Beirat( BaseSetting ):
         related_name = 'student_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     stud_staffuser = models.ForeignKey(
@@ -1047,7 +1069,8 @@ class Beirat( BaseSetting ):
         related_name = 'student_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
     )
 
     stud_ruser2 = models.ForeignKey(
@@ -1055,7 +1078,8 @@ class Beirat( BaseSetting ):
         related_name = 'student2_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
 
     stud_staffuser2 = models.ForeignKey(
@@ -1063,7 +1087,8 @@ class Beirat( BaseSetting ):
         related_name = 'student2_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff User')
+        verbose_name = _l('Connected Staff User'),
+        on_delete = models.CASCADE
     )
 
     # others
@@ -1074,14 +1099,16 @@ class Beirat( BaseSetting ):
         related_name = 'other_persons_1_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
     other1_su = models.ForeignKey(
         'userdata.StaffUser',
         related_name = 'other_persons_1_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff')
+        verbose_name = _l('Connected Staff'),
+        on_delete = models.CASCADE
     )
 
     other1_role_de = models.CharField(
@@ -1103,14 +1130,16 @@ class Beirat( BaseSetting ):
         related_name = 'other_persons_2_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
     other2_su = models.ForeignKey(
         'userdata.StaffUser',
         related_name = 'other_persons_2_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff')
+        verbose_name = _l('Connected Staff'),
+        on_delete = models.CASCADE
     )
 
     other2_role_de = models.CharField(
@@ -1132,14 +1161,16 @@ class Beirat( BaseSetting ):
         related_name = 'other_persons_3_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
     other3_su = models.ForeignKey(
         'userdata.StaffUser',
         related_name = 'other_persons_3_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff')
+        verbose_name = _l('Connected Staff'),
+        on_delete = models.CASCADE
     )
 
     other3_role_de = models.CharField(
@@ -1161,14 +1192,16 @@ class Beirat( BaseSetting ):
         related_name = 'other_persons_4_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
     other4_su = models.ForeignKey(
         'userdata.StaffUser',
         related_name = 'other_persons_4_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff')
+        verbose_name = _l('Connected Staff'),
+        on_delete = models.CASCADE
     )
 
 
@@ -1192,14 +1225,16 @@ class Beirat( BaseSetting ):
         related_name = 'other_persons_5_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
     other5_su = models.ForeignKey(
         'userdata.StaffUser',
         related_name = 'other_persons_5_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff')
+        verbose_name = _l('Connected Staff'),
+        on_delete = models.CASCADE
     )
 
 
@@ -1224,14 +1259,16 @@ class Beirat( BaseSetting ):
         related_name = 'other_persons_6_ru',
         blank = True,
         null = True,
-        verbose_name = _l('Connected RUBION User')
+        verbose_name = _l('Connected RUBION User'),
+        on_delete = models.CASCADE
     )
     other6_su = models.ForeignKey(
         'userdata.StaffUser',
         related_name = 'other_persons_6_su',
         blank = True,
         null = True,
-        verbose_name = _l('Connected Staff')
+        verbose_name = _l('Connected Staff'),
+        on_delete = models.CASCADE
     )
 
     other6_role_de = models.CharField(
