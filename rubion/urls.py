@@ -19,7 +19,7 @@ from rubauth.views import logout
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
     url(r'^admin/', include(wagtailadmin_urls)),
-    url(r'^rubionadmin/', include(rubionadmin_urls, namespace='rubionadmin')),
+    url(r'^rubionadmin/', include(rubionadmin_urls)),
     url(r'^coursesadmin/', include(courses_urls, namespace='coursesadmin')),
     url(r'^manage-courses/', include(courses_user_urls, namespace='manage-courses')),
     url(r'^documents/', include(wagtaildocs_urls)),
