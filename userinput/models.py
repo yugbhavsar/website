@@ -1743,9 +1743,10 @@ class AbstractNuclideRelation( Orderable ):
    snippet = models.ForeignKey(
        'userinput.Nuclide',
        related_name = 'related_nuclides',
-       verbose_name = _('Isotope')
+       verbose_name = _('Isotope'),
+       on_delete = models.CASCADE
    )
-
+   
    panels = [ 
        SnippetChooserPanel('snippet')
    ]
@@ -1756,7 +1757,8 @@ class AbstractNuclideRelation( Orderable ):
 class AbstractThesisRelation( Orderable ):
     snippet = models.ForeignKey(
         'userinput.ThesisSnippet',
-        related_name = 'related_theses'
+        related_name = 'related_theses',
+        on_delete = models.CASCADE
     )
     panels = [
         SnippetChooserPanel('snippet')
@@ -1767,7 +1769,9 @@ class AbstractThesisRelation( Orderable ):
 class AbstractPublicationRelation( Orderable ):
     snippet = models.ForeignKey(
         'userinput.PublicationSnippet',
-        related_name = 'related_publications'
+        related_name = 'related_publications',
+        on_delete = models.CASCADE
+        
     )
     panels = [
         SnippetChooserPanel('snippet')
@@ -1778,7 +1782,8 @@ class AbstractPublicationRelation( Orderable ):
 class AbstractFundingRelation( Orderable ):
     snippet = models.ForeignKey(
         'userinput.FundingSnippet',
-        related_name = 'related_fundings'
+        related_name = 'related_fundings',
+        on_delete = models.CASCADE
     )
     panels = [
         SnippetChooserPanel('snippet')
@@ -2023,13 +2028,13 @@ class ListOfProjectsPage ( AbstractContainerPage ):
 
 @register_snippet
 class UserComment ( models.Model ):
-    page = models.ForeignKey( Page )
+    page = models.ForeignKey( Page, on_delete = models.CASCADE )
     text = models.TextField() 
     created_at = models.DateTimeField(
         auto_now_add = True
     )
     is_creatable = False
-
+    
     
 @register_snippet
 class Nuclide ( models.Model ):
