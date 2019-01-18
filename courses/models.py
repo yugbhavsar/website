@@ -1296,7 +1296,10 @@ class DataSharingPage ( TranslatedPage ):
     ])
 
 class SharedData ( Orderable ):
-    file_link = models.ForeignKey(get_document_model())
+    file_link = models.ForeignKey(
+        get_document_model(),
+        on_delete = models.CASCADE 
+    )
     uploaded_on = models.DateTimeField()
     uploaded_by = models.CharField( 
         max_length = 128,

@@ -2,10 +2,12 @@ from .filters import IsotopeFilter, GroupFilter, ProjectActiveFilter, SafetyRela
 from .models.users import StaffUser, UserContainer, SafetyInstructionUserRelation, SafetyInstructionsSnippet
 from .model_admin import SafetyModelAdmin
 from .admin_views import Project2NuclideIndexView
-from .urls import urls
+#from .urls import urls
 
-from django.conf.urls import include, url
+from django.conf.urls import url
+
 from django.template.loader import render_to_string
+from django.urls import include
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
@@ -28,7 +30,7 @@ from website.mixins import ForcedModelAdminForPageModels
 @hooks.register('register_admin_urls')
 def register_admin_urls():
     return [
-        url(r'^snippets/', include(urls, app_name='userdata', namespace='userdata') )
+        url(r'^snippets/', include('userdata.urls'))#urls, app_name='userdata', namespace='userdata') )
     ]
 
 class NoButtonHelper ( ButtonHelper ):
