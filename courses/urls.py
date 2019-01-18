@@ -7,6 +7,8 @@ from .views import (
 
 from django.conf.urls import url
 
+app_name = 'courses'
+
 urlpatterns = [
     url(r'^w2c/agree/(?P<uuid>[0-9a-f]{8}\-[0-9a-f]{4}\-4[0-9a-f]{3}\-[89ab][0-9a-f]{3}\-[‌​0-9a-f]{12})/$', agree_add2course, name ='agree_add2course'),
     url(r'^w2c/refuse/(?P<uuid>[0-9a-f]{8}\-[0-9a-f]{4}\-4[0-9a-f]{3}\-[89ab][0-9a-f]{3}\-[‌​0-9a-f]{12})/$', reject_add2course, name ='reject_add2course'),
