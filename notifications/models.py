@@ -180,7 +180,7 @@ class News2InstrumentRelation( AbstractRelatedInstrument ):
 
 
 class PageNotificationCounter( models.Model ):
-    page = models.ForeignKey( Page )
+    page = models.ForeignKey( Page, on_delete=models.CASCADE )
     count = models.IntegerField( default = 0 )
 
     def increase(self):
@@ -198,7 +198,8 @@ class StaffNotificationSettings( ClusterableModel ):
     user = models.ForeignKey(
         StaffUser,
         verbose_name = _('Connected user'),
-        help_text = _('User who recieves the notification')
+        help_text = _('User who recieves the notification'),
+        on_delete=models.CASCADE
     )
 
     # - Event-Kürzel
@@ -322,7 +323,10 @@ class Notification2InstrumentRelation( AbstractRelatedInstrument ):
 # Create-notification has already been send.
 # Works with models inherited from Page
 class CreateNotificationHelper( models.Model ):
-    page = models.ForeignKey(Page)
+    page = models.ForeignKey(
+        Page,
+        on_delete=models.CASCADE
+    )
     sent = models.BooleanField()
 
     @staticmethod
@@ -342,7 +346,11 @@ class StaffNotification( models.Model ):
     # Show to which Staff member
     # Had to set the related_name property to get rid of a clash which I did
     # not understand
-    staff = models.ForeignKey(StaffUser, related_name = 'staff')
+    staff = models.ForeignKey(
+        StaffUser,
+        related_name = 'staff',
+        on_delete=models.CASCADE
+    )
     
     # We could use this flag instead of deleting the entry
     has_been_seen = models.BooleanField ( default = False )
@@ -351,7 +359,11 @@ class StaffNotification( models.Model ):
     notification = models.CharField(max_length = 64)
 
     # page 
-    page = models.ForeignKey(Page)
+    page = models.ForeignKey(
+        Page,
+        on_delete=models.CASCADE
+    )
+    
         
     def __str__(self):
         return "{} for {}".format(str(self.notification), str(self.staff))
@@ -477,14 +489,16 @@ class CentralRadiationSafetyDataSubmission( models.Model ):
         related_name = 'central_radiation_safety_data_submissions',
         verbose_name = _('Connected RUBION user'),
         blank = True,
-        null = True
+        null = True,
+        on_delete=models.CASCADE
     )
     staff = models.ForeignKey(
         'userdata.StaffUser',
         related_name = 'central_radiation_safety_data_submissions',
         verbose_name = _('Connected staff'),
         blank = True,
-        null = True
+        null = True,
+        on_delete=models.CASCADE
     )
 
     date = models.DateTimeField(
@@ -496,7 +510,8 @@ class CentralRadiationSafetyDataSubmission( models.Model ):
         verbose_name = _('The sent mail'),
         related_name = '+',
         blank = True,
-        null = True
+        null = True,
+        on_delete=models.CASCADE
     )
 
     def send_and_save( self, revision = False ):
