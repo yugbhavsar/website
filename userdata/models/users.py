@@ -390,11 +390,13 @@ class StaffRoles( ClusterableModel ):
 
 class StaffUser2RoleRelation( Orderable ):
      roles = ParentalKey(
-         'StaffUser', related_name = 'roles'
+         'StaffUser', related_name = 'roles',
+         
      )
     
      role = models.ForeignKey(
          StaffRoles,
+         on_delete = models.CASCADE
      )
      
      show_in_list = models.BooleanField(
@@ -491,10 +493,21 @@ class SafetyInstructionUserRelation( models.Model ):
     class Meta:
         verbose_name = _( 'Safety instruction dates for user' )
 
-    rubion_user = models.ForeignKey( RUBIONUser, blank = True, null = True )
-    rubion_staff = models.ForeignKey( StaffUser, blank = True, null = True )
+    rubion_user = models.ForeignKey(
+        RUBIONUser,
+        blank = True, null = True,
+        on_delete = models.CASCADE
+    )
+    rubion_staff = models.ForeignKey(
+        StaffUser,
+        blank = True, null = True,
+        on_delete = models.CASCADE
+    )
     date = models.DateField()
-    instruction = models.ForeignKey( SafetyInstructionsSnippet )
+    instruction = models.ForeignKey(
+        SafetyInstructionsSnippet,
+        on_delete = models.CASCADE
+    )
 
 
     def save( self ):
