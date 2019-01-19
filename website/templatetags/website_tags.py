@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django import template
 from django.conf import settings
-from django.core.urlresolvers import resolve, translate_url 
+from django.urls import resolve, translate_url 
 from django.db.models import Q
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -35,7 +35,7 @@ def get_login_url():
     else:
         return ''
 
-@register.assignment_tag( takes_context = True )
+@register.simple_tag( takes_context = True )
 def get_site_root( context ):
     return context['request'].site.root_page
 
