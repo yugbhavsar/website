@@ -7,7 +7,7 @@ since a lot of different attendees exist.
 Attendees are *not* be implemented as Pages since they only show up in the admin.
 '''
 
-from .attendees import register_attendee, get_attendee_class
+from .attendees import register_attendee, get_attendee_class, ATTENDEE_TYPES
 from .pdfhandling import RUBIONCourseInvoice
 from .widgets  import AttendeeSelectWidget
 
@@ -585,6 +585,7 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
 
     @route(r'^success/(\d+)/$', name = "success")
     def success( self, request, attendee_id ):
+        
         attendee = get_object_or_404(CourseAttendee, id = attendee_id )
         if attendee.confirmation_mail_sent:
             raise Http404
@@ -657,7 +658,23 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
         )
 
     def send_invoice(self, attendee):
-        if attendee.amount == 0:
+
+        # get the specific course attendee object
+        for att in ATTENDEE_TYPES:
+            print ('Testing {}\n'.format(att))
+            Kls = get_attendee_class(att.identifier)
+            try: 
+                s_att = Kls.objects.get( courseattendee_ptr_id = attendee.id )
+                break
+            except Kls.DoesNotExist:
+                pass
+
+        attendee = s_att
+        try:   
+            if attendee.amount == 0:
+                return
+        except AttributeError:
+            print ('Amount test failed.')
             return
 
         parent = self.get_parent().specific
@@ -681,7 +698,17 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
             lang = 'de'
         )
 
-
+        # Should mails be sent automatically or manually?
+        # I guess we said manually, at least in the beginning.
+        
+        #MAILTEXT = EMailText.objects.get(identifier = 'courses.attendee.invoice' ) 
+        #mailtext.send(
+        #    attendee.email,
+        #    {
+        #        'attendee': attendee,
+        #        'course' : self
+        #    }
+        #)
 
     def get_data_sharing_page( self ):
         if DataSharingPage.objects.child_of(self).exists():
