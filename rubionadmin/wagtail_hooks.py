@@ -123,7 +123,7 @@ def construct_homepage_panels( request, panels ):
 
 class ExportMenuItem(MenuItem):
   def is_shown(self, request):
-    return request.user.has_perm('RubionAdminPermissionSnippet.export_menu')
+    return request.user.has_perm('rubionadmin.export_menu')
 
 @hooks.register('register_admin_menu_item')
 def export_menu_entry():
