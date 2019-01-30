@@ -22,6 +22,8 @@ from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, MultiFieldPanel,
     FieldRowPanel, InlinePanel
 )
+
+from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page, Orderable, ClusterableModel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -251,6 +253,11 @@ class StaffUser ( TranslatedPage ):
         blank = True
     )
 
+    comment = RichTextField(
+        blank = True,
+        verbose_name = _('Commentary')
+    )
+    
     content_panels = [
         MultiFieldPanel([
             FieldRowPanel([
@@ -295,6 +302,7 @@ class StaffUser ( TranslatedPage ):
             ]),
             FieldPanel( 'link' ),
         ], heading = _('links') )
+        FieldPanel( 'comment' )
     ]
     
     @property 
