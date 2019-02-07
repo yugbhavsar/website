@@ -120,7 +120,7 @@ class RUsersExpiredSafetyInstructions( ListFilterWithoutAll ):
             'contains_general_safety_info_radionuclides',
             'contains_general_safety_info_accelerators',
             'contains_p38_safety_info',
-            'contains_laser_safety'
+            'contains_laser_safety',
             'contains_crane_license',
             'contains_forklift_license',
             'contains_hazardous_materials_instrucions'            
