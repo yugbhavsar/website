@@ -5,8 +5,9 @@
     {% include "wagtailadmin/shared/header.html" with title=new_str subtitle=model_opts.verbose_name icon="snippet" tabbed=1 merged=1 %}
 
     <form action="." method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-        {% csrf_token %}
-        {{ edit_handler.render_form_content }}
+      {% csrf_token %}
+      {{ form }}
+       {# {{ edit_handler.render_form_content }}#}
 
         <footer>
             <ul>
