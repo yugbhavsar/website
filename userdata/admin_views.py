@@ -15,7 +15,10 @@ class Project2NuclideIndexView( IndexView ):
 
 def add_safety_relation( request, usertype, uid, iid ):
     edit_handler_cls = get_snippet_edit_handler(SafetyInstructionUserRelation)
-    form_cls = edit_handler_cls.get_form_class(SafetyInstructionUserRelation)
+#    print ('Edit handler class is: {}'.format(edit_handler_cls))
+#    print ('Edit handler class is: {}'.format(edit_handler_cls.__dict__))
+#    edit_handler_cls.bind_to(model=SafetyInstructionUserRelation)
+    form_cls = edit_handler_cls.get_form_class()#)
     initials = {
         'instruction' : iid
     }
@@ -46,7 +49,8 @@ def add_safety_relation( request, usertype, uid, iid ):
             edit_handler = edit_handler_cls(instance=instance, form=form)
     else:
         form = form_cls(instance=instance, initial=initials)
-        edit_handler = edit_handler_cls(instance=instance, form=form)
+#        edit_handler_cls.bind_to(instance=instance, form=form)
+        edit_handler = edit_handler_cls
 
 
     return render(request, 'userdata/admin/safetyinstruction/create.html', {
