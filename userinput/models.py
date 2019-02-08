@@ -1032,7 +1032,6 @@ class RUBIONUser ( UserGeneratedPage2 ):
     rubion_panel =  [
         MultiFieldPanel([
             FieldPanel('dosemeter'), 
-            FieldPanel('needs_safety_instructions', widget=forms.CheckboxSelectMultiple), 
             FieldRowPanel([
                 FieldPanel('labcoat_size'),
                 FieldPanel('overshoe_size'),
@@ -1053,8 +1052,22 @@ class RUBIONUser ( UserGeneratedPage2 ):
     comment_panel = [
         FieldPanel('internal_rubion_comment')
     ]
+
+    si_panel = [
+        FieldPanel('needs_safety_instructions', widget=forms.CheckboxSelectMultiple), 
+        InlinePanel(
+            'rubion_user_si',
+            panels = [
+                FieldRowPanel([
+                    FieldPanel('instruction'),
+                    FieldPanel('date')
+                ])
+            ]
+        )
+    ]
     edit_handler = TabbedInterface([
         ObjectList(rubion_panel, heading=_('Settings set by RUBION') ),
+        ObjectList(si_panel, heading=_('Safety instructions') ),
         ObjectList(comment_panel, heading=_('internal comments') ),
         ObjectList(settings_panel, heading=_('internal settings') ),
         ObjectList(content_panels, heading=_('User Data') ),
