@@ -20,7 +20,8 @@ from userinput.models import RUBIONUser
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, MultiFieldPanel,
-    FieldRowPanel, InlinePanel
+    FieldRowPanel, InlinePanel, TabbedInterface, 
+    ObjectList
 )
 
 from wagtail.core.fields import RichTextField
@@ -31,7 +32,7 @@ from wagtail.snippets.models import register_snippet
 
 from website.decorators import simple_panels, only_content
 from website.models import AbstractContainerPage, TranslatedPage, ChildMixin, TranslatedField
-
+from website.edit_handlers import InlinePanelForForeignKey
 
 
 @simple_panels
@@ -279,9 +280,6 @@ class StaffUser ( TranslatedPage ):
             ]),
             ImageChooserPanel ( 'picture' ),
         ], heading = _( 'additional information')),
-        MultiFieldPanel([
-            FieldPanel('needs_safety_instructions', widget=forms.CheckboxSelectMultiple)
-        ], heading = _('Saftey instructions')),
         InlinePanel('roles', label = _('Staff roles')),
         MultiFieldPanel([
             FieldRowPanel([
@@ -301,9 +299,35 @@ class StaffUser ( TranslatedPage ):
                 FieldPanel('gnd')
             ]),
             FieldPanel( 'link' ),
-        ], heading = _('links') )
+        ], heading = _('links') ),
+
+    ]
+
+    si_panel = [
+        MultiFieldPanel([
+            FieldPanel('needs_safety_instructions', widget=forms.CheckboxSelectMultiple),
+            
+        ], heading = _('Required safety instructions')),
+        MultiFieldPanel([
+             InlinePanel(
+                 'staff_user_si',
+                 panels=[
+                     FieldRowPanel([
+                         FieldPanel('instruction'),
+                         FieldPanel('date')
+                     ], classname='label-above')
+                 ]
+             )
+        ], heading=_('Safety Instruction Dates') )
+    ]
+    
+    comment_panel = [
         FieldPanel( 'comment' )
     ]
+
+
+
+
     
     @property 
     def mail ( self ):
@@ -371,11 +395,22 @@ class StaffUser ( TranslatedPage ):
     def serve( self ):
         raise Http404('The page does not exist')
 
+
+    
+
     class Meta:
         verbose_name = _('staff member')
         verbose_name_plural = _('staff members')
 
 
+# Does not work inside the class for some reason...
+        
+StaffUser.edit_handler = TabbedInterface([
+    ObjectList( StaffUser.content_panels, _('Data')),
+    ObjectList( StaffUser.comment_panel, _('Comments')),
+    ObjectList( StaffUser.si_panel, _('Safety instructions')),
+])
+        
 ### Tasks for Staff Members
 
 @register_snippet
@@ -501,17 +536,18 @@ class SafetyInstructionUserRelation( models.Model ):
     class Meta:
         verbose_name = _( 'Safety instruction dates for user' )
 
-    rubion_user = models.ForeignKey(
-        RUBIONUser,
+    rubion_user = ParentalKey(
+        RUBIONUser, related_name='rubion_user_si',
         blank = True, null = True,
         on_delete = models.CASCADE
     )
-    rubion_staff = models.ForeignKey(
-        StaffUser,
+    rubion_staff = ParentalKey(
+        StaffUser, related_name='staff_user_si',
         blank = True, null = True,
         on_delete = models.CASCADE
     )
     date = models.DateField()
+
     instruction = models.ForeignKey(
         SafetyInstructionsSnippet,
         on_delete = models.CASCADE
