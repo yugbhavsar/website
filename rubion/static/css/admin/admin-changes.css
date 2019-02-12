@@ -27,3 +27,7 @@ input[type=checkbox]:disabled:before{
 .summary .listing.full-width th, .listing.full-width tr:hover{
     background-color:transparent;
 }
+
+select+span:after{
+    background-color:rgb(250,250,250);
+}
