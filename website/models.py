@@ -1477,6 +1477,11 @@ class TermsAndConditionsPages( BaseSetting ):
 
 @register_snippet
 class BugOrWish( models.Model ):
+
+    class Meta:
+        verbose_name_plural = _('Bugs or wishes')
+
+        
     title = models.CharField(
         max_length = 512,
     )
