@@ -24,6 +24,7 @@ from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 from django.utils.text import format_lazy
 
+
 import importlib
 import inspect
 
@@ -41,7 +42,7 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel, InlinePanel, FieldRowPanel,
     TabbedInterface, ObjectList
 )
-from wagtail.core.fields import StreamField
+from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
@@ -1472,3 +1473,28 @@ class TermsAndConditionsPages( BaseSetting ):
     panels = [
         PageChooserPanel('courses')
     ]
+
+
+@register_snippet
+class BugOrWish( models.Model ):
+    title = models.CharField(
+        max_length = 512,
+    )
+
+    description = RichTextField ( blank = True )
+    comment = RichTextField ( blank = True )
+
+    closed = models.BooleanField(
+        default = False,
+    )
+    
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('description'),
+        FieldPanel('comment'),
+        FieldPanel('closed')
+    ]
+
+    def __str__(self):
+        return self.title
+    
