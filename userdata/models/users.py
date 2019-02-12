@@ -32,8 +32,8 @@ from wagtail.snippets.models import register_snippet
 
 from website.decorators import simple_panels, only_content
 from website.models import AbstractContainerPage, TranslatedPage, ChildMixin, TranslatedField
-from website.edit_handlers import InlinePanelForForeignKey
-
+#from website.edit_handlers import InlinePanelForForeignKey
+#
 
 @simple_panels
 class UserContainer ( AbstractContainerPage, ChildMixin ):
