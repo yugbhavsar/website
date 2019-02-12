@@ -1,12 +1,14 @@
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _l
+
 
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, modeladmin_register)
 from wagtail.core import hooks
 
-from .models import SentMail
+from .models import SentMail, BugOrWish
 
 
 
@@ -31,3 +33,20 @@ class SentMailModelAdmin(ModelAdmin):
     inspect_view_extra_css = ['css/admin/sent-mail-inspect.css']
 
 modeladmin_register(SentMailModelAdmin)
+
+class BugOrWishModelAdmin( ModelAdmin ):
+    model = BugOrWish
+    menu_label = _l('Bugs/Wishes')
+    menu_icon = ' icon-fa-bug fa'
+    list_display = ('_title', '_description')
+    list_filter = ('closed', )
+    def _title ( self, obj ):
+        if obj.closed:
+            return mark_safe('<del>{}</del>'.format(obj.title))
+        else:
+            return obj.title
+
+    def _description ( self, obj ):
+        return mark_safe(obj.description)
+    
+modeladmin_register( BugOrWishModelAdmin )
