@@ -7,7 +7,11 @@ from wagtail.contrib.modeladmin.views import IndexView
 from wagtail.admin import messages
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
 
-from .models import SafetyInstructionUserRelation
+from .forms import ManySafetyInstructionsForm
+from .models import SafetyInstructionUserRelation, StaffUser
+from userinput.models import RUBIONUser
+
+
 class Project2NuclideIndexView( IndexView ):
     page_title = _('Nuclides in the isotope laboratory')
 
@@ -59,3 +63,43 @@ def add_safety_relation( request, usertype, uid, iid ):
         'form': form,        
     })
 
+def add_many_safety_relations( request ):
+
+    rstaff = StaffUser.objects.all()
+
+    userids = [ staff.user for staff in rstaff if staff.user is not None ]
+    print(RUBIONUser.objects.all().count())
+    rusers = RUBIONUser.objects.exclude(linked_user__in = userids)
+    print (rusers.count())
+    if request.method == 'POST':
+        form = ManySafetyInstructionsForm(request.POST)
+        if form.is_valid():
+            for uid in form.cleaned_data['users']:
+                si = SafetyInstructionUserRelation(
+                    rubion_user_id = uid,
+                    date = form.cleaned_data['date'],
+                    instruction_id = form.cleaned_data['si']
+                ).save()
+
+            for uid in form.cleaned_data['staff']:
+                si = SafetyInstructionUserRelation(
+                    rubion_staff_id = uid,
+                    date = form.cleaned_data['date'],
+                    instruction_id = form.cleaned_data['si']
+                ).save()
+            messages.success(
+                request,
+                _('Safety instructions added.')
+            )
+            
+            
+    else:
+        form = ManySafetyInstructionsForm()
+ 
+    return render(request, 'userdata/admin/safetyinstruction/many.html', {
+        'rusers': [],
+        'rstaff': rstaff,
+        'form': form
+    })
+
+        
