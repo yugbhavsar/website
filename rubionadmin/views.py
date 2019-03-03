@@ -527,7 +527,9 @@ def full_xls_list( request ):
     w_write(0,FRUEHERERNAME,'Früherer Name', bold)
     SCHLUESSEL = FRUEHERERNAME+1
     w_write(0,SCHLUESSEL,'Schlüssel', bold)
-    BEMERKUNGEN1 = SCHLUESSEL+1
+    DOSEMETER = SCHLUESSEL + 1
+    w_write(0,DOSEMETER,'Art des Dosimeters', bold)
+    BEMERKUNGEN1 = DOSEMETER+1
     w_write(0,BEMERKUNGEN1,'Bemerkungen 1', bold)
     BEMERKUNGEN2 = BEMERKUNGEN1 + 1
     w_write(0,BEMERKUNGEN2,'Bemerkungen 2', bold)
@@ -569,7 +571,7 @@ def full_xls_list( request ):
         w_write(row, TITEL, staff.grade)
         w_write(row, RAUM, staff.room)
         w_write(row, TELEFON, str(staff.phone))
-        
+
 
     # internal function for writing user information
     def write_rubion_user(row, ru):
@@ -614,6 +616,8 @@ def full_xls_list( request ):
         if beirat:
             w_write(row, MITGLIEDERVERSAMMLUNG, '✓')
         w_write(row, FRUEHERERNAME, ru.previous_names)
+
+        w_write(row, DOSEMETER, ru.get_dosemeter_display())
         w_write(row, BEMERKUNGEN1, ru.internal_rubion_comment.replace('<br/>','\n').replace('</p>','\n'), textwrap)
 
 
