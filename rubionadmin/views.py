@@ -508,8 +508,11 @@ def full_xls_list( request ):
 
     SONSTIGE = 16
     w_write(0,SONSTIGE,'Sonstige', bold)
+    
+    RMETHODS = 17
+    w_write(HEADROW,RMETHODS,'Methoden', bold)
 
-    RAUM = 17
+    RAUM = 18
     w_write(0,RAUM,'Raum', bold)
     TELEFON = RAUM+1
     w_write(0,TELEFON,'Telefon', bold)
@@ -587,6 +590,16 @@ def full_xls_list( request ):
         w_write(row, UNIVERSITAET, wg.university)
         w_write(row, INSTITUT, wg.institute)
         w_write(row, ARBEITSGRUPPE, wg.title_trans)
+        rm = wg.get_methods()
+        r_methods = ''
+        for method in rm:
+            r_methods = r_methods + str(method) + '\n'
+            if(str(method) == 'Working with unstable isotopes' or str(method) == 'Other'):
+                w_write(row, NI, '✓')
+            else:
+                w_write(row, NT, '✓')
+
+        w_write(row, RMETHODS, r_methods)
         head = wg.get_head()
         if head:
             w_write(row, AGLEITER, "{} {}".format(head.first_name, head.last_name))
