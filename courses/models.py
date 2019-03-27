@@ -4,7 +4,7 @@ This set of models implements the courses organized by and held in RUBION.
 Furthermore, it contains models for different attendees. The latter is a bit complex 
 since a lot of different attendees exist.
 
-Attendees are *not* be implemented as Pages since they only show up in the admin.
+Attendees are *not* implemented as Pages since they only show up in the admin.
 '''
 
 from .attendees import register_attendee, get_attendee_class, ATTENDEE_TYPES
@@ -660,9 +660,7 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
     def send_invoice(self, attendee):
 
         # get the specific course attendee object
-        for att in ATTENDEE_TYPES:
-            print ('Testing {}\n'.format(att))
-            Kls = get_attendee_class(att.identifier)
+        for Kls in ATTENDEE_TYPES:
             try: 
                 s_att = Kls.objects.get( courseattendee_ptr_id = attendee.id )
                 break
@@ -674,7 +672,6 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
             if attendee.amount == 0:
                 return
         except AttributeError:
-            print ('Amount test failed.')
             return
 
         parent = self.get_parent().specific
@@ -1126,7 +1123,12 @@ class SskHospitalAttendee (
     identifier = 'sskhospital'
     display_name =_l('RUB hospital employee')
     display_name_plural =_l('RUB hospital employees')
-    forms = []
+    forms = [
+        'courses.forms.SskHospitalDataForm',
+        'courses.forms.SskHospitalAttendeeCertificateForm',
+        'courses.forms.SskHospitalAttendeeInvoiceForm',
+        'courses.forms.SskHospitalAttendeeTermsAndConditionsForm'
+    ]
 
 register_attendee( SskHospitalAttendee )
 
@@ -1137,7 +1139,7 @@ class SskRubMemberAttendee(
     identifier = 'sskrubmember'
     display_name =_l('RUB employee')
     display_name_plural =_l('RUB employees')
-    forms = ['courses.forms.RUBIDForm', 'courses.forms.SskRubMemberDataForm' ,'courses.forms.SskRubMemberAttendeeCertificateForm']
+    forms = ['courses.forms.RUBIDForm', 'courses.forms.SskRubMemberDataForm' ,'courses.forms.SskRubMemberAttendeeCertificateForm','courses.forms.SskRubMemberTermsAndConditionsForm' ]
 
     class Meta:
         verbose_name = _l('RUB staff for course with official certificate')
