@@ -1,6 +1,6 @@
 from .models import (
     StudentAttendee, SskStudentAttendee, SharedData, SskRubMemberAttendee,
-    SskExternalAttendee
+    SskExternalAttendee, SskHospitalAttendee
 )
 
 from collections import OrderedDict
@@ -65,10 +65,16 @@ class StudentForm ( StyledModelForm ):
             self.provided_values = None
         super(StudentForm, self).__init__(*args, **kwargs)
         if self.provided_values:
+            print(self.provided_values)
+            print(self.fields)
             for key in self.provided_values.keys():
+#                self.fields[key].widget.value = self.provided_values[key]
                 try:
                     self.fields[key].widget.attrs['readonly'] = True
                     self.fields[key].widget.attrs['class'] = 'readonly'
+                    self.fields[key].initial = self.provided_values[key]
+
+                    
                 except KeyError:
                     pass
 
@@ -92,15 +98,22 @@ class SskExternalDataForm( StudentForm ):
             'academic_title', 'last_name', 'first_name', 'email', 
     #        'institute', 'room', 'faculty', 'department'
         ]
+class SskHospitalDataForm (SskExternalDataForm):
+    class Meta:
+        model = SskHospitalAttendee
+        fields = [
+            'academic_title', 'last_name', 'first_name', 'email', 
+    #        'institute', 'room', 'faculty', 'department'
+        ]
 
-
+        
 class AbstractCertificateForm( StyledModelForm ):
     display_text = _('Information for the certificate')
     class Meta:
         abstract = True
         fields = [
             'date_of_birth', 'place_of_birth', 'country_of_birth',
-            'street', 'street_number', 'town_zip', 'town', 'country'
+            'town_zip', 'town', 
         ]
 
         widgets = {
@@ -119,7 +132,7 @@ class SskStudentCertificateForm( AbstractCertificateForm ):
         model = SskStudentAttendee
         fields = [
             'date_of_birth', 'place_of_birth', 'country_of_birth',
-            'street', 'street_number', 'town_zip', 'town', 'country'
+            'town_zip', 'town', 'country'
         ]
 
 class SskRubMemberAttendeeCertificateForm( AbstractCertificateForm ):
@@ -127,7 +140,7 @@ class SskRubMemberAttendeeCertificateForm( AbstractCertificateForm ):
         model = SskRubMemberAttendee
         fields = [
             'date_of_birth', 'place_of_birth', 'country_of_birth',
-            'street', 'street_number', 'town_zip', 'town', 'country'
+            'town_zip', 'town', 'country'
         ]
 
 
@@ -146,7 +159,7 @@ class SskExternalAttendeeCertificateForm( AbstractCertificateForm ):
         model = SskExternalAttendee
         fields = [
             'date_of_birth', 'place_of_birth', 'country_of_birth',
-            'street', 'street_number', 'town_zip', 'town', 'country'
+            'town_zip', 'town', 'country'
         ]
         widgets = {
             'date_of_birth' : StyledDateSelect(
@@ -154,6 +167,17 @@ class SskExternalAttendeeCertificateForm( AbstractCertificateForm ):
             )
         }
 
+
+
+class SskHospitalAttendeeCertificateForm( SskExternalAttendeeCertificateForm ):
+    class Meta:
+        model = SskHospitalAttendee
+        fields = [
+            'date_of_birth', 'place_of_birth', 'country_of_birth',
+            'town_zip', 'town', 'country'
+        ]
+
+        
 class SskExternalAttendeInvoiceForm( StyledModelForm ):
     display_text = _('Billing information')
     class Meta:
@@ -164,6 +188,18 @@ class SskExternalAttendeInvoiceForm( StyledModelForm ):
             'invoice_street', 'invoice_street_number', 'invoice_town_zip', 
             'invoice_town', 'invoice_country'
         ]
+
+class SskHospitalAttendeeInvoiceForm( SskExternalAttendeInvoiceForm ):
+    class Meta:
+        model = SskHospitalAttendee
+        fields = [
+            'invoice_company', 'invoice_additional_line_1',
+            'invoice_additional_line_2', 'invoice_additional_line_3',
+            'invoice_street', 'invoice_street_number', 'invoice_town_zip', 
+            'invoice_town', 'invoice_country'
+        ]
+
+
 
 class AbstractSskTermsAndConditionsForm( StyledModelForm ):
     display_text = _('Terms and Conditions')
@@ -189,7 +225,17 @@ class SskExternalAttendeeTermsAndConditionsForm( AbstractSskTermsAndConditionsFo
 
 class SskStudentTermsAndConditionsForm( AbstractSskTermsAndConditionsForm ):
     class Meta:
-        model = SskExternalAttendee
+        model = SskStudentAttendee
+        fields = []
+
+class SskHospitalAttendeeTermsAndConditionsForm( AbstractSskTermsAndConditionsForm ):
+    class Meta:
+        model = SskHospitalAttendee
+        fields = []
+
+class SskRubMemberTermsAndConditionsForm( AbstractSskTermsAndConditionsForm ):
+    class Meta:
+        model = SskRubMemberAttendee
         fields = []
 
 
