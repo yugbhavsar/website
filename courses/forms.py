@@ -139,6 +139,8 @@ def get_past_years():
         years.append(d.year)
 
     yield years
+
+    
 class SskExternalAttendeeCertificateForm( AbstractCertificateForm ):
     class Meta:
         model = SskExternalAttendee
