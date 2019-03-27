@@ -286,7 +286,7 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
             num = qs.filter(is_validated = True).count()
 
             # b) those who are not yet validated, but the 
-            # mail asking for validation has been send within the last week
+            # mail asking for validation has been sent within the last week
 
             minus_one_week = datetime.date.today() - relativedelta(weeks=1)
 
