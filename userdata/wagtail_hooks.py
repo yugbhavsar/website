@@ -33,6 +33,8 @@ def register_admin_urls():
         url(r'^snippets/', include('userdata.urls'))#urls, app_name='userdata', namespace='userdata') )
     ]
 
+
+
 class NoButtonHelper ( ButtonHelper ):
     def get_buttons_for_obj(self, obj, **kwargs):
         return []

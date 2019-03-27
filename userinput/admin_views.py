@@ -1,6 +1,6 @@
 from .admin_forms import WorkgroupChooserForm, InactivateUserForm
 from .helpers import get_staff_obj
-from .models import RUBIONUser
+from .models import RUBIONUser, UserComment
 from .pdfhandling import RUBIONBadge
 
 
@@ -203,3 +203,13 @@ class WorkGroupInspectView(InspectView):
         context.update(kwargs)
         return super().get_context_data(**context)
 
+
+class ProjectInspectView(InspectView):
+    def get_context_data( self, **kwargs ):
+        context = {
+            'instance' : self.instance,
+            'comments' : UserComment.objects.filter(page = self.instance)
+            
+        }
+        context.update(kwargs)
+        return super().get_context_data(**context)

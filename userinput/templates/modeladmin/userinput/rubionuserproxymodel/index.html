@@ -1,4 +1,12 @@
 {% extends "modeladmin/index.html" %}
+{% load i18n %}
+{% block header_extra %}
+  <div class="right">
+    <div class="addbutton">
+      <a href="{% url 'userdata:safetyinstruction_admany' %}" class="button bicolor icon icon-plus" title="{% trans "Add safety instructions" %}">{% trans "Add safety instructions" %}</a>
+    </div>
+  </div>
+{% endblock %}
 {% block content %}
   {% csrf_token %}
   {{ block.super }}

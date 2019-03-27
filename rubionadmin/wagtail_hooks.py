@@ -121,6 +121,8 @@ def construct_homepage_panels( request, panels ):
     panels.append( NotificationPanel ( request ) )
     
 
+#from website.admin_interface import RUBIONMenuItem
+    
 class ExportMenuItem(MenuItem):
   def is_shown(self, request):
     return request.user.has_perm('rubionadmin.export_menu')

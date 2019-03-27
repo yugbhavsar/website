@@ -10,7 +10,7 @@ from django.http import HttpResponseNotAllowed, JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import Template, Context
 from django.utils.translation import ugettext as _
-
+from django.utils.translation import override as override_lang
 import io
 
 from instruments.models import (
@@ -25,6 +25,7 @@ from rubion.utils import iso_to_gregorian
 
 from userinput.models import Project, WorkGroup, RUBIONUser
 from userdata.models import StaffUser
+import userdata.safety_instructions as SI
 
 from wagtail.admin import messages
 from wagtail.admin.modal_workflow import render_modal_workflow
@@ -456,89 +457,113 @@ def full_xls_list( request ):
                 widths[col] = len(str(content))
 
 
+    HEADROW = 1
 
     # Pseudo-constants as for columns
     NAME = 0
-    w_write(0,NAME,'Name', bold)
+    w_write(HEADROW,NAME,'Name', bold)
 
     VORNAME = 1
-    w_write(0,VORNAME,'Vorname', bold)
+    w_write(HEADROW,VORNAME,'Vorname', bold)
 
     TITEL = 2
-    w_write(0,TITEL,'Titel', bold)
+    w_write(HEADROW,TITEL,'Titel', bold)
     
     NI = 3
-    w_write(0,NI,'NI', bold)
+    w_write(HEADROW,NI,'NI', bold)
 
     NT = 4
-    w_write(0,NT,'NT', bold)
+    w_write(HEADROW,NT,'NT', bold)
 
     STED = 5
-    w_write(0,STED,'Mikroskopie', bold)
+    w_write(HEADROW,STED,'Mikroskopie', bold)
 
     UNIVERSITAET = 7
-    w_write(0,UNIVERSITAET,'Universität', bold)
+    w_write(HEADROW,UNIVERSITAET,'Universität', bold)
 
     INSTITUT = 6
-    w_write(0,INSTITUT,'Institut', bold)
+    w_write(HEADROW,INSTITUT,'Institut', bold)
 
     NUTZER = 11
-    w_write(0,NUTZER,'Nutzer', bold)
+    w_write(HEADROW,NUTZER,'Nutzer', bold)
 
     MITARBEITER = 10
-    w_write(0,MITARBEITER,'Mitarbeiter', bold)
+    w_write(HEADROW,MITARBEITER,'Mitarbeiter', bold)
 
     LEITUNG = 12
-    w_write(0,LEITUNG,'AG-Leiter', bold)
+    w_write(HEADROW,LEITUNG,'AG-Leiter', bold)
 
     ARBEITSGRUPPE = 8
-    w_write(0,ARBEITSGRUPPE,'Arbeitsgruppe', bold)
+    w_write(HEADROW,ARBEITSGRUPPE,'Arbeitsgruppe', bold)
 
     AGLEITER = 9
-    w_write(0,AGLEITER,'Leitung der Arbeitsgruppe', bold)
+    w_write(HEADROW,AGLEITER,'Leitung der Arbeitsgruppe', bold)
 
     BEIRAT = 13
-    w_write(0,BEIRAT,'Beirat', bold)
+    w_write(HEADROW,BEIRAT,'Beirat', bold)
 
     MITGLIED = 14
-    w_write(0,MITGLIED,'RUBION-Mitglied', bold)
+    w_write(HEADROW,MITGLIED,'RUBION-Mitglied', bold)
 
     MITGLIEDERVERSAMMLUNG = 15
-    w_write(0,MITGLIEDERVERSAMMLUNG,'Einladung MV', bold)
+    w_write(HEADROW,MITGLIEDERVERSAMMLUNG,'Einladung MV', bold)
 
     SONSTIGE = 16
-    w_write(0,SONSTIGE,'Sonstige', bold)
+    w_write(HEADROW,SONSTIGE,'Sonstige', bold)
 
     RAUM = 17
-    w_write(0,RAUM,'Raum', bold)
+    w_write(HEADROW,RAUM,'Raum', bold)
     TELEFON = RAUM+1
-    w_write(0,TELEFON,'Telefon', bold)
+    w_write(HEADROW,TELEFON,'Telefon', bold)
     EMAIL = TELEFON+1
-    w_write(0,EMAIL,'E-Mail', bold)
+    w_write(HEADROW,EMAIL,'E-Mail', bold)
     WOHNORT = EMAIL+1
-    w_write(0,WOHNORT,'Wohnort', bold)
+    w_write(HEADROW,WOHNORT,'Wohnort', bold)
     STRASSE = WOHNORT+1
-    w_write(0,STRASSE,'Straße', bold)
+    w_write(HEADROW,STRASSE,'Straße', bold)
     GEBURTSTAG = STRASSE+1
-    w_write(0,GEBURTSTAG,'Geburtstag', bold)
+    w_write(HEADROW,GEBURTSTAG,'Geburtstag', bold)
     GEBURTSORT = GEBURTSTAG+1
-    w_write(0,GEBURTSORT,'Geburtsort', bold)
+    w_write(HEADROW,GEBURTSORT,'Geburtsort', bold)
     FRUEHERERNAME = GEBURTSORT+1
-    w_write(0,FRUEHERERNAME,'Früherer Name', bold)
+    w_write(HEADROW,FRUEHERERNAME,'Früherer Name', bold)
     SCHLUESSEL = FRUEHERERNAME+1
-    w_write(0,SCHLUESSEL,'Schlüssel', bold)
+    w_write(HEADROW,SCHLUESSEL,'Schlüssel', bold)
     DOSEMETER = SCHLUESSEL + 1
-    w_write(0,DOSEMETER,'Art des Dosimeters', bold)
-    BEMERKUNGEN1 = DOSEMETER+1
-    w_write(0,BEMERKUNGEN1,'Bemerkungen 1', bold)
+    w_write(HEADROW,DOSEMETER,'Art des Dosimeters', bold)
+    nextpos = DOSEMETER + 1
+    SICOORDINATES = {}
+    with override_lang('de'):
+        for instruction in SI.AVALABLE_SAFETY_INSTRUCTIONS:
+            SICOORDINATES.update({ instruction : nextpos })
+            ws.merge_range(
+                HEADROW-1, nextpos, HEADROW-1, nextpos+1,
+                str(SI.SAFETYINSTRUCTION_NAMES[instruction]), bold)
+            w_write(HEADROW,nextpos,'benötigt?', bold)
+            w_write(HEADROW,nextpos+1,'letzte Auffrischung', bold)
+            nextpos = nextpos + 2
+        
+    
+    
+    BEMERKUNGEN1 = nextpos 
+    w_write(HEADROW,BEMERKUNGEN1,'Bemerkungen 1', bold)
     BEMERKUNGEN2 = BEMERKUNGEN1 + 1
-    w_write(0,BEMERKUNGEN2,'Bemerkungen 2', bold)
+    w_write(HEADROW,BEMERKUNGEN2,'Bemerkungen 2', bold)
 
     # end pseudo-constants
     
     # maximum column number
     MAXCOL = BEMERKUNGEN2
 
+
+    # internal function for writing safety instruction information
+
+    def write_safety_information(row, user):
+        informations = SI.get_instruction_information( user )
+        for instruction, information in informations.items():
+            if information['required']:
+                w_write( row, SICOORDINATES[instruction],  "✓" )
+            w_write( row, SICOORDINATES[instruction]+1, information['last']  )
 
     # internal function for writing staff information
     def write_staff_user(row, staff):
@@ -571,7 +596,7 @@ def full_xls_list( request ):
         w_write(row, TITEL, staff.grade)
         w_write(row, RAUM, staff.room)
         w_write(row, TELEFON, str(staff.phone))
-
+        write_safety_information( row, staff )
 
     # internal function for writing user information
     def write_rubion_user(row, ru):
@@ -619,9 +644,10 @@ def full_xls_list( request ):
 
         w_write(row, DOSEMETER, ru.get_dosemeter_display())
         w_write(row, BEMERKUNGEN1, ru.internal_rubion_comment.replace('<br/>','\n').replace('</p>','\n'), textwrap)
+        write_safety_information(row, ru)
 
 
-    row = 1
+    row = HEADROW + 1
 
     allstaff = StaffUser.objects.all()
 
@@ -642,9 +668,10 @@ def full_xls_list( request ):
 
     for ru in rubionusers:
         write_rubion_user(row, ru)
+
         row=row+1
 
-    ws.autofilter(0,0,row,MAXCOL)
+    ws.autofilter(HEADROW,0,row,MAXCOL)
 
     for i in range(MAXCOL+1):
         try:
@@ -666,6 +693,10 @@ def full_xls_list( request ):
     output.close()
 
     return response
+
+
+
+
 
 
 def user_set_dosemeter( request, user_id, dosemeter ):

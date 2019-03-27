@@ -1,7 +1,7 @@
 from .admin_views import (
     RUBIONUserBadgeView, AddRUBIONUserChooseWorkgroupView, 
     RUBIONUserInspectView, WorkGroupInspectView,
-    RUBIONUserInactivateView
+    RUBIONUserInactivateView, ProjectInspectView
 )
 from .helpers import (
     RUBIONUserButtonHelper, get_staff_obj, get_key_if_staff, 
@@ -228,6 +228,7 @@ class WorkgroupsModelAdmin ( ModelAdmin ):
     inspect_view_enabled=True
     inspect_template_name = 'userinput/admin/inspect_workgroup.html'
     inspect_view_class = WorkGroupInspectView
+
     search_fields = [
         'title','title_de',
         'institute_en','institute_de',
@@ -324,8 +325,10 @@ class ProjectModelAdmin ( ModelAdmin ):
     exclude_from_explorer = False
     list_filter = (ProjectExpiredFilter,)
     button_helper_class = ProjectButtonHelper
-
-
+    inspect_view_enabled = True
+    inspect_view_class = ProjectInspectView
+    inspect_template_name = 'userinput/admin/inspect_project.html'
+    
     def active_since( self, obj ):
         return obj.go_live_at
     active_since.short_description = _l('active since')

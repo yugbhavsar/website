@@ -8,7 +8,9 @@
 {% endblock %}
 {% block content %}
 <h2>{% trans "Validation mail sent" %}</h2>
-<p>{% trans "You have succesfully booked the course" %} {{ parent.title_trans }} {% trans "from" %} {{ page.title }}.</p>
+<p>{% trans "You have succesfully reserved a place in the course" %}
+  {{ parent.title_trans }} {% trans "from" %} {{ page.start|date }} {% trans "to" %}
+  {{ page.end|date }}.</p>
 <p>{% trans "To confirm your registration, we have sent an email to" %}</p>
 <blockquote>
 <strong>{{attendee.email}}</strong> 
