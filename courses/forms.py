@@ -127,23 +127,6 @@ class AbstractCertificateForm( StyledModelForm ):
             pass
         super(AbstractCertificateForm, self).__init__(*args, **kwargs)
 
-class SskStudentCertificateForm( AbstractCertificateForm ):
-    class Meta:
-        model = SskStudentAttendee
-        fields = [
-            'date_of_birth', 'place_of_birth', 'country_of_birth',
-            'town_zip', 'town', 'country'
-        ]
-
-class SskRubMemberAttendeeCertificateForm( AbstractCertificateForm ):
-    class Meta:
-        model = SskRubMemberAttendee
-        fields = [
-            'date_of_birth', 'place_of_birth', 'country_of_birth',
-            'town_zip', 'town', 'country'
-        ]
-
-
 def get_past_years():
     today = datetime.date.today()
     years = []
@@ -152,6 +135,34 @@ def get_past_years():
         years.append(d.year)
 
     yield years
+
+        
+class SskStudentCertificateForm( AbstractCertificateForm ):
+    class Meta:
+        model = SskStudentAttendee
+        fields = [
+            'date_of_birth', 'place_of_birth', 'country_of_birth',
+            'town_zip', 'town', 'country'
+        ]
+        widgets = {
+            'date_of_birth' : StyledDateSelect(
+                years = range(datetime.date.today().year-18, datetime.date.today().year-100, -1)
+            )
+        }
+
+class SskRubMemberAttendeeCertificateForm( AbstractCertificateForm ):
+    class Meta:
+        model = SskRubMemberAttendee
+        fields = [
+            'date_of_birth', 'place_of_birth', 'country_of_birth',
+            'town_zip', 'town', 'country'
+        ]
+        widgets = {
+            'date_of_birth' : StyledDateSelect(
+                years = range(datetime.date.today().year-18, datetime.date.today().year-100, -1)
+            )
+        }
+
 
     
 class SskExternalAttendeeCertificateForm( AbstractCertificateForm ):
@@ -176,7 +187,11 @@ class SskHospitalAttendeeCertificateForm( SskExternalAttendeeCertificateForm ):
             'date_of_birth', 'place_of_birth', 'country_of_birth',
             'town_zip', 'town', 'country'
         ]
-
+        widgets = {
+            'date_of_birth' : StyledDateSelect(
+                years = range(datetime.date.today().year-18, datetime.date.today().year-100, -1)
+            )
+        }
         
 class SskExternalAttendeInvoiceForm( StyledModelForm ):
     display_text = _('Billing information')
