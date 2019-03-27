@@ -378,6 +378,8 @@ class RUBIONUser ( UserGeneratedPage2 ):
     front_end_verbose_name = _('workgroup member')
     front_end_verbose_name_plural = _('workgroup members')
 
+    
+    
     class Meta:
         verbose_name = _('RUBION User')
         verbose_name_plural = _('RUBION Users')
@@ -874,7 +876,7 @@ class RUBIONUser ( UserGeneratedPage2 ):
                     self.linked_user.delete()
                 except AttributeError:
                     pass
-                self.delete()
+                self.inactivate()
                 return redirect(wg.full_url)
             else:
                 messages.info( request, _( 'Operation was canceled.' ) )
@@ -985,6 +987,11 @@ class RUBIONUser ( UserGeneratedPage2 ):
             self.save_revision_and_publish( user = user )
         else:
             self.save_revision_and_publish()
+
+        website_user = self.linked_user
+        website_user.is_active = False
+        website_user.save()
+            
     # Admin content panels.
     # @TODO might require some clean-up
     content_panels = [
