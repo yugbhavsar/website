@@ -1,0 +1,86 @@
+{% extends "modeladmin/inspect.html" %}
+{% load i18n %}
+
+{% block fields_output %}
+<ul class="tab-nav merged">
+    
+        <li class=" active"><a href="#tab-data" class="active">{% trans "Data" %}</a></li>
+    
+        <li class=" "><a href="#tab-methods" class=""> {% trans "Methods" %}</a></li>
+
+	<li class=" "><a href="#tab-nuclides" class=""> {% trans "Nuclides" %}</a></li>  
+    
+        <li class=" "><a href="#tab-publications" class="">{% trans "Publications" %}</a></li>
+    
+        <li class=" "><a href="#tab-funding" class="">{% trans "Funding" %}</a></li>
+
+	<li class=" "><a href="#tab-comments" class="">{% trans "Comments" %}</a></li>
+</ul>
+
+
+<div class="tab-content">
+  <section id="tab-data" class=" active">
+    <dl>
+      <dt><h2>{% trans "Workgroup" %}</h2></dt>
+      <dd>
+        {{ instance.get_parent.get_parent.specific.title_trans }}
+      </dd>
+      <dt><h3>{% trans "Head of workgroup" %}</h3></dt>
+      <dd>
+        {{ instance.get_parent.get_parent.specific.get_head }}
+      </dd>
+      <dt><h2>{% trans "Description" %}</h2></dt>
+      <dd>{{ instance.summary }}</dd>
+    </dl>
+  </section>
+  <section id="tab-methods" class="">
+    <ul>
+      {% for p2mr in instance.related_methods.all %}
+      <li>{{ p2mr.page.specific.title_trans }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+  <section id="tab-nuclides" class="">
+    <dl>
+      {% for p2nr in instance.related_nuclides.all %}
+      <dt><h2>{{ p2nr.snippet }}</h2></dt>
+      <dd>{% trans "Room:" %}{{p2nr.room}}</dd>
+      <dd>{% trans "Max amount:" %}{{p2nr.max_order}}</dd>
+      <dd>{% trans "Max amount per experiment:" %}{{p2nr.amount_per_experiment}}</dd>
+      {% endfor %}
+    </dl>
+  </section>
+  <section id="tab-publications" class="">
+    <dt><h2>{% trans "Journal articles" %}</h2></dt>
+    {% for p2pr in instance.related_publications.all %}
+    <dd> {{ p2pr.snippet.authors }}: {{ p2pr.snippet }} <strong>{{p2pr.snippet.journal}}, {{ p2pr.snippet.year }}</strong></dd>
+    {% endfor %}
+    <dt><h2>{% trans "Theses" %}</h2></dt>
+    {% for p2tr in instance.related_theses.all %}
+    <dd>{{p2tr.snippet.author}}: {{p2tr.snippet}} {{p2tr.snippet.year}} ({{p2tr.snippet.get_thesis_type_display}})</dd>
+    {% endfor %}
+  </section>
+  <section id="tab-funding" class="">
+    {% for p2fr in instance.related_fundings.all %}
+    <dt><h2>{{ p2fr.snippet.agency }}</h2></dt>
+    <dd> {{ p2fr.snippet.title }}</dd>
+    {% endfor %}
+  </section>
+  <section id="tab-comments" class="">
+    <dl>
+      <dt>{% trans "Internal comment" %}</dt>
+      <dd>{% if instance.internal_rubion_comment %}{{ instance.internal_rubion_comment }}{% else %}{% trans "None" %}{% endif %}</dd>
+      <dt>{% trans "User comment" %}</dt>
+      {% if comments %}
+      {% for comment in comments %}
+      <dd>{{comment.text}}</dd>
+      {% endfor %}
+      {% else %}
+      <dd>{% trans "None" %}</dd>
+      {% endif %}
+    </dl>
+  </section>
+</div>
+
+
+{% endblock %}

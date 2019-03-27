@@ -1,0 +1,41 @@
+{% extends "wagtailsnippets/snippets/create.html" %}
+
+{% load wagtailadmin_tags i18n %}
+{% block content %}
+    {% trans "New safety instruction for multiple people" as new_str %}
+    {% include "wagtailadmin/shared/header.html" with title=new_str  icon="snippet" tabbed=1 merged=1 %}
+  <div class="col12">
+    <form action="." method="POST" novalidate>
+      {% csrf_token %}
+      <ul class="fields">
+	{% for field in form %}
+	
+	<li>
+	  {% include 'wagtailadmin/shared/field.html' %}
+	  
+	</li>
+	{% endfor %}
+      </ul>
+        <footer>
+            <ul>
+                <li class="actions">
+                    <div class="dropdown dropup dropdown-button match-width">
+                        <button type="submit" class="button action-save button-longrunning" tabindex="3" data-clicked-text="{% trans 'Saving...' %}">
+                            <span class="icon icon-spinner"></span><em>{% trans 'Save' %}</em>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </footer>
+    </form>
+  </div>
+{% endblock %}
+{% block extra_css %}
+  {{ block.super }}
+  {{ form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+  {{ block.super }}
+  {{ form.media.js }}
+{% endblock %}

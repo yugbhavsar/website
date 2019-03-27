@@ -1,0 +1,55 @@
+.multiselectfromcombo {
+    display:block;
+    width:100%;
+    position:relative;
+    clear:left;
+}
+.multiselectfromcombo .searchwrapper{
+    position:relative;
+}
+
+.multiselectfromcombo .col{
+    display:inline-block;
+    width:50%;
+}
+
+.multiselectfromcombo .col span{
+    display:block;
+}
+.multiselectfromcombo .ulwrapper{
+    border: thin solid #333;
+    border-radius:6px;
+}
+.multiselectfromcombo ul {
+    height:300px;
+    overflow: scroll;
+}
+
+.multiselectfromcombo label{
+    width:100%;
+    display:inline-block;
+    float:none;
+    padding:.3em;
+}
+.multiselectfromcombo .available-items label:hover{
+    background:#189370;
+}
+
+.multiselectfromcombo .selected-items label:hover{
+    background:#cd3238;
+}
+
+.multiselectfromcombo ul li{
+    display:block;
+    width:auto;
+    padding:.3em;
+    border:thin solid #d9d9d9;
+}
+.multiselectfromcombo ul li:nth-child(odd){
+    background:#e6e6e6;
+}
+.multiselectfromcombo .inputcontainer{
+    display:none;
+}
+
+

@@ -1,0 +1,49 @@
+{% load i18n %}
+<div class="multiselectfromcombo multiselectfromcombo-outer">      
+  <div class="searchwrapper">
+    {% if searchlabel %}{{searchlabel}}{% else %}{% trans "search" %}{% endif %}
+    <input type="text" class="multiselectfromcombo-search" />
+  </div>
+  {% with id=widget.attrs.id %}
+  <div class="col col1">
+    <h4>
+      <span style="float:right"><button id="" class="button button-small button-secondary sort-selected">{% trans "Sort" %}</button></span>
+      <span class="selected-items-label">{% if selectedlabel %}{{ selectedlabel }}{% else %}{% trans "Selected items" %}{% endif %}</span>
+    </h4>
+    <div class="ulwrapper">
+  <ul{% if id %} id="{{ id }}"{% endif %}{% if widget.attrs.class %} class="{{ widget.attrs.class }} selected-items"{% endif %}>
+  </ul>
+  </div>
+  </div>
+  <div class="col col2">
+    <h4>
+      <span class="available-items-label">{% if availablelabel %}{{ availablelabel }}{% else %}{% trans "Available items" %}{% endif %}</span>
+    </h4>
+    <div class="ulwrapper">
+  <ul class="{{ widget.attrs.class }} available-items">
+    {% for group, options, index in widget.optgroups %}
+      {% if group %}
+        <li>{{ group }}<ul{% if id %} id="{{ id }}_{{ index }}"{% endif %}>
+      {% endif %}
+      {% for option in options %}
+        <li>{% include option.template_name with widget=option %}</li>
+      {% endfor %}
+      {% if group %}
+        </ul></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+  </div>
+  </div>
+  <div class="inputcontainer">
+    {% for group, options, index in widget.optgroups %}
+    {% for option in options %}
+      {% with widget=option %}
+        {% include "django/forms/widgets/input.html" %}
+      {% endwith %}
+    {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+{% endwith %}
+
