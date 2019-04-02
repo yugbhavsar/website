@@ -11,7 +11,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import Template, Context
 from django.utils.translation import ugettext as _
 from django.utils.translation import override as override_lang
+from django.views.generic.base import View
+
 import io
+
 
 from instruments.models import (
     InstrumentPage, InstrumentByProjectBooking, 
@@ -21,6 +24,7 @@ from instruments.mixins import get_bookings_for
 
 from notifications.models import CentralRadiationSafetyDataSubmission
 
+import re
 from rubion.utils import iso_to_gregorian
 
 from userinput.models import Project, WorkGroup, RUBIONUser
@@ -620,7 +624,12 @@ def full_xls_list( request ):
         r_methods = ''
         for method in rm:
             r_methods = r_methods + str(method) + '\n'
-            if(str(method) == 'Working with unstable isotopes' or str(method) == 'Other'):
+            # this fails for people retrieving the data in german
+            #if ( str(method) == 'Working with unstable isotopes' or
+            #     str(method) == 'Other' or
+            #     str(method).
+            #) :
+            if re.match(r'.*[ui]nstab(le|il).*', str(method)):
                 w_write(row, NI, '✓')
             else:
                 w_write(row, NT, '✓')
@@ -707,11 +716,6 @@ def full_xls_list( request ):
     output.close()
 
     return response
-
-
-
-
-
 
 def user_set_dosemeter( request, user_id, dosemeter ):
     ruser = get_object_or_404(RUBIONUser, id=user_id)
