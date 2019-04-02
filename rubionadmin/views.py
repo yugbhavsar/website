@@ -626,10 +626,9 @@ def full_xls_list( request ):
             r_methods = r_methods + str(method) + '\n'
             # this fails for people retrieving the data in german
             #if ( str(method) == 'Working with unstable isotopes' or
-            #     str(method) == 'Other' or
-            #     str(method).
+            #     str(method) == 'Other' 
             #) :
-            if re.match(r'.*[ui]nstab(le|il).*', str(method)):
+            if re.match(r'.*(unstable|instabil|other|sonstige).*', str(method)):
                 w_write(row, NI, '✓')
             else:
                 w_write(row, NT, '✓')
