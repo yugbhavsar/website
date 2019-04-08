@@ -43,16 +43,24 @@ def get_n_confirmed_attendees( at, course, payed = None ):
     if payed is None:
         return qs.count()
     if payed is True:
-        if at.price:
-            return (
-                qs.filter(amount__isnull = True).count() 
-                + qs.filter(amount = 0).count() 
-                + qs.filter(amount__gt = 0, payed = True).count()
-            )
+        if at.price and hasattr(at, 'amount'):
+            try:
+                a = qs.filter(amount__isnull = True).count()
+            except FieldError:
+                a = 0
+            try:
+                b = qs.filter(amount = 0).count()
+            except FieldError:
+                b = 0
+            try:
+                c = qs.filter(amount__gt = 0, payed = True).count()
+            except FieldError:
+                c = 0
+            return a+b+c
         else:
             return qs.count()
     if payed is False:
-        if at.price:
+        if at.price and hasattr(at, 'amount'):
             return qs.filter(amount__gt = 0, payed = False).count()
         else:
             return 0
