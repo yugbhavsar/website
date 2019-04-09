@@ -21,16 +21,23 @@
         {% endblock %}
 
         {% block content_main %}
-            <div class="nice-padding">
+<!--            <div class="nice-padding"> -->
 
-                <p class="back"><a href="{{ view.index_url }}" class="icon icon-arrow-left">{% blocktrans with view.verbose_name as model_name %}Back to {{ model_name }} list{% endblocktrans %}</a></p>
-		<div class="summary">
-		<h2>{% trans "Summary" %}</h2>
+<!--!                <p class="back"><a href="{{ view.index_url }}" class="icon icon-arrow-left">{% blocktrans with view.verbose_name as model_name %}Back to {{ model_name }} list{% endblocktrans %}</a></p>-->
+
+		<ul class="tab-nav merged"  style="margin-top:-2em">
+		  <li class="active"><a href="#summary">{% trans "Summary" %}</a></li>
+		  {% for at in instance.get_attendee_types.all %}
+  		  <li><a {%if forloop.counter0 == 0 %}class="active"{%endif%}href="#{{at.get_attendee_class.display_name|cut:" "}}">{{at.get_attendee_class.display_name_plural}}</a></li>
+		  {% endfor %}
+		</ul>
+		<div class="tab-content">
+		  <section id="summary" class="active">
 		<table class="listing full-width">
 		  <thead>
 		    <tr>
 		      <th>Status</th>
-		      {% for at in instance.attendee_types.all %}
+		      {% for at in instance.get_attendee_types.all %}
 		      <th>{{at.get_attendee_class.display_name_plural}}</th>
 		      {% endfor %}
 		      <th>{% trans "Total" %}</th>
@@ -123,21 +130,15 @@
 		    </tr>
 		  </tbody>
 		</table>
-              </div>
-		<ul class="tab-nav merged">
+		  </section>
 		  {% for at in instance.get_attendee_types.all %}
-  		  <li {%if forloop.counter0 == 0 %}class="active"{%endif%}><a {%if forloop.counter0 == 0 %}class="active"{%endif%}href="#{{at.get_attendee_class.display_name|cut:" "}}">{{at.get_attendee_class.display_name_plural}}</a></li>
-		  {% endfor %}
-		</ul>
-		<div class="tab-content">
-		  {% for at in instance.get_attendee_types.all %}
-  		  <section id="{{at.get_attendee_class.display_name|cut:" "}}" {%if forloop.counter0 == 0 %}class="active"{%endif%}>
+  		  <section id="{{at.get_attendee_class.display_name|cut:" "}}">
 		    {% specific_attendee_list at instance %}
 		  </section>
 		  {% endfor %}
 		</div>
 
-            </div>
+<!--            </div> -->
         {% endblock %}
 
     </div>
