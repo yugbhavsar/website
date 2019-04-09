@@ -41,7 +41,7 @@
 		      <th style="text-align:left">
 			{% trans "Confirmed Participation, fee payed" %}
 		      </th>	
-		      {% for at in instance.attendee_types.all %}
+		      {% for at in instance.get_attendee_types.all %}
 		      <td>
 			{% get_n_confirmed_attendees at instance True%}
 			{% if at.max_attendees %} / {{ at.max_attendees }}{% endif %}
@@ -55,7 +55,7 @@
 		      <th style="text-align:left">
 			{% trans "Confirmed Participation, fee open" %}
 		      </th>	
-		      {% for at in instance.attendee_types.all %}
+		      {% for at in instance.get_attendee_types.all %}
 		      <td>
 			{% get_n_confirmed_attendees at instance False %}
 			{% if at.max_attendees %} / {{ at.max_attendees }}{% endif %}
@@ -83,7 +83,7 @@
 		      <th style="text-align:left">
 			{% trans "Waiting for confirmation (from waitlist)" %}
 		      </th>	
-		      {% for at in instance.attendee_types.all %}
+		      {% for at in instance.get_attendee_types.all %}
 		      <td>
 			{% get_n_recent_unconfirmed_attendees_waitlist at instance %}
 			{% if at.max_attendees %} / {{ at.max_attendees }}{% endif %}
@@ -98,7 +98,7 @@
 		      <th style="text-align:left">
 			{% trans "Validation expired" %}
 		      </th>	
-		      {% for at in instance.attendee_types.all %}
+		      {% for at in instance.get_attendee_types.all %}
 		      <td>
 			{% get_n_expired_unconfirmed_attendees at instance %}
 			{% if at.max_attendees %} / {{ at.max_attendees }}{% endif %}
@@ -112,7 +112,7 @@
 		      <th style="text-align:left">
 			{% trans "Waitlist" %}
 		      </th>	
-		      {% for at in instance.attendee_types.all %}
+		      {% for at in instance.get_attendee_types.all %}
 		      <td>
 			{% get_n_attendees_waitlist at instance %}
 		      </td>
@@ -125,12 +125,12 @@
 		</table>
               </div>
 		<ul class="tab-nav merged">
-		  {% for at in instance.attendee_types.all %}
+		  {% for at in instance.get_attendee_types.all %}
   		  <li {%if forloop.counter0 == 0 %}class="active"{%endif%}><a {%if forloop.counter0 == 0 %}class="active"{%endif%}href="#{{at.get_attendee_class.display_name|cut:" "}}">{{at.get_attendee_class.display_name_plural}}</a></li>
 		  {% endfor %}
 		</ul>
 		<div class="tab-content">
-		  {% for at in instance.attendee_types.all %}		  
+		  {% for at in instance.get_attendee_types.all %}
   		  <section id="{{at.get_attendee_class.display_name|cut:" "}}" {%if forloop.counter0 == 0 %}class="active"{%endif%}>
 		    {% specific_attendee_list at instance %}
 		  </section>
