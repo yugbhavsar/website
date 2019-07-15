@@ -3,7 +3,6 @@ function createRejectionModal() {
     btns.each( 
 	function( ){
 	    var form = $(this).parent();
-	    console.log(form);
 	    form.submit(
 		function( evt ) {
 
