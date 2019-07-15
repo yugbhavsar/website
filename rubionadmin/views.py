@@ -164,7 +164,7 @@ def reject_moderation_form( request, revision_id ):
         
         if two_langs:
             subject = '{}{}{}'.format(de['subject'], subject_sep, en['subject'])
-            body = '[english text below]\n\n{}{}{}'.format(de['body'], body_sep, en[body])
+            body = '[english text below]\n\n{}{}{}'.format(de['body'], body_sep, en['body'])
         elif send_de:
             subject = de['subject']
             body = de['body']
@@ -247,18 +247,22 @@ def reject_moderation_form( request, revision_id ):
             title = revision.page.get_admin_display_title()
             reject_item( revision )
             messages.success(request, _("Page '{0}' rejected for publication.").format(title))
-            return render_modal_workflow(request, '', 'rubionadmin/rejection_form_success.js', {})
+            return render_modal_workflow(request, '', None, {}, json_data={'step':'success', 'wagtailadmin_home_url': reverse('wagtailadmin_home')})
 
-    return render_modal_workflow(request, 'rubionadmin/rejection_form.html', 'rubionadmin/rejection_form.js', {
-        'revision':  revision,
-        'page':      page,
-        'lang' : user.preferred_language,
-        'intro_de' : de['intro'],
-        'intro_en' : en['intro'],
-        'footer_de' : de['footer'],
-        'footer_en' : en['footer'],
-        'form' : form
-    })
+    return render_modal_workflow(
+        request, 'rubionadmin/rejection_form.html', None,
+        {
+            'revision':  revision,
+            'page':      page,
+            'lang' : user.preferred_language,
+            'intro_de' : de['intro'],
+            'intro_en' : en['intro'],
+            'footer_de' : de['footer'],
+            'footer_en' : en['footer'],
+            'form' : form
+        },
+        json_data={'step': 'show'}
+    )
     
 
 
