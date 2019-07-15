@@ -40,7 +40,7 @@
                                     <li class="no-border">
 				      <form action="{% url 'rubionadmin:reject_moderation' revision.id %}" method="POST">
                                             {% csrf_token %}
-                                            <input id="reject_button_{{ loopcount0 }}"
+                                            <input 
 						   type="submit"
 						   class="reject-button button button-small button-secondary no" value="{% trans 'Reject' %}">
                                       </form>
