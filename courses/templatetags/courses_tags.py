@@ -155,13 +155,13 @@ def specific_attendee_list( context, at, instance ):
         for f in at.get_attendee_class().additional_admin_fields:
             additional_fields.append(f[0])
             additional_fields_title.append(f[1])
-            print('f is {}'.format(f[1]))
+            
 
     context.update({
         'has_attendees' : get_n_attendees(at, instance) > 0,
         'attendees' : get_attendees_by_type(at, instance),
         'has_waitlist' : at.waitlist,
-        'waitlist' : get_waitlist_by_type( at ,instance),
+        'waitlist' : get_waitlist_by_type( at, instance),
         'additional_fields' : additional_fields,
         'additional_fields_title' : additional_fields_title,
     })
