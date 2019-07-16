@@ -204,66 +204,7 @@ def attendee_buttons( context, attendee ):
             classnames_add=['button-small button-secondary'],
             exclude = exclude
         )
-#    print (context['view'].model)
-#    buttonhelper = ButtonHelper( context['view'], context['request']) 
+
     context.update({'buttons' : btns })   
     return context
-# @register.inclusion_tag(
-#     'tags/registration_overview.html'
-# )
-# def render_registration_overview( page ):
-#     context = { 'page' : page }
-#     if page.start_date < date.today():
-#         context['in_past'] = True
-#         context['available'] = False
-#         return context
-    
-#     plist = []
-#     is_full = page.is_full()
-    
-#     for pt in PARTICIPANT_TYPES:
-#         if not page.can_register( pt[0] ):
-#             continue
-#         dat = {
-#             'ptype'   : pt[0],
-#             'full'    : page.is_full_for( pt[0] ),
-#             'waitlist': page.allows_waitlist_for( pt[0] ),
-#             'price'   : page.get_prize ( pt[0] )
-#         }
-#         plist += [ dat ]
-#     context['registration_list'] = plist
 
-#     return context
-
-# @register.filter
-# def long_ptype( ptype ):
-#     d = dict(PARTICIPANT_TYPES)
-#     return d[ptype]
-
-# @register.inclusion_tag(
-#     'courses/rub_login_form.html'
-# )
-# def rub_login_form( form ):
-#     return { 'form' : form }
-# @register.inclusion_tag(
-#     'courses/personal_data_form.html'
-# )
-# def personal_data_form( form ):
-#     return { 'form' : form }
-# @register.inclusion_tag(
-#     'courses/student_data_form.html'
-# )
-# def student_data_form( form ):
-#     return { 'form' : form }
-
-# @register.inclusion_tag(
-#     'courses/extended_personal_data_form.html'
-# )
-# def extended_personal_data_form( form ):
-#     return { 'form' : form }
-
-# @register.filter 
-# def is_container( page ):
-#     if issubclass( type(page), AbstractParticipantsContainer ):
-#         return True
-#     return False
