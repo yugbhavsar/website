@@ -7,7 +7,7 @@ from rubionadmin.admin import NoCopyButtonHelper, NoCopyNoDelButtonHelper
 
 from userdata.models import StaffUser
 
-from wagtail.contrib.modeladmin.helpers import PermissionHelper
+from wagtail.contrib.modeladmin.helpers import PermissionHelper, PagePermissionHelper
 from wagtail.core.models import Page
 
 class RUBIONUserButtonHelper(NoCopyButtonHelper):
@@ -57,6 +57,12 @@ class RUBIONUserButtonHelper(NoCopyButtonHelper):
 
         return btns
 
+
+class RUBIONUserPermissionHelper(PagePermissionHelper):
+    def user_can_inspect_obj( self, user, obj ):
+        return self.user_can_edit_obj( self, user, obj )
+
+    
 class RUBIONUserSafetyRelationButtonHelper(NoCopyButtonHelper):
     def get_buttons_for_obj(            
             self, obj, exclude=None, classnames_add=None,
