@@ -86,7 +86,7 @@ html * {
   font-weight:bold;
   margin:0;
 }
-#news h4 + p{
+#news h4 + p, p.date-published{
   margin:0;
   font-size:80%;
   color:#003560;
