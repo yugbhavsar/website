@@ -471,65 +471,70 @@ def full_xls_list( request ):
     NAME = 0
     w_write(HEADROW,NAME,'Name', bold)
 
-    VORNAME = 1
+    VORNAME = NAME + 1 # 1
     w_write(HEADROW,VORNAME,'Vorname', bold)
 
-    TITEL = 2
+    TITEL = VORNAME + 1 # 2
     w_write(HEADROW,TITEL,'Titel', bold)
     
-    NI = 3
+    NI = TITEL + 1 #3
     w_write(HEADROW,NI,'NI', bold)
 
-    NT = 4
+    NT = NI + 1 #4
     w_write(HEADROW,NT,'NT', bold)
 
-    STED = 5
+    STED = NT + 1#5
     w_write(HEADROW,STED,'Mikroskopie', bold)
 
-    UNIVERSITAET = 7
+    UNIVERSITAET = STED + 1#6
     w_write(HEADROW,UNIVERSITAET,'Universität', bold)
 
-    INSTITUT = 6
+    INSTITUT = UNIVERSITAET + 1#7
     w_write(HEADROW,INSTITUT,'Institut', bold)
 
-    NUTZER = 11
-    w_write(HEADROW,NUTZER,'Nutzer', bold)
-
-    MITARBEITER = 10
-    w_write(HEADROW,MITARBEITER,'Mitarbeiter', bold)
-
-    LEITUNG = 12
-    w_write(HEADROW,LEITUNG,'AG-Leiter', bold)
-
-    ARBEITSGRUPPE = 8
+    ARBEITSGRUPPE = INSTITUT+1#8
     w_write(HEADROW,ARBEITSGRUPPE,'Arbeitsgruppe', bold)
 
-    AGLEITER = 9
+    AGLEITER = ARBEITSGRUPPE+1#9
     w_write(HEADROW,AGLEITER,'Leitung der Arbeitsgruppe', bold)
 
-    BEIRAT = 13
+    MITARBEITER = AGLEITER + 1#10
+    w_write(HEADROW,MITARBEITER,'Mitarbeiter', bold)
+
+
+    NUTZER = MITARBEITER + 1#11
+    w_write(HEADROW,NUTZER,'Nutzer', bold)
+
+    LEITUNG = NUTZER + 1#12
+    w_write(HEADROW,LEITUNG,'AG-Leiter', bold)
+
+ 
+    BEIRAT = LEITUNG + 1 #13
     w_write(HEADROW,BEIRAT,'Beirat', bold)
 
-    MITGLIED = 14
+    MITGLIED = BEIRAT + 1#14
     w_write(HEADROW,MITGLIED,'RUBION-Mitglied', bold)
 
-    MITGLIEDERVERSAMMLUNG = 15
+    MITGLIEDERVERSAMMLUNG = MITGLIED+1#15
     w_write(HEADROW,MITGLIEDERVERSAMMLUNG,'Einladung MV', bold)
 
-    SONSTIGE = 16
+    SONSTIGE = MITGLIEDERVERSAMMLUNG+1#16
     w_write(HEADROW,SONSTIGE,'Sonstige', bold)
     
-    RMETHODS = 17
+    RMETHODS = SONSTIGE+1#17
     w_write(HEADROW,RMETHODS,'Methoden', bold)
 
-    RAUM = 18
+    RAUM = RMETHODS+1#18
     w_write(HEADROW,RAUM,'Raum', bold)
 
     TELEFON = RAUM+1
     w_write(HEADROW,TELEFON,'Telefon', bold)
+    
     EMAIL = TELEFON+1
     w_write(HEADROW,EMAIL,'E-Mail', bold)
-    WOHNORT = EMAIL+1
+    AKTIV = EMAIL+1
+    w_write(HEADROW,AKTIV,'Aktiv', bold)
+    WOHNORT = AKTIV+1
     w_write(HEADROW,WOHNORT,'Wohnort', bold)
     STRASSE = WOHNORT+1
     w_write(HEADROW,STRASSE,'Straße', bold)
@@ -582,10 +587,13 @@ def full_xls_list( request ):
         w_write(row, NAME, staff.get_last_name())
         w_write(row, VORNAME, staff.get_first_name())
         w_write(row, EMAIL, staff.mail)
+        w_write(row, AKTIV, '✓')
         try:
             ru = RUBIONUser.objects.filter(linked_user = staff.user).first()
         except RUBIONUser.DoesNotExist:
             ru = None
+
+
 
         if is_beirat(staff) or is_beirat(ru):
             w_write(row, BEIRAT, "✓")
@@ -617,6 +625,8 @@ def full_xls_list( request ):
         w_write(row, VORNAME, ru.first_name)
         w_write(row, TITEL, ru.get_academic_title_display())
         w_write(row, EMAIL, ru.email)
+        if ru.expire_at == None or ru.expire_at >= datetime.datetime.now():
+            w_write(row, AKTIV, '✓');
         w_write(row, NUTZER, '✓')
         if ru.is_leader:
             w_write(row, LEITUNG, '✓')
