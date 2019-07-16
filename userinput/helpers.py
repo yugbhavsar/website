@@ -60,7 +60,7 @@ class RUBIONUserButtonHelper(NoCopyButtonHelper):
 
 class RUBIONUserPermissionHelper(PagePermissionHelper):
     def user_can_inspect_obj( self, user, obj ):
-        return self.user_can_edit_obj( self, user, obj )
+        return self.user_can_edit_obj( user, obj )
 
     
 class RUBIONUserSafetyRelationButtonHelper(NoCopyButtonHelper):
