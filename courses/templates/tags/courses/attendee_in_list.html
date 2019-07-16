@@ -1,4 +1,9 @@
 {% load wagtailroutablepage_tags %}
 {% if available %}
- <li><a href="{% routablepageurl page "register" type.get_attendee_class.identifier %}">{% if type.get_attendee_class.display_name_plural %}{{ type.get_attendee_class.display_name_plural }}{% else %}{{ type.get_attendee_class.display_name }}s{% endif %}</a></li>
+<li style="list-style-image:none;margin-bottom:1em;">
+  <a class="button viewmore" href="{% routablepageurl page "register" type.get_attendee_class.identifier %}">
+    <span class="icon"><i></i></span>
+    <span class="text">{% if type.get_attendee_class.display_name_plural %}{{ type.get_attendee_class.display_name_plural }}{% else %}{{ type.get_attendee_class.display_name }}s{% endif %}</span>
+  </a>
+</li>
 {% endif %}
