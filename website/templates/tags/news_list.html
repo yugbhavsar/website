@@ -13,7 +13,6 @@ snippet
 {% else %}
 <h4>{{ item.title_en }}</h4>
 {% endif %}
-<p>{{ item.date_published }}</p>
 {% if item.image %}
 {% image item.image original as orig %}
   <span style="float:left;margin:.5em;"><a href="{{orig.url}}">{% image item.image fill-150x150 %}</a></span>
@@ -23,7 +22,7 @@ snippet
 {% else %}
 {{ item.content_en|richtext }}
 {% endif %}
-
+<p class="date-published">{% trans "Published on" %} {{ item.date_published }}</p>
 </div>
 {% endfor %}
 </div>
