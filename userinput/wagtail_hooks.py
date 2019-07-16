@@ -59,7 +59,7 @@ class RUBIONUserModelAdmin ( ModelAdmin ):
     button_helper_class = RUBIONUserButtonHelper
     menu_label = _l( 'User' )
     menu_icon = 'user'
-    list_display = ('wa_name', 'first_name', 'get_workgroup', '_key_number', 'safety_information', 'safety_instructions', 'comment')
+    list_display = ('wa_name', 'first_name', 'get_workgroup', 'phone', '_key_number', 'safety_information', 'safety_instructions', 'comment')
     list_filter = (RUserExpiredFilter, )
     menu_order = 200
     exclude_from_explorer = True
