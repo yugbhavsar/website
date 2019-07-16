@@ -208,9 +208,8 @@ class RUBIONUserSelfModelForm ( StyledModelForm ):
                 safety_fields.append('previous_names')
                 safety_fields.append('previous_exposure')
                 if r_user.dosemeter == RUBIONUser.OFFICIAL_DOSEMETER:
-                    self.fields['date_of_birth'].required = True
+
                     self.fields['date_of_birth'].help_text = '{}. {}'.format(_('Format: YYYY-MM-DD'), _('You need an official dosemeter and your exposure data will be send to the authorities. We need your date of birth to identify you.'))
-                    self.fields['place_of_birth'].required = True
                     self.fields['place_of_birth'].help_text = '{}. {}'.format(_('Add the country, if not Germany'), _('You need an official dosemeter and your exposure data will be send to the authorities. We need your place of birth to identify you.'))
 
             if safety_fields:
