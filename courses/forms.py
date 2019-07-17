@@ -3,6 +3,7 @@ from .models import (
     SskExternalAttendee, SskHospitalAttendee
 )
 
+from .widgets import WaitlistCheckboxWidget
 from collections import OrderedDict
 
 import datetime
@@ -17,7 +18,19 @@ from userinput.mixins import StyledForm, StyledModelForm
 from website.widgets import (
     StyledCheckbox, StyledDateSelect, TermsAndConditionsWidget
 )
+class WaitlistForm ( StyledForm ):
+    display_text = _('Waiting list for earlier course')
+    waitlist = forms.BooleanField(required = False, label=_('Put me on the wait list'), widget = WaitlistCheckboxWidget)
 
+    def __init__( self, *args, **kwargs ):
+        self.provided_values = kwargs.pop('provided_values', {})
+        self.course = kwargs.pop('course')
+        super(WaitlistForm, self).__init__(*args, **kwargs)
+        self.fields['waitlist'].widget.course = self.course
+
+    
+    def clean( self ):
+        self.provided_values = {'waitlist' : self.cleaned_data['waitlist']}
 
 class RUBIDForm ( StyledForm ):
 
@@ -226,6 +239,12 @@ class AbstractSskTermsAndConditionsForm( StyledModelForm ):
         label = _('I agree to the terms and conditions.')
     )
 
+    def __init__(self, *args, **kwargs):
+        try:
+            kwargs.pop('provided_values')
+        except:
+            pass
+        super(AbstractSskTermsAndConditionsForm, self).__init__(*args, **kwargs)
 
     def clean( self ):
         if not ( self.cleaned_data.get('agree', None) ):
