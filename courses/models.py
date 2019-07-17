@@ -8,6 +8,7 @@ Attendees are *not* implemented as Pages since they only show up in the admin.
 '''
 
 from .attendees import register_attendee, get_attendee_class, ATTENDEE_TYPES
+
 from .pdfhandling import RUBIONCourseInvoice
 from .widgets  import AttendeeSelectWidget
 
@@ -150,10 +151,11 @@ class CourseInformationPage( TranslatedPage, MandatoryIntroductionMixin, BodyMix
     def get_upcoming_courses( self ):
         children = Course.objects.live().child_of(self).filter( start__gt = datetime.date.today() )
         return children
+   
+        
 
     def get_admin_display_title( self ):
         return self.title_trans
-
 class CourseContactPerson( AbstractContactPerson ):
     page = ParentalKey( CourseInformationPage, related_name ='contact_persons')
 
@@ -443,11 +445,6 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
             raise Http404
 
             
-        # raise a 404 if there is no suitable form in the class
-        try:
-            form_name = Attendee.forms[form_count] 
-        except KeyError:
-            raise Http404
 
         # IF THE COURSE IS IN THE PAST, RAISE A 404
         
@@ -465,14 +462,47 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
             module = importlib.import_module(module_name)
             FormKlass = getattr(module, class_name)
             forms.append(FormKlass)
-    
-        # ... and get the current one
-        CurrentFormKlass = forms[form_count]
 
-        # there might be some values passed from the previous form
+        # Check if there are earlier courses that have a waitlist for this Attendee class
+
+        waitlist_available = False
+        previous_courses = self.get_parent().specific.get_upcoming_courses().filter(start__lt = self.start).order_by('-start')
+        for pc in previous_courses.all():
+            if pc.get_free_slots(Attendee) == 0  and pc.get_attendee_types().filter(waitlist=True, attendee = Attendee.identifier).count() > 0:
+                waitlist_available = True
+                waitlist_course = pc
+                break
+
+        
+
+
+        # and if there is one, add the respective form class in the second last position
+        if waitlist_available:
+            from .forms import WaitlistForm
+            last_form = forms[-1]
+            forms[-1] = WaitlistForm
+            forms.append(last_form)
+
+        # ... and get the current one
+        try:
+            CurrentFormKlass = forms[form_count]
+        except KeyError:
+            raise Http404
+
+
+        kwargs = {}
+        
+        # there might be some values passed from the previous form 
         provided_values = request.session.get('provided_values{}'.format(form_count - 1), None)
 
+        if provided_values:
+            kwargs['provided_values'] = provided_values
 
+
+        print ('Form count is: {}'.format(form_count))
+        if waitlist_available and form_count == len(forms)-2:
+            kwargs['course'] = pc
+        
         # now the usual stuff
         if request.method == 'GET':
             
@@ -485,25 +515,16 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
                     data = json.loads( data_json )
                 else:
                     data = {}
-
-                if provided_values:
-                    form = CurrentFormKlass(initial = data, provided_values = provided_values)
-                else:
-                    form = CurrentFormKlass(initial = data)
-
+                kwargs['initial'] = data
             else:
                 if provided_values:
-                    form = CurrentFormKlass(initial = provided_values, provided_values = provided_values)
-                else:
-                    form = CurrentFormKlass()
+                    kwargs['initial'] = provided_values
+                    
+            form = CurrentFormKlass(**kwargs)
 
 
         if request.method == 'POST':
-            if provided_values:
-                form = CurrentFormKlass(request.POST, initial = provided_values)
-            else:
-                form = CurrentFormKlass(request.POST)
-
+            form = CurrentFormKlass(request.POST, **kwargs)
 
             if form.is_valid():          
                 if hasattr(form, 'is_validated'):
@@ -516,9 +537,11 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
                 if data_json:
                     cleaned_data.update(json.loads( data_json ))
 
-                if issubclass(CurrentFormKlass, ModelForm):
+                if issubclass(CurrentFormKlass, ModelForm) or (waitlist_available and form_count == len(forms)-2):
                     for key, value in form.cleaned_data.items():
                         cleaned_data[key] = value
+                 
+                    
                 else:
                     try:
                         request.session['provided_values{}'.format(form_count)] = form.provided_values
@@ -530,7 +553,7 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
                 request.session['cleaned_data'] = json.dumps(cleaned_data, cls=PHJsonEncoder)
                 request.session.modified = True
 
-                if form_count < len(Attendee.forms) - 1:
+                if form_count < len(forms) - 1:
                     messages.info( request, format_lazy(
                         'Your data for step {} has been saved. Please proceed with step {}.',
                         form_count+1, form_count+2))
@@ -538,7 +561,10 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
                 else:
                     instance = form.save( commit = False )
                     for key, value in cleaned_data.items():
-                        setattr( instance, key, value )
+                        if key == 'waitlist' and waitlist_available:
+                            setattr( instance, 'waitlist_course', pc )
+                        else:
+                            setattr( instance, key, value )
 
                     # Attendees that have to pay have the amount of the fee and the 
                     # amount already payed in the database. We need to provide values here...
@@ -564,7 +590,7 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
                         return redirect(self.url)
                     
         price = self.get_price(Attendee)
-        show_price_hint = price > 0 and form_count == len(Attendee.forms) - 1
+        show_price_hint = price > 0 and form_count == len(forms) - 1
 
 
         return TemplateResponse(
