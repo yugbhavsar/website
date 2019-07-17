@@ -1,0 +1,10 @@
+{% load i18n %}
+<p>
+  {% trans 'There is also a course' %} <i>{{widget.course.get_parent}}</i> 
+  {% trans 'from' %} {{widget.course.start}} {% trans 'to' %} {{widget.course.end}}
+  {% trans 'which is fully booked, but a waiting list is available' %}.
+</p>
+
+<div class="checkbox">
+    <input type="checkbox" id="{{ widget.attrs.id }}" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %} />
+
