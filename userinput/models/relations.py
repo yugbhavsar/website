@@ -17,7 +17,7 @@ from wagtail.admin.edit_handlers import (
     FieldRowPanel, InlinePanel, TabbedInterface, 
     ObjectList, PageChooserPanel 
 )
-from wagtail.core.models import Orderable, Page, PageRevision
+from wagtail.core.models import Orderable
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 class AbstractNuclideRelation( Orderable ):
