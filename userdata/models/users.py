@@ -256,7 +256,7 @@ class StaffUser ( TranslatedPage ):
 
     comment = RichTextField(
         blank = True,
-        verbose_name = _('Commentary')
+        verbose_name = _('Comment')
     )
     
     content_panels = [
