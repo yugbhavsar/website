@@ -1,12 +1,16 @@
 import datetime
+import importlib
+
+from courses.wagtail_hooks import SskStudentAttendeeMA
+from courses.models import CourseAttendee
+
+
 from dateutil.relativedelta import relativedelta
 def minus_one_week():
     return datetime.date.today() - relativedelta(weeks = 1)
 
 
 from django import template
-from courses.wagtail_hooks import SskStudentAttendeeMA
-from courses.models import CourseAttendee
 
 
 
@@ -185,7 +189,10 @@ def attendee_in_list( context, course, Attendee ):
     takes_context = True
 )
 def attendee_buttons( context, attendee ):
-    ma = SskStudentAttendeeMA()
+    module = importlib.import_module('courses.wagtail_hooks')
+    MA = getattr(module, "{}MA".format(attendee.__class__.__name__))
+    
+    ma = MA()
     BH = ma.get_button_helper_class()
     bh = BH(context['view'] , context['request'], modeladmin = ma )
     if attendee.related_course == context['instance'] :
