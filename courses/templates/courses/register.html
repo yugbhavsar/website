@@ -17,13 +17,20 @@
      {% trans "Participation in the course is free of charge." %}
    {% endif %}
 </p>
-{% if free_slots == 0 %}
+{% if free_slots == 0  and has_waitlist %}
+<p class="warning">
+  {% blocktrans %}
+  The course is fully booked. You will be put on the waiting list.
+  {% endblocktrans %}
+</p>
+{% elif free_slots == 0  and has_waitlist %}
 <p class="warning">
   {% blocktrans %}
   The course is fully booked. You will not be able to complete the
   registration process.
   {% endblocktrans %}
 </p>
+
 {% else %}
 {% if free_slots < 3 %}
 <p class="important">
