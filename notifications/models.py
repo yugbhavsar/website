@@ -583,7 +583,15 @@ class CentralRadiationSafetyDataSubmission( models.Model ):
 
         
         
-    
-    
-    
+@register_snippet    
+class ProjectExpiredNotifications( models.Model ):
+    project = models.ForeignKey('userinput.Project', on_delete=models.CASCADE)
+    mail = models.ForeignKey('website.SentMail', on_delete=models.CASCADE)
+
+@register_snippet    
+class SafetyInstructionExpiredNotifications( models.Model ):
+    project = models.ForeignKey('userdata.SafetyInstructionUserRelation', on_delete=models.CASCADE)
+    mail = models.ForeignKey('website.SentMail', on_delete=models.CASCADE)
+
+
 
