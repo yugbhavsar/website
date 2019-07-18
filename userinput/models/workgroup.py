@@ -1,17 +1,22 @@
 from django.db import models
+from django.http import Http404
+from django.shortcuts import redirect
+from django.template.defaultfilters import slugify
+from django.template.response import TemplateResponse
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from ugc.models import UserGeneratedPage2
+from rubauth.models import Identification
+
+from ugc.models import UserGeneratedPage2, UGCCreatePage2
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, MultiFieldPanel,
     FieldRowPanel, InlinePanel, TabbedInterface, 
     ObjectList, PageChooserPanel 
 )
-from wagtail.contrib.routable_page.models import route
 
 from website.models import TranslatedField
-
 
 class WorkGroup ( UserGeneratedPage2 ):
 
