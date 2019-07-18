@@ -10,8 +10,6 @@ from instruments.mixins import (
 
 from modelcluster.fields import ParentalKey
 
-
-
 from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, MultiFieldPanel,
     FieldRowPanel, InlinePanel, TabbedInterface, 
