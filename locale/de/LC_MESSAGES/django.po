@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-16 09:28+0200\n"
-"PO-Revision-Date: 2019-07-18 11:56+0200\n"
+"PO-Revision-Date: 2019-07-18 12:00+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -3889,7 +3889,7 @@ msgstr "Publikation"
 
 #: userinput/models.py:1588
 msgid "The project was extended by one year."
-msgstr "Das projekt wurde um ein Jahr verlängert."
+msgstr "Das Projekt wurde um ein Jahr verlängert."
 
 #: userinput/models.py:1590
 msgid "The project cannot be extended anymore. Please contact the RUBION team."
