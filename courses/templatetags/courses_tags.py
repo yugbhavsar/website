@@ -172,9 +172,9 @@ def specific_attendee_list( context, at, instance ):
     takes_context = True
 )
 def attendee_in_list( context, course, Attendee ):
-    print (Attendee)
     return {
         'available' : course.get_free_slots(Attendee.get_attendee_class()) > 0,
+        'waitlist' : course.has_waitlist_for(Attendee.get_attendee_class()),
         'type' : Attendee,
         'page' : course,
         'request' : context['request']
