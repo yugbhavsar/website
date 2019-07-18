@@ -258,11 +258,14 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
         return self._get_me_or_parent().share_data_via_website
 
     def get_price( self, attendee ):
-        course = self._get_me_or_parent()
+        
         for at_rel in self.get_attendee_types().all():
             if at_rel.get_attendee_class() == attendee:
                 return at_rel.price
         return 0
+    
+    def has_waitlist_for( self, attendee):
+        return self.get_attendee_types().filter(attendee = attendee.identifier, waitlist = True).count() > 0
     
 
     @property
@@ -477,6 +480,12 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
 
 
         # and if there is one, add the respective form class in the second last position
+        # but only, if this regsitration is for the course, and not for the waitlist of this course
+        has_waitlist = self.has_waitlist_for(Attendee) 
+        free_slots = self.get_free_slots(Attendee)
+        uses_waitlist = has_waitlist and free_slots < 1
+        if uses_waitlist:
+            waitlist_available = False
         if waitlist_available:
             from .forms import WaitlistForm
             last_form = forms[-1]
@@ -580,6 +589,15 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
                             return redirect(self.url + self.reverse_subpage('validation_mail', args=[instance.courseattendee_ptr_id] ))
                         else:
                             return redirect(self.url + self.reverse_subpage('success', args=[instance.courseattendee_ptr_id] ))
+                    elif has_waitlist:
+                        instance.waitlist_course = self
+                        instance.related_course = None
+                        instance.save()
+                        messages.info(request, _('You were put on the waiting list.'))
+                        if not instance.is_validated:
+                            return redirect(self.url + self.reverse_subpage('validation_mail', args=[instance.courseattendee_ptr_id] ))
+                        else:
+                            return redirect(self.url + self.reverse_subpage('success', args=[instance.courseattendee_ptr_id] ))         
                     else:
                         messages.error(request, _('The course is fully booked. You have not been registered.'))
                         messages.info(request, _('We have not stored your data.'))
@@ -605,7 +623,8 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
                 'page'         : self,
                 'price'        : price,
                 'show_price_hint' : show_price_hint,
-                'free_slots' : self.get_free_slots(Attendee)
+                'free_slots' : free_slots,
+                'has_waitlist': has_waitlist
             }
         )
 
