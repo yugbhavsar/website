@@ -29,6 +29,7 @@ class AttendeeButtonHelper (ButtonHelper):
             self.permission_helper = view.permission_helper
             self.url_helper = view.url_helper
 
+        
         self.opts = self.model._meta
         self.verbose_name = force_text(self.opts.verbose_name)
         self.verbose_name_plural = force_text(self.opts.verbose_name_plural)
@@ -54,6 +55,7 @@ class AttendeeButtonHelper (ButtonHelper):
         classnames = self.edit_button_classnames + classnames_add
         cn = self.finalise_classname(classnames, classnames_exclude)
         opts = self.obj.__class__._meta
+
         return {
             'url': reverse(
                 '%s_%s_modeladmin_%s' % (opts.app_label, opts.model_name, 'edit'),
@@ -61,8 +63,9 @@ class AttendeeButtonHelper (ButtonHelper):
             )+self.get_next(),
             'label': _('Edit' ),
             'classname': cn,
-            'title': _('Edit this %s') % opts.model_name
+            'title': _('Edit %s, %s') % (self.obj.last_name, self.obj.first_name)
         }
+
     def delete_button(self, pk, classnames_add=None, classnames_exclude = None):
         if classnames_add is None:
             classnames_add = []
@@ -78,7 +81,7 @@ class AttendeeButtonHelper (ButtonHelper):
             ),
             'label': _('Delete' ),
             'classname': cn,
-            'title': _('Delete this %s') % opts.model_name
+            'title': _('Delete %s, %s') % (self.obj.last_name, self.obj.first_name)
         }
 
     def delete_from_waitlist_button(self, pk, classnames_add=None, classnames_exclude = None):
@@ -93,7 +96,7 @@ class AttendeeButtonHelper (ButtonHelper):
             'url': self.url_helper.get_action_url('delete', quote(pk)),
             'label': _('Delete from waitlist'),
             'classname': cn,
-            'title': _('Delete this %s') % self.verbose_name,
+            'title': _('Delete %s, %s from waiting list') % (self.obj.last_name, self.obj.first_name)
         }
 
 
@@ -112,7 +115,7 @@ class AttendeeButtonHelper (ButtonHelper):
             )+self.get_next(),
             'label': _('Has payed'),
             'classname': cn,
-            'title': _('Delete this %s') % self.verbose_name,
+            'title': _('Mark as payed')
         }
 
     def add_to_course_button(self, pk, classnames_add=None, classnames_exclude = None):
@@ -127,7 +130,7 @@ class AttendeeButtonHelper (ButtonHelper):
             'url': reverse('coursesadmin:add2course', args=[pk, self.view.instance.id])+self.get_next(),
             'label': _('Add to course'),
             'classname': cn,
-            'title': _('Add this %s to the course') % self.verbose_name,
+            'title': _('Add %s, %s to course') %  (self.obj.last_name, self.obj.first_name)
         }
 
 
