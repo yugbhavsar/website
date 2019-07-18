@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-16 09:28+0200\n"
-"PO-Revision-Date: 2019-07-18 12:00+0200\n"
+"PO-Revision-Date: 2019-07-18 12:34+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -27,20 +27,18 @@ msgid "Create a date for which course?"
 msgstr "Für welchen Kurs soll ein Termin erstellt werden?"
 
 #: courses/admin_views.py:41
-#, fuzzy
-#| msgid "The course is fully booked."
 msgid "This course is fully booked."
 msgstr "Der Kurs ist ausgebucht."
 
 #: courses/admin_views.py:99
 #, python-format
 msgid "A confirmation e-mail has been sent to %s."
-msgstr ""
+msgstr "Eine Bestätigungsemail wurd an %s versendet."
 
 #: courses/admin_views.py:122
 #, python-format
 msgid "The status of %s has been changed."
-msgstr ""
+msgstr "Der Status von %s wurde geändert."
 
 #: courses/bookable_course.html:10
 #: courses/templates/courses/bookable_course.html:10
@@ -107,34 +105,24 @@ msgid "Personal information"
 msgstr "Persönliche Angaben"
 
 #: courses/forms.py:111
-#, fuzzy
-#| msgid "Information on chemicals"
 msgid "Information for the certificate"
-msgstr "Informationen über Chemikalien"
+msgstr "Informationen für das Zertifikat"
 
 #: courses/forms.py:197
-#, fuzzy
-#| msgid "Additional information"
 msgid "Billing information"
-msgstr "Zusätzliche Informationen"
+msgstr "Informationen für die Rechnungs"
 
 #: courses/forms.py:220
-#, fuzzy
-#| msgid "Terms and conditions"
 msgid "Terms and Conditions"
 msgstr "Nutzungsbedingungen"
 
 #: courses/forms.py:226
-#, fuzzy
-#| msgid "I agree to the terms and conditions"
 msgid "I agree to the terms and conditions."
 msgstr "Ich stimme den Nutzungsbedingungen zu"
 
 #: courses/forms.py:232
-#, fuzzy
-#| msgid "I agree to the terms and conditions"
 msgid "You have to agree to the terms and conditions."
-msgstr "Ich stimme den Nutzungsbedingungen zu"
+msgstr "Sie müssen den Nutzungsbedingungen zustimmen."
 
 #: courses/forms.py:266
 msgid "File to upload"
@@ -154,10 +142,9 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: courses/helpers.py:64
-#, fuzzy, python-format
-#| msgid "Edit this page"
+#, python-format
 msgid "Edit this %s"
-msgstr "Diese Seite bearbeiten"
+msgstr "Diese %s bearbeiten"
 
 #: courses/helpers.py:79
 #: courses/templates/wagtailadmin/pages/listing/_page_title_explore.html:32
@@ -167,29 +154,26 @@ msgid "Delete"
 msgstr "Löschen"
 
 #: courses/helpers.py:81 courses/helpers.py:96 courses/helpers.py:115
-#, fuzzy, python-format
-#| msgid "Prolong this %s"
+#, python-format
 msgid "Delete this %s"
-msgstr "Verlängern Sie dieses %s"
+msgstr "Diese %s löschen"
 
 #: courses/helpers.py:94
 msgid "Delete from waitlist"
-msgstr ""
+msgstr "Von Warteliste löschen"
 
 #: courses/helpers.py:113
 msgid "Has payed"
-msgstr ""
+msgstr "Hat bezahlt"
 
 #: courses/helpers.py:128
-#, fuzzy
-#| msgid "Student course"
 msgid "Add to course"
-msgstr "Studiengang"
+msgstr "Zu Kurs hinzufügen"
 
 #: courses/helpers.py:130
 #, python-format
 msgid "Add this %s to the course"
-msgstr ""
+msgstr "Diesen %s zu Kurs hinzufügen"
 
 #: courses/mixins.py:8
 msgid "Master of Biochemistry"
@@ -339,7 +323,7 @@ msgstr "Angaben zu einer Kursveranstaltung"
 msgid ""
 "Is there a list that stores people intereted in this course if no course "
 "date is available?"
-msgstr ""
+msgstr "Gibt es eine Liste für Interessenten, wenn kein Kurstermin vorhanden ist?"
 
 #: courses/models.py:129 website/models.py:332
 msgid "Contact persons"
@@ -403,7 +387,7 @@ msgstr "Maximale Teilnehmerzahl"
 
 #: courses/models.py:200
 msgid "Fill with attendees from waitlist automatically?"
-msgstr ""
+msgstr "Automatisch mit Teilnehmern von der Warteliste füllen?"
 
 #: courses/models.py:225
 msgid "Date and info"
@@ -414,16 +398,12 @@ msgid "Overrule parent settings"
 msgstr "Übergeordnete Einstellungen überschreiben"
 
 #: courses/models.py:558
-#, fuzzy
-#| msgid "The course is fully booked for"
 msgid "The course is fully booked. You have not been registered."
-msgstr "Dieser Kurs ist ausgebucht für"
+msgstr "Dieser Kurs ist ausgebucht. Sie wurden nicht registriert."
 
 #: courses/models.py:559
-#, fuzzy
-#| msgid "Enter your data."
 msgid "We have not stored your data."
-msgstr "Geben Sie Ihre Daten an."
+msgstr "Wir haben Ihre Daten nicht gespeichert."
 
 #: courses/models.py:749
 #: courses/templates/tags/courses/specific_attendee_list.html:6
@@ -449,25 +429,23 @@ msgstr "Ist der Teilnehmer bestätigt?"
 
 #: courses/models.py:811
 msgid "E-Mail for adding this attendee to the course from the wait list sent?"
-msgstr ""
+msgstr "Mail zum Hinzufügen dieses Teilnehmers von der Warteliste versendet?"
 
 #: courses/models.py:812
-#, fuzzy
-#| msgid "E-Mail sent"
 msgid "Mail sent?"
-msgstr "E-Mail versendet"
+msgstr "E-Mail versendet?"
 
 #: courses/models.py:818
 msgid "When was the mail sent?"
-msgstr ""
+msgstr "Wann wurde dei Mail versendet?"
 
 #: courses/models.py:828
 msgid "When was the validation mail sent?"
-msgstr ""
+msgstr "Wann wurde die Validierungsmail versendet?"
 
 #: courses/models.py:837
 msgid "When was the confirmation mail sent?"
-msgstr ""
+msgstr "Wann wurde die Bestätigungsmail versendet?"
 
 #: courses/models.py:944 courses/models.py:1078
 msgid "Student"
@@ -526,8 +504,6 @@ msgid "student for course with official certificate"
 msgstr "Student mit Angaben für offizielles Zertifikat"
 
 #: courses/models.py:1088
-#, fuzzy
-#| msgid "Student course"
 msgid "student course"
 msgstr "Studiengang"
 
@@ -544,16 +520,12 @@ msgid "Externals"
 msgstr "Externe Teilnehmer"
 
 #: courses/models.py:1103
-#, fuzzy
-#| msgid "Company"
 msgid "company"
 msgstr "Firma"
 
 #: courses/models.py:1104
-#, fuzzy
-#| msgid "has agreed"
 msgid "has payed"
-msgstr "hat zugestimmt"
+msgstr "hat bezahlt"
 
 #: courses/models.py:1121
 msgid ""
@@ -631,13 +603,11 @@ msgstr "Beschreibung des Datei-Inhalts"
 
 #: courses/models.py:1381
 msgid "VAT rate"
-msgstr ""
+msgstr "Mehrwertsteuerrate"
 
 #: courses/templates/courses/added2course.html:9
-#, fuzzy
-#| msgid "You are now registered for the course"
 msgid "You have been registered for the course from"
-msgstr "Sie sind nun für den Kurs angemeldet."
+msgstr "Sie sind nun für den Kurs angemeldet, das Kursdatum ist "
 
 #: courses/templates/courses/added2course.html:10
 #: courses/templates/courses/added2course.html:16
@@ -645,10 +615,8 @@ msgstr "Sie sind nun für den Kurs angemeldet."
 #: courses/templates/courses/added2course_reject.html:20
 #: courses/templates/courses/course.html:54
 #: courses/templates/courses/validation_mail.html:12
-#, fuzzy
-#| msgid "town"
 msgid "to"
-msgstr "Stadt"
+msgstr "bis"
 
 #: courses/templates/courses/added2course.html:15
 #, fuzzy
@@ -657,14 +625,11 @@ msgid "You are deleted from the list for the course from "
 msgstr "Sie sind nun für den Kurs angemeldet."
 
 #: courses/templates/courses/added2course_reject.html:11
-#, fuzzy
-#| msgid "Registration fee"
 msgid "Course registration"
-msgstr "Teilnahmegebühr"
+msgstr "Kursanmeldung"
 
 #: courses/templates/courses/added2course_reject.html:13
 #, fuzzy
-#| msgid "You are now registered for the course"
 msgid "You have been removed from the wait list for the course from "
 msgstr "Sie sind nun für den Kurs angemeldet."
 
@@ -737,23 +702,23 @@ msgstr "Anmeldung"
 msgid ""
 "The beginning of this course is in the past, you cannot register anymore."
 msgstr ""
+"Der Beginn dieses Kurses liegt in der Vergangenheit. Sie können sich nicht\n"
+"mehr registrieren."
 
 #: courses/templates/courses/course.html:30
 msgid ""
 "\n"
 "        This course is fully booked, you cannot register anymore.\n"
 "      "
-msgstr ""
+msgstr "\nDieser Kurs ist ausgebucht. Sie können Sich nicht mehr registrieren.\n"
 
 #: courses/templates/courses/course.html:35
 msgid "This course is available for"
 msgstr "Dieser Kurs ist verfügbar für"
 
 #: courses/templates/courses/course.html:44
-#, fuzzy
-#| msgid "upcoming courses"
 msgid "Upcoming courses and waitlist"
-msgstr "Nächste Kurse"
+msgstr "Nächste Kurse und Warteliste"
 
 #: courses/templates/courses/course.html:45
 msgid ""
@@ -767,13 +732,11 @@ msgstr ""
 
 #: courses/templates/courses/course.html:54
 msgid "From"
-msgstr ""
+msgstr "vom"
 
 #: courses/templates/courses/course.html:54
-#, fuzzy
-#| msgid "town"
 msgid "on"
-msgstr "Stadt"
+msgstr "am"
 
 # Nummer im Vorlesungsverzeichnis
 #: courses/templates/courses/course_container_page.html:11
@@ -862,18 +825,16 @@ msgid "Register for course from"
 msgstr "Anmeldung für den Kurs vom"
 
 #: courses/templates/courses/register.html:13
-#, fuzzy
-#| msgid "Registration fee"
 msgid "Registration as"
-msgstr "Teilnahmegebühr"
+msgstr "Registrierung als"
 
 #: courses/templates/courses/register.html:15
 msgid "The participation fee is"
-msgstr ""
+msgstr "Die Teilnahmegebühr beträgt"
 
 #: courses/templates/courses/register.html:17
 msgid "Participation in the course is free of charge."
-msgstr ""
+msgstr "Die Teilnahme an diesem Kurs ist kostenlos."
 
 #: courses/templates/courses/register.html:22
 msgid ""
@@ -881,7 +842,7 @@ msgid ""
 "  The course is fully booked. You will not be able to complete the\n"
 "  registration process.\n"
 "  "
-msgstr ""
+msgstr "Der Kurs ist ausgebucht. Sie werden die regsitrierung nicht abschließen können."
 
 #: courses/templates/courses/register.html:30
 msgid ""
@@ -892,6 +853,8 @@ msgid ""
 "  unavailable.\n"
 "  "
 msgstr ""
+"In diesem Kurs sind nur noch wenige Plätze frei. Es kann passieren, dass\n"
+"während Ihrer Registrierung der Kurs ausgebucht wird."
 
 #: courses/templates/courses/register.html:41
 #: courses/templates/courses/register.html:42
@@ -899,17 +862,13 @@ msgid "Step"
 msgstr "Schritt"
 
 #: courses/templates/courses/register.html:41
-#, fuzzy
-#| msgid "of"
 msgctxt "x of y"
 msgid "of"
 msgstr "von"
 
 #: courses/templates/courses/register.html:59
-#, fuzzy
-#| msgid "register"
 msgid "register for "
-msgstr "Anmeldung"
+msgstr "Anmeldung zum"
 
 #: courses/templates/courses/register.html:63
 msgid "submit"
@@ -956,31 +915,33 @@ msgstr ""
 
 #: courses/templates/courses/validation_mail.html:10
 msgid "Validation mail sent"
-msgstr ""
+msgstr "E-Mail zur Validierung gesendet."
 
 #: courses/templates/courses/validation_mail.html:11
-#, fuzzy
-#| msgid "You are now registered for the course"
 msgid "You have succesfully reserved a place in the course"
-msgstr "Sie sind nun für den Kurs angemeldet."
+msgstr "Sie haben einen Platz in dem Kurs reserviert."
 
 #: courses/templates/courses/validation_mail.html:14
 msgid "To confirm your registration, we have sent an email to"
 msgstr ""
+"Um Ihre Registrierung zur bestätigen haben wir eine E-Mail an folgende Adresse\n"
+"gesendet:"
 
 #: courses/templates/courses/validation_mail.html:19
 msgid ""
 "containing a temporary link. Please click this link to confirm your "
 "registration."
 msgstr ""
+"Diese enthält einen temporären Link. Bitte klicken Sie diesen Link, um Ihre\n"
+"Anmeldung zu bestätigen."
 
 #: courses/templates/courses/validation_mail.html:21
 msgid "Please note: If you do not confirm your registration until"
-msgstr ""
+msgstr "Bitte beachten Sie: Wenn Sie Ihre Anmeldung nicht bis zum"
 
 #: courses/templates/courses/validation_mail.html:22
 msgid "your place will be given to others."
-msgstr ""
+msgstr "bestätigen, wird Ihr Platz an andere vergeben."
 
 #: courses/templates/modeladmin/courses/course/inspect.html:26
 #: userinput/templates/userinput/admin/inspect_rubionuser.html:25
@@ -998,31 +959,25 @@ msgstr "Gesamt"
 
 #: courses/templates/modeladmin/courses/course/inspect.html:49
 msgid "Confirmed Participation, fee payed"
-msgstr ""
+msgstr "Anmeldung bestätigt, bezahlt"
 
 #: courses/templates/modeladmin/courses/course/inspect.html:63
 msgid "Confirmed Participation, fee open"
-msgstr ""
+msgstr "Anmeldung bestätigt, nicht bezahlt"
 
 #: courses/templates/modeladmin/courses/course/inspect.html:77
-#, fuzzy
-#| msgid "additional information"
 msgid "Waiting for validation"
-msgstr "zusätzliche Informationen"
+msgstr "Auf Bestätigung wartend"
 
 #: courses/templates/modeladmin/courses/course/inspect.html:91
 msgid "Waiting for confirmation (from waitlist)"
-msgstr ""
+msgstr "Auf bestätigung warten (von Warteliste)"
 
 #: courses/templates/modeladmin/courses/course/inspect.html:106
-#, fuzzy
-#| msgid "Application filed"
 msgid "Validation expired"
-msgstr "Anfrage eingereicht"
+msgstr "Validierung ausgelaufen"
 
 #: courses/templates/modeladmin/courses/course/inspect.html:120
-#, fuzzy
-#| msgid "waitlist"
 msgid "Waitlist"
 msgstr "Warteliste"
 
@@ -1043,38 +998,28 @@ msgstr "E-Mail"
 
 #: courses/templates/tags/courses/specific_attendee_list.html:13
 #: courses/templates/tags/courses/specific_attendee_list.html:53
-#, fuzzy
-#| msgid "register"
 msgid "registered at"
-msgstr "Anmeldung"
+msgstr "angemeldet am"
 
 #: courses/templates/tags/courses/specific_attendee_list.html:14
-#, fuzzy
-#| msgid "waitlist"
 msgid "on waitlist for"
-msgstr "Warteliste"
+msgstr "auf Warteliste für"
 
 #: courses/templates/tags/courses/specific_attendee_list.html:54
-#, fuzzy
-#| msgid "courses"
 msgid "for course"
-msgstr "Kurse"
+msgstr "für Kurs"
 
 #: courses/templates/tags/courses/specific_attendee_list.html:55
 msgid "asked for participation"
-msgstr ""
+msgstr "Teilnahme angefragt"
 
 #: courses/templates/tags/courses/specific_attendee_list.html:70
-#, fuzzy
-#| msgid "not instructed"
 msgid "not asked"
-msgstr "nicht unterwiesen"
+msgstr "nicht angefragt"
 
 #: courses/templates/tags/courses/specific_attendee_list.html:87
-#, fuzzy
-#| msgid "Registration fee"
 msgid "No registration yet."
-msgstr "Teilnahmegebühr"
+msgstr "Bisher keine Anmeldung"
 
 #: courses/templates/tags/next_dates.html:4
 msgid "upcoming courses"
@@ -1970,8 +1915,6 @@ msgid "Status"
 msgstr "Status"
 
 #: rubion/templates/wagtailadmin/pages/_edit.html:41
-#, fuzzy
-#| msgid "Saving..."
 msgid "Saving…"
 msgstr "Speichere..."
 
@@ -2394,8 +2337,6 @@ msgstr ""
 "werden."
 
 #: userdata/admin_views.py:92
-#, fuzzy
-#| msgid "Safety instruction added."
 msgid "Safety instructions added."
 msgstr "Sicherheitsunterweisungen hinzugefügt."
 
@@ -2446,22 +2387,16 @@ msgid "nearly"
 msgstr "beinahe"
 
 #: userdata/forms.py:52
-#, fuzzy
-#| msgid "Safety Instructions"
 msgid "Instruction"
-msgstr "Sicherheitsunterweisungen"
+msgstr "Sicherheitsunterweisung"
 
 #: userdata/forms.py:61
-#, fuzzy
-#| msgid "RUBION Users"
 msgid "RUBION users"
 msgstr "RUBION-Nutzer"
 
 #: userdata/forms.py:68
-#, fuzzy
-#| msgid "RUBION User"
 msgid "RUBION staff"
-msgstr "RUBION-Nutzer"
+msgstr "RUBION-Mitarbeiter"
 
 #: userdata/mixins.py:16
 msgid "responsible editor"
@@ -2636,16 +2571,12 @@ msgid "links"
 msgstr "Links"
 
 #: userdata/models/users.py:310
-#, fuzzy
-#| msgid "Laser safety instructions"
 msgid "Required safety instructions"
-msgstr "Laserschutzunterweisung"
+msgstr "benötigte Sicherheitsunterweisungen"
 
 #: userdata/models/users.py:321
-#, fuzzy
-#| msgid "Safety Instructions"
 msgid "Safety Instruction Dates"
-msgstr "Sicherheitsunterweisungen"
+msgstr "Daten der Sicherheitsunterweisungen"
 
 #: userdata/models/users.py:403
 msgid "staff members"
@@ -2653,10 +2584,8 @@ msgstr "Mitarbeiter"
 
 #: userdata/models/users.py:410
 #: userinput/templates/userinput/admin/inspect_project.html:17
-#, fuzzy
-#| msgid "Comment"
 msgid "Comments"
-msgstr "Kommentar"
+msgstr "Kommentare"
 
 #: userdata/models/users.py:411 userinput/models.py:1077
 #: userinput/templates/notifications/rubionuser_added.html:21
@@ -2742,74 +2671,52 @@ msgid "Safety instruction dates for user"
 msgstr "Daten der Sicherheitsunterweisungen der Nutzer"
 
 #: userdata/safety_instructions.py:34
-#, fuzzy
-#| msgid "General safety instructions"
 msgid "general safety instruction"
 msgstr "Generelle Sicherheitsunterweisung"
 
 #: userdata/safety_instructions.py:35
-#, fuzzy
-#| msgid "General safety instruction (isotope lab)"
 msgid "general safety in the isotope lab"
 msgstr "Generelle Sicherheitsunterweisung (Radionuklidlabor)"
 
 #: userdata/safety_instructions.py:36
-#, fuzzy
-#| msgid "General safety instructions (accelerator labs)"
 msgid "general safety in the accellerator lab"
 msgstr "Generelle Sicherheitsunterweisung (Beschleunigerlabore)"
 
 #: userdata/safety_instructions.py:37
-#, fuzzy
-#| msgid "Radiation safety instructions (§38 StrlSchV)"
 msgid "radiation safety (§38 StrSchV)"
 msgstr "Strahlenschutzunterweisung (§38 StrlSchV)"
 
 #: userdata/safety_instructions.py:38
-#, fuzzy
-#| msgid "Laser safety"
 msgid "laser safety"
 msgstr "Laserschutz"
 
 #: userdata/safety_instructions.py:39
-#, fuzzy
-#| msgid "Crane license update"
 msgid "crane license"
-msgstr "Kran update"
+msgstr "Kranführer-Unterweisung"
 
 #: userdata/safety_instructions.py:40
-#, fuzzy
-#| msgid "Forklift license update"
 msgid "forklift license"
-msgstr "Stapler update"
+msgstr "Gabelstapler-Unterweisung"
 
 #: userdata/safety_instructions.py:41
-#, fuzzy
-#| msgid "Does this instruction include the management of hazardous materials?"
 msgid "safety instruction for handling hazardous material"
-msgstr "Enthält die Unterweisung eine Unterweisung in Gefahrgut-Transport?"
+msgstr "Sicherheitsunterweisung im Umgang mit Gefahrgut"
 
 #: userdata/templates/forms/widgets/multiselect.html:4
-#, fuzzy
-#| msgid "research"
 msgid "search"
-msgstr "Forschung"
+msgstr "Suche"
 
 #: userdata/templates/forms/widgets/multiselect.html:10
 msgid "Sort"
-msgstr ""
+msgstr "Sortieren"
 
 #: userdata/templates/forms/widgets/multiselect.html:11
-#, fuzzy
-#| msgid "related items"
 msgid "Selected items"
-msgstr "Zugehörende Angaben"
+msgstr "Ausgewählt"
 
 #: userdata/templates/forms/widgets/multiselect.html:20
-#, fuzzy
-#| msgid "Availability"
 msgid "Available items"
-msgstr "Verfügbarkeit"
+msgstr "Verfügbar"
 
 #: userdata/templates/userdata/admin/safetyinstruction/create.html:4
 #: userinput/templates/notifications/rubionuser_changed.html:30
@@ -2822,10 +2729,8 @@ msgid "Save"
 msgstr "Speichern"
 
 #: userdata/templates/userdata/admin/safetyinstruction/many.html:5
-#, fuzzy
-#| msgid "No safety instructions required"
 msgid "New safety instruction for multiple people"
-msgstr "Keine Sicherheitsunterweisungen notwendig"
+msgstr "Neue Sicherheitsunterweisungen für mehrere Nutzer"
 
 #: userdata/templates/userdata/validation/mail_sent.html:4
 msgid "Registration nearly completed!"
@@ -2928,37 +2833,29 @@ msgstr ""
 
 #: userinput/admin_forms.py:36
 msgid "inactivate group"
-msgstr ""
+msgstr "Gruppe inaktivieren"
 
 #: userinput/admin_forms.py:37
-#, fuzzy
-#| msgid "Group leader"
 msgid "select new group leader"
-msgstr "Arbeitsgruppenleiter"
+msgstr "Neuen Arbeitsgruppenleiter auswählen"
 
 #: userinput/admin_forms.py:47
-#, fuzzy
-#| msgid "leader of the group"
 msgid "Decision on the group"
-msgstr "Arbeitsgruppenleiter"
+msgstr "Entscheidung für die Gruppe"
 
 #: userinput/admin_forms.py:58
-#, fuzzy
-#| msgid "Group leader"
 msgid "Select new group leader"
-msgstr "Arbeitsgruppenleiter"
+msgstr "Neuen Arbeitsgruppenleiter auswählen"
 
 #: userinput/admin_forms.py:69
-#, fuzzy
-#| msgid "Please select a suitable instrument"
 msgid "Please select a new group leader."
-msgstr "Bitte ein passendes Gerät auswählen"
+msgstr "Bitte einen neuen AG-Leiter auswählen"
 
 #: userinput/admin_views.py:66
 msgid ""
 "Inactivate this user? An e-mail will be send to the user to inform him/her "
 "about the inactivation."
-msgstr ""
+msgstr "Diesen Nutzer inaktivieren? Zur Information wird eine E-Mail an den Nutzer/die Nutzerin versendet."
 
 #: userinput/admin_views.py:71
 #, python-format
@@ -2966,11 +2863,13 @@ msgid ""
 "This user is the leader of the group %s. Inactivating a group leader "
 "requires a decision about the future of the group."
 msgstr ""
+"Dieser Nutzer ist Gruppenleiter der Gruppe %s. Das Inaktivieren eines\n"
+"gruppenleiters benötigt eine Entscheidung über die Zukunft der Gruppe."
 
 #: userinput/admin_views.py:98
 #, python-format
 msgid "User %s was inactivated."
-msgstr ""
+msgstr "Nutzer %s wurde inaktiviert."
 
 #: userinput/admin_views.py:135
 msgid "Which Workgroup does the new RUBION user belong to?"
@@ -3001,10 +2900,8 @@ msgid "open"
 msgstr "noch offen"
 
 #: userinput/filters.py:73
-#, fuzzy
-#| msgid "active"
 msgid "inactive"
-msgstr "Aktiv"
+msgstr "Inaktiv"
 
 #: userinput/filters.py:94
 #: userinput/templates/userinput/admin/projects_in_workgroup.html:15
@@ -3366,14 +3263,13 @@ msgid "Badge"
 msgstr "Namensschild"
 
 #: userinput/helpers.py:39
-#, fuzzy
-#| msgid "active"
 msgid "Inactivate"
-msgstr "Aktiv"
+msgstr "Inaktiv"
 
+# Diesen Nutzer inaktivieren
 #: userinput/helpers.py:41
 msgid "Inactivate this user"
-msgstr ""
+msgstr "Diesen Nutzer inaktivieren"
 
 #: userinput/helpers.py:87 userinput/helpers.py:89
 msgid "Submit via email"
@@ -4032,19 +3928,15 @@ msgstr "Ein neues Pojekt wurde angenommen."
 
 #: userinput/templates/modeladmin/userinput/rubionuser/confirm_user_inactivation.html:19
 msgid "Go back to listing"
-msgstr ""
+msgstr "Zurück zur Liste"
 
 #: userinput/templates/modeladmin/userinput/rubionuser/confirm_user_inactivation.html:23
-#, fuzzy
-#| msgid "active since"
 msgid "inactivate user"
-msgstr "Aktiv seit"
+msgstr "Nutzer inaktivieren"
 
 #: userinput/templates/modeladmin/userinput/rubionuserproxymodel/index.html:6
-#, fuzzy
-#| msgid "Safety instructions"
 msgid "Add safety instructions"
-msgstr "Sicherheitsunterweisungen"
+msgstr "Sicherheitsunterweisungen hinzufügen"
 
 #: userinput/templates/notifications/rubionuser_added.html:4
 msgid "New users"
@@ -4157,36 +4049,28 @@ msgid "Okay"
 msgstr "Okay"
 
 #: userinput/templates/userinput/admin/inspect_project.html:15
-#, fuzzy
-#| msgid "funding"
 msgid "Funding"
 msgstr "Förderung"
 
 #: userinput/templates/userinput/admin/inspect_project.html:28
-#, fuzzy
-#| msgid "Head of the workgroup"
 msgid "Head of workgroup"
 msgstr "Arbeitsgruppenleiter"
 
 #: userinput/templates/userinput/admin/inspect_project.html:47
 msgid "Room:"
-msgstr ""
+msgstr "Raum:"
 
 #: userinput/templates/userinput/admin/inspect_project.html:48
-#, fuzzy
-#| msgid "Max amount ordered/MBq"
 msgid "Max amount:"
-msgstr "Maximal zu bestellende Menge in MBq"
+msgstr "Maximale Menge"
 
 #: userinput/templates/userinput/admin/inspect_project.html:49
-#, fuzzy
-#| msgid "Max amount used per experiment/MBq"
 msgid "Max amount per experiment:"
-msgstr "Maximal benutzte Menge pro Experiment/MBq"
+msgstr "Maximal benutzte Menge pro Experiment"
 
 #: userinput/templates/userinput/admin/inspect_project.html:54
 msgid "Journal articles"
-msgstr ""
+msgstr "Artikel in Fachzeitschriften"
 
 #: userinput/templates/userinput/admin/inspect_project.html:58
 #: userinput/templates/userinput/project_view.html:146
@@ -4194,10 +4078,8 @@ msgid "Theses"
 msgstr "Abschlussarbeiten"
 
 #: userinput/templates/userinput/admin/inspect_project.html:73
-#, fuzzy
-#| msgid "Internal comment"
 msgid "User comment"
-msgstr "Interner Kommentar"
+msgstr "Nutzer-Kommentar"
 
 #: userinput/templates/userinput/admin/inspect_workgroup.html:5
 #: userinput/templates/userinput/workgroup_view.html:75
@@ -5095,14 +4977,12 @@ msgid "E-Mail of the central radiation safety officer"
 msgstr "E-Mail Adresse des zentralen Strahlenschutzes der RUB"
 
 #: website/models.py:1469
-#, fuzzy
-#| msgid "Page containing the list of workgroups"
 msgid "Page containing the T+C for courses"
-msgstr "Seite, die die AGs enthält"
+msgstr "Seite, die Geschäftbedingungen enthält"
 
 #: website/models.py:1482
 msgid "Bugs or wishes"
-msgstr ""
+msgstr "Fehler oder Wünsche"
 
 #: website/templates/tags/news_list.html:25
 msgid "Published on"
@@ -5145,8 +5025,6 @@ msgid "remove row"
 msgstr "Reihe entfernen"
 
 #: website/templates/website/forms/widgets/terms_and_conditions.html:2
-#, fuzzy
-#| msgid "Find our terms and conditions here."
 msgid "Read our terms and conditions."
 msgstr "Unsere Nutzungsbedingungen"
 
@@ -5220,12 +5098,6 @@ msgstr ""
 " "
 
 #: website/templates/website/user_sidebar.html:58
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "           If you are not yet a registered \n"
-#| "           <br> RUBION-USER: \n"
-#| "         "
 msgid ""
 "\n"
 "           If you are not yet a registered \n"
@@ -5233,7 +5105,7 @@ msgid ""
 "         "
 msgstr ""
 "\n"
-"Wenn Sie kein registriertes\n"
+"Wenn Sie kein registrierter\n"
 "<br> RUBION-NUTZER sind:\n"
 " "
 
@@ -5243,7 +5115,7 @@ msgstr "Gesendete E-Mails"
 
 #: website/wagtail_hooks.py:39
 msgid "Bugs/Wishes"
-msgstr ""
+msgstr "Fehler/Wünsche"
 
 #~ msgid "Saftey instructions"
 #~ msgstr "Sicherheitsunterweisungen"
