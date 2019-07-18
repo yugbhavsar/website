@@ -17,7 +17,7 @@
     </thead>
     <tbody>
       {% for attendee in attendees.all %}
-      <tr {% if attendee.is_validated == False %}style="background-color:#e9b04d"{% endif %}>
+      <tr {% if attendee.is_validated == False %}style="background-color:#e9b04d" title="{%trans "This attendee is not yet validated"%}"{% endif %}>
 	<td>{{ attendee.last_name }}</td>
 	<td>{{ attendee.first_name }}</td>
 	<td>{% if attendee.academic_title %}{{ attendee.get_academic_title_display }}{% endif %}</td>
@@ -39,8 +39,8 @@
     </tbody>
   </table>
   {% if has_waitlist %}
-  <h3>{% trans "waitlist" %}</h3>
   <table class="full-width listing">
+    <caption style="text-align:left; background:#eee; padding-left:25px;"><h2>{% trans "waitlist" %}</h2></caption>
     <thead>      
       <tr>
 	<th>{% trans "last name" %}</th>
