@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-16 09:28+0200\n"
+"POT-Creation-Date: 2019-07-18 12:41+0200\n"
 "PO-Revision-Date: 2019-07-18 12:37+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,15 +71,27 @@ msgstr "Nächste Kurse"
 msgid "past"
 msgstr "vergangene Kurse"
 
-#: courses/forms.py:24 rubauth/templates/rubauth/identify.html:36
+#: courses/forms.py:22
+#, fuzzy
+#| msgid "Waiting for validation"
+msgid "Waiting list for earlier course"
+msgstr "Auf Bestätigung wartend"
+
+#: courses/forms.py:23
+#, fuzzy
+#| msgid "But you can apply for the wait list."
+msgid "Put me on the wait list"
+msgstr "Aber sie können auf eine Warteliste gesetzt werden."
+
+#: courses/forms.py:37 rubauth/templates/rubauth/identify.html:36
 msgid "Identify"
 msgstr "Identifizierung"
 
-#: courses/forms.py:27
+#: courses/forms.py:40
 msgid "RUB ID"
 msgstr "RUB ID"
 
-#: courses/forms.py:28
+#: courses/forms.py:41
 msgid ""
 "Enter your RUB-ID. That is the same ID you use to read your e-mails or to "
 "login into the Moodle system."
@@ -88,55 +100,57 @@ msgstr ""
 "Mails\n"
 "oder zum Einloggen in das Moodle-System benötigen."
 
-#: courses/forms.py:32
+#: courses/forms.py:45
 msgid "RUB password"
 msgstr "RUB-Passwort"
 
-#: courses/forms.py:33
+#: courses/forms.py:46
 msgid "Enter your password for the RUB-ID."
 msgstr "Geben Sie Ihr Passwort für Ihre RUB-ID an."
 
-#: courses/forms.py:52
+#: courses/forms.py:65
 msgid "ID and password do not match."
 msgstr "RUB-ID und Passwort passen nicht zueinander."
 
-#: courses/forms.py:56 userdata/models/users.py:273
+#: courses/forms.py:69 userdata/models/users.py:273
 msgid "Personal information"
 msgstr "Persönliche Angaben"
 
-#: courses/forms.py:111
+#: courses/forms.py:124
 msgid "Information for the certificate"
 msgstr "Informationen für das Zertifikat"
 
-#: courses/forms.py:197
+#: courses/forms.py:210
 msgid "Billing information"
 msgstr "Informationen für die Rechnungs"
 
-#: courses/forms.py:220
+#: courses/forms.py:233
 msgid "Terms and Conditions"
 msgstr "Nutzungsbedingungen"
 
-#: courses/forms.py:226
+#: courses/forms.py:239
 msgid "I agree to the terms and conditions."
 msgstr "Ich stimme den Nutzungsbedingungen zu"
 
-#: courses/forms.py:232
+#: courses/forms.py:251
 msgid "You have to agree to the terms and conditions."
 msgstr "Sie müssen den Nutzungsbedingungen zustimmen."
 
-#: courses/forms.py:266
+#: courses/forms.py:285
 msgid "File to upload"
 msgstr "Datei zum Upload"
 
-#: courses/forms.py:273
+#: courses/forms.py:292
 msgid "upload a file"
 msgstr "Eine Datei hochladen"
 
 #: courses/helpers.py:62
 #: courses/templates/wagtailadmin/pages/listing/_page_title_explore.html:17
 #: rubauth/views.py:29
+#: rubion/templates/wagtailadmin/pages/revisions/list.html:36
 #: rubionadmin/templates/wagtailadmin/home/projects_for_moderation.html:48
 #: rubionadmin/templates/wagtailadmin/home/workgroups_for_moderation.html:48
+#: rubionadmin/templates/wagtailadmin/pages/revisions/list.html:38
 #: rubionadmin/views.py:88
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -231,7 +245,7 @@ msgid "salutation"
 msgstr "Anrede"
 
 #: courses/mixins.py:56 userinput/templates/userinput/home.html:12
-#: userinput/wagtail_hooks.py:438
+#: userinput/wagtail_hooks.py:439
 msgid "email"
 msgstr "E-Mail"
 
@@ -239,7 +253,7 @@ msgstr "E-Mail"
 msgid "secondary email"
 msgstr "Zweite E-Mail"
 
-#: courses/mixins.py:78 courses/models.py:963
+#: courses/mixins.py:78 courses/models.py:989
 msgid "date of birth"
 msgstr "Geburtsdatum"
 
@@ -287,7 +301,7 @@ msgstr ""
 msgid "Company"
 msgstr "Firma"
 
-#: courses/mixins.py:197 courses/models.py:1156
+#: courses/mixins.py:197 courses/models.py:1182
 #: rubionadmin/templates/wagtailadmin/home/workgroups_for_moderation.html:18
 msgid "Department"
 msgstr "Abteilung"
@@ -315,293 +329,295 @@ msgstr "Stadt"
 msgid "Country"
 msgstr "Land"
 
-#: courses/models.py:90
+#: courses/models.py:91
 msgid "Definition of a course"
 msgstr "Angaben zu einer Kursveranstaltung"
 
-#: courses/models.py:114
+#: courses/models.py:115
 msgid ""
 "Is there a list that stores people intereted in this course if no course "
 "date is available?"
-msgstr "Gibt es eine Liste für Interessenten, wenn kein Kurstermin vorhanden ist?"
+msgstr ""
+"Gibt es eine Liste für Interessenten, wenn kein Kurstermin vorhanden ist?"
 
-#: courses/models.py:129 website/models.py:332
+#: courses/models.py:130 website/models.py:332
 msgid "Contact persons"
 msgstr "Kontakpersonen"
 
-#: courses/models.py:138 courses/models.py:219
+#: courses/models.py:139 courses/models.py:221
 msgid "Registration options"
 msgstr "Registrierungsoptionen"
 
-#: courses/models.py:140 courses/models.py:221
+#: courses/models.py:141 courses/models.py:223
 msgid "allowed attendees"
 msgstr "Erlaubte Teilnehmer"
 
-#: courses/models.py:144 courses/models.py:1245
+#: courses/models.py:145 courses/models.py:1271
 msgid "Content (de)"
 msgstr "Inhalt (de)"
 
-#: courses/models.py:145 courses/models.py:1246
+#: courses/models.py:146 courses/models.py:1272
 msgid "Content (en)"
 msgstr "Inhalt (en)"
 
-#: courses/models.py:146
+#: courses/models.py:147
 msgid "Additional information"
 msgstr "Zusätzliche Informationen"
 
-#: courses/models.py:147 userinput/models.py:1278
+#: courses/models.py:148 userinput/models.py:1278 userinput/models_old.py:1278
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: courses/models.py:163
+#: courses/models.py:165
 msgid "Course date"
 msgstr "Kurstermine"
 
-#: courses/models.py:168
+#: courses/models.py:170
 msgid "start date"
 msgstr "Startdatum"
 
-#: courses/models.py:173
+#: courses/models.py:175
 msgid "end date"
 msgstr "Enddatum"
 
-#: courses/models.py:174
+#: courses/models.py:176
 msgid "leave empty for a one-day course"
 msgstr "leer lassen für einen eintägigen Kurs"
 
-#: courses/models.py:179
+#: courses/models.py:181
 msgid "Overrule standard settings"
 msgstr "Übergeordnete Einstellungen überschreiben"
 
-#: courses/models.py:183
+#: courses/models.py:185
 msgid "Registration via website"
 msgstr "Teilnahmegebühr"
 
-#: courses/models.py:188
+#: courses/models.py:190
 msgid "Share data via website"
 msgstr "Daten über die Webseite austauschen"
 
-#: courses/models.py:195
+#: courses/models.py:197
 msgid "Max attendees"
 msgstr "Maximale Teilnehmerzahl"
 
-#: courses/models.py:200
+#: courses/models.py:202
 msgid "Fill with attendees from waitlist automatically?"
 msgstr "Automatisch mit Teilnehmern von der Warteliste füllen?"
 
-#: courses/models.py:225
+#: courses/models.py:227
 msgid "Date and info"
 msgstr "Datum und Information"
 
-#: courses/models.py:226
+#: courses/models.py:228
 msgid "Overrule parent settings"
 msgstr "Übergeordnete Einstellungen überschreiben"
 
-#: courses/models.py:558
+#: courses/models.py:584
 msgid "The course is fully booked. You have not been registered."
 msgstr "Dieser Kurs ist ausgebucht. Sie wurden nicht registriert."
 
-#: courses/models.py:559
+#: courses/models.py:585
 msgid "We have not stored your data."
 msgstr "Wir haben Ihre Daten nicht gespeichert."
 
-#: courses/models.py:749
+#: courses/models.py:775
 #: courses/templates/tags/courses/specific_attendee_list.html:6
 #: courses/templates/tags/courses/specific_attendee_list.html:46
 msgid "last name"
 msgstr "Nachname"
 
-#: courses/models.py:754
+#: courses/models.py:780
 #: courses/templates/tags/courses/specific_attendee_list.html:7
 #: courses/templates/tags/courses/specific_attendee_list.html:47
 #: userdata/models/users.py:150 userinput/models.py:433
+#: userinput/models_old.py:433 userinput/modelsf/rubionuser.py:121
 #: userinput/templates/userinput/home.html:8
 msgid "first name"
 msgstr "Vorname"
 
-#: courses/models.py:759
+#: courses/models.py:785
 msgid "e-mail address"
 msgstr "E-Mail-Adresse"
 
-#: courses/models.py:798
+#: courses/models.py:824
 msgid "Is the attendee validated?"
 msgstr "Ist der Teilnehmer bestätigt?"
 
-#: courses/models.py:811
+#: courses/models.py:837
 msgid "E-Mail for adding this attendee to the course from the wait list sent?"
 msgstr "Mail zum Hinzufügen dieses Teilnehmers von der Warteliste versendet?"
 
-#: courses/models.py:812
+#: courses/models.py:838
 msgid "Mail sent?"
 msgstr "E-Mail versendet?"
 
-#: courses/models.py:818
+#: courses/models.py:844
 msgid "When was the mail sent?"
 msgstr "Wann wurde dei Mail versendet?"
 
-#: courses/models.py:828
+#: courses/models.py:854
 msgid "When was the validation mail sent?"
 msgstr "Wann wurde die Validierungsmail versendet?"
 
-#: courses/models.py:837
+#: courses/models.py:863
 msgid "When was the confirmation mail sent?"
 msgstr "Wann wurde die Bestätigungsmail versendet?"
 
-#: courses/models.py:944 courses/models.py:1078
+#: courses/models.py:970 courses/models.py:1104
 msgid "Student"
 msgstr "Student"
 
-#: courses/models.py:945 courses/models.py:1079
+#: courses/models.py:971 courses/models.py:1105
 msgid "Students"
 msgstr "Studenten"
 
-#: courses/models.py:949
+#: courses/models.py:975
 msgid "student, no additional information"
 msgstr "Student, keine weitere Information"
 
-#: courses/models.py:968
+#: courses/models.py:994
 msgid "Place (town) of birth"
 msgstr "Geburtsort"
 
-#: courses/models.py:973
+#: courses/models.py:999
 msgid "Country of birth (if not Germany)"
 msgstr "Geburtsland (wenn nicht Deutschland)"
 
-#: courses/models.py:979 courses/models.py:1047
+#: courses/models.py:1005 courses/models.py:1073
 msgid "street"
 msgstr "Straße"
 
-#: courses/models.py:984 courses/models.py:1051
+#: courses/models.py:1010 courses/models.py:1077
 msgid "street number"
 msgstr "Hausnummer"
 
-#: courses/models.py:989 courses/models.py:1056
+#: courses/models.py:1015 courses/models.py:1082
 msgid "ZIP code"
 msgstr "Postleitzahl"
 
-#: courses/models.py:994 courses/models.py:1061
+#: courses/models.py:1020 courses/models.py:1087
 msgid "town"
 msgstr "Stadt"
 
-#: courses/models.py:999 courses/models.py:1066
+#: courses/models.py:1025 courses/models.py:1092
 msgid "Country (if not Germany)"
 msgstr "Land (wenn nicht Deutschland)"
 
-#: courses/models.py:1024
+#: courses/models.py:1050
 msgid "company or university"
 msgstr "Firma oder Universität"
 
-#: courses/models.py:1029 courses/models.py:1035
+#: courses/models.py:1055 courses/models.py:1061
 msgid "department, room  or similar"
 msgstr "Abteilung, Raum oder ähnliches"
 
-#: courses/models.py:1041
+#: courses/models.py:1067
 msgid "department, room or similar"
 msgstr "Abteilung, Raum oder ähnliches"
 
-#: courses/models.py:1075
+#: courses/models.py:1101
 msgid "student for course with official certificate"
 msgstr "Student mit Angaben für offizielles Zertifikat"
 
-#: courses/models.py:1088
+#: courses/models.py:1114
 msgid "student course"
 msgstr "Studiengang"
 
-#: courses/models.py:1097
+#: courses/models.py:1123
 msgid "External participant for course with official certificate"
 msgstr "Externer teilnehmer mit Angaben für offizielles Zertifikat"
 
-#: courses/models.py:1100 rubauth/forms.py:121
+#: courses/models.py:1126 rubauth/forms.py:121
 msgid "External"
 msgstr "Externer Teilnehmer"
 
-#: courses/models.py:1101 rubauth/templates/rubauth/identify.html:11
+#: courses/models.py:1127 rubauth/templates/rubauth/identify.html:11
 msgid "Externals"
 msgstr "Externe Teilnehmer"
 
-#: courses/models.py:1103
+#: courses/models.py:1129
 msgid "company"
 msgstr "Firma"
 
-#: courses/models.py:1104
+#: courses/models.py:1130
 msgid "has payed"
 msgstr "hat bezahlt"
 
-#: courses/models.py:1121
+#: courses/models.py:1147
 msgid ""
 "External participant from RUB hospital for course with official certificate"
 msgstr ""
 "Externer Teilnehmer von einem RUB-Krankenhaus mit Angaben für offizielles "
 "Zertifikat"
 
-#: courses/models.py:1124
+#: courses/models.py:1150
 msgid "RUB hospital employee"
 msgstr "Angestellter eines RUB-Krankenhauses"
 
-#: courses/models.py:1125
+#: courses/models.py:1151
 msgid "RUB hospital employees"
 msgstr "Angestellte eines RUB-Krankenhauses"
 
-#: courses/models.py:1140
+#: courses/models.py:1166
 msgid "RUB employee"
 msgstr "Angestellter der RUB"
 
-#: courses/models.py:1141
+#: courses/models.py:1167
 msgid "RUB employees"
 msgstr "Angestellte der RUB"
 
-#: courses/models.py:1145
+#: courses/models.py:1171
 msgid "RUB staff for course with official certificate"
 msgstr "Angestellter der RUB mit Angaben für offizielles Zertifikat"
 
-#: courses/models.py:1150
+#: courses/models.py:1176
 msgid "Faculty"
 msgstr "Fakultät"
 
-#: courses/models.py:1161
+#: courses/models.py:1187
 msgid "Institute or Workgroup"
 msgstr "Institut oder Arbeitsgruppe"
 
-#: courses/models.py:1166
+#: courses/models.py:1192
 msgid "Building and room"
 msgstr "Gebäude und Raum"
 
-#: courses/models.py:1177
+#: courses/models.py:1203
 msgid "attendee type"
 msgstr "Teilnehmer-Arten"
 
-#: courses/models.py:1182
-#: courses/templates/tags/courses/specific_attendee_list.html:42
+#: courses/models.py:1208
+#: courses/templates/tags/courses/specific_attendee_list.html:43
 msgid "waitlist"
 msgstr "Warteliste"
 
-#: courses/models.py:1191
+#: courses/models.py:1217
 msgid "price"
 msgstr "Preis"
 
-#: courses/models.py:1197
+#: courses/models.py:1223
 msgid "max attendees"
 msgstr "Maximale Teilnehmerzahl"
 
-#: courses/models.py:1227
+#: courses/models.py:1253
 msgid "Listing of the courses in RUBION"
 msgstr "Liste der Kurse im RUBION"
 
-#: courses/models.py:1324 userdata/models/users.py:409
+#: courses/models.py:1350 userdata/models/users.py:409
 #: userinput/templates/userinput/admin/inspect_project.html:7
 msgid "Data"
 msgstr "Daten"
 
 # Ihr Name
-#: courses/models.py:1335
+#: courses/models.py:1361
 msgid "your name"
 msgstr "Ihr Name"
 
-#: courses/models.py:1338
+#: courses/models.py:1364
 msgid "description of the file content"
 msgstr "Beschreibung des Datei-Inhalts"
 
-#: courses/models.py:1381
+#: courses/models.py:1407
 msgid "VAT rate"
 msgstr "Mehrwertsteuerrate"
 
@@ -614,6 +630,7 @@ msgstr "Sie sind nun für den Kurs angemeldet, das Kursdatum ist "
 #: courses/templates/courses/added2course_reject.html:14
 #: courses/templates/courses/added2course_reject.html:20
 #: courses/templates/courses/course.html:54
+#: courses/templates/courses/forms/widgets/waitlist_checkbox.html:4
 #: courses/templates/courses/validation_mail.html:12
 msgid "to"
 msgstr "bis"
@@ -750,7 +767,7 @@ msgstr "Nummer im Vorlesungsverzeichnis"
 
 #: courses/templates/courses/data_sharing_page.html:5
 #: ugc/templates/ugc/ugc_create_page.html:9 userinput/models.py:140
-#: website/templates/website/user_sidebar.html:24
+#: userinput/models_old.py:140 website/templates/website/user_sidebar.html:24
 msgid "Information"
 msgstr "Information"
 
@@ -805,7 +822,7 @@ msgstr "hochladen"
 
 #: courses/templates/courses/default_participant_form.html:3
 #: courses/templates/courses/personal_data_form.html:3 userinput/forms.py:177
-#: userinput/forms.py:261 userinput/forms.py:363
+#: userinput/forms.py:260 userinput/forms.py:362
 #: userinput/templates/notifications/rubionuser_added.html:113
 #: userinput/templates/userinput/home.html:67
 msgid "Personal data"
@@ -823,6 +840,20 @@ msgstr ""
 "Die folgenden Angaben sind notwendig, um das Zertifikat auszustellen, "
 "welches\n"
 "Sie nach erfolgreicher Teilnahme erhalten."
+
+#: courses/templates/courses/forms/widgets/waitlist_checkbox.html:3
+msgid "There is also a course"
+msgstr ""
+
+#: courses/templates/courses/forms/widgets/waitlist_checkbox.html:4
+#: courses/templates/courses/success.html:7
+#: courses/templates/courses/validation_mail.html:12
+msgid "from"
+msgstr "vom"
+
+#: courses/templates/courses/forms/widgets/waitlist_checkbox.html:5
+msgid "which is fully booked, but a waiting list is available"
+msgstr ""
 
 #: courses/templates/courses/register.html:11
 msgid "Register for course from"
@@ -883,8 +914,8 @@ msgid "register for "
 msgstr "Anmeldung zum"
 
 #: courses/templates/courses/register.html:63
-msgid "submit"
-msgstr "Senden"
+msgid "proceed"
+msgstr ""
 
 #: courses/templates/courses/register_success.html:5
 #: courses/templates/courses/success.html:6
@@ -912,11 +943,6 @@ msgstr "Angaben zum Studentenstatus"
 msgid "You are now registered for the course"
 msgstr "Sie sind nun für den Kurs angemeldet."
 
-#: courses/templates/courses/success.html:7
-#: courses/templates/courses/validation_mail.html:12
-msgid "from"
-msgstr "vom"
-
 #: courses/templates/courses/success.html:8
 msgid ""
 "\n"
@@ -936,7 +962,8 @@ msgstr "Sie haben einen Platz in dem Kurs reserviert."
 #: courses/templates/courses/validation_mail.html:14
 msgid "To confirm your registration, we have sent an email to"
 msgstr ""
-"Um Ihre Registrierung zur bestätigen haben wir eine E-Mail an folgende Adresse\n"
+"Um Ihre Registrierung zur bestätigen haben wir eine E-Mail an folgende "
+"Adresse\n"
 "gesendet:"
 
 #: courses/templates/courses/validation_mail.html:19
@@ -997,8 +1024,10 @@ msgstr "Warteliste"
 #: courses/templates/tags/courses/specific_attendee_list.html:48
 #: instruments/models.py:59 instruments/models.py:227
 #: notifications/models.py:109 userinput/models.py:1932
-#: userinput/models.py:1990 userinput/wagtail_hooks.py:241 website/blocks.py:60
-#: website/models.py:539 website/models.py:572 website/models.py:615
+#: userinput/models.py:1990 userinput/models_old.py:1932
+#: userinput/models_old.py:1990 userinput/wagtail_hooks.py:242
+#: website/blocks.py:60 website/models.py:539 website/models.py:572
+#: website/models.py:615
 msgid "title"
 msgstr "Titel"
 
@@ -1016,6 +1045,12 @@ msgstr "angemeldet am"
 #: courses/templates/tags/courses/specific_attendee_list.html:14
 msgid "on waitlist for"
 msgstr "auf Warteliste für"
+
+#: courses/templates/tags/courses/specific_attendee_list.html:20
+#, fuzzy
+#| msgid "Is the attendee validated?"
+msgid "This attendee is not yet validated"
+msgstr "Ist der Teilnehmer bestätigt?"
 
 #: courses/templates/tags/courses/specific_attendee_list.html:54
 msgid "for course"
@@ -1175,6 +1210,7 @@ msgstr ""
 "Mitarbeiter an."
 
 #: instruments/helpers.py:5 userinput/models.py:1277
+#: userinput/models_old.py:1277
 msgid "description"
 msgstr "Beschreibung"
 
@@ -1212,8 +1248,8 @@ msgstr "Gerät buchen"
 msgid "instrument"
 msgstr "Geräte"
 
-#: instruments/mixins.py:271 userinput/forms.py:645 userinput/models.py:1248
-#: userinput/wagtail_hooks.py:254
+#: instruments/mixins.py:271 userinput/forms.py:644 userinput/models.py:1248
+#: userinput/models_old.py:1248 userinput/wagtail_hooks.py:255
 msgid "methods"
 msgstr "Methoden"
 
@@ -1874,7 +1910,7 @@ msgstr ""
 " "
 
 #: rubion/templates/tags/contact_person.html:21 userdata/models/users.py:204
-#: userinput/models.py:1857
+#: userinput/models.py:1857 userinput/models_old.py:1857
 msgid "room"
 msgstr "Raum"
 
@@ -1946,7 +1982,9 @@ msgid "Save draft"
 msgstr "Entwurf speichern"
 
 #: rubion/templates/wagtailadmin/pages/_edit.html:48
+#: rubion/templates/wagtailadmin/pages/revisions/list.html:34
 #: rubionadmin/templates/wagtailadmin/pages/_edit.html:67
+#: rubionadmin/templates/wagtailadmin/pages/revisions/list.html:36
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -1971,6 +2009,60 @@ msgstr "Revisionen"
 #: rubionadmin/templates/wagtailadmin/pages/_edit.html:114
 msgid "This page has unsaved changes."
 msgstr "Diese Seite hat nicht gespeicherte Änderungen"
+
+#: rubion/templates/wagtailadmin/pages/revisions/list.html:12
+#: rubionadmin/templates/wagtailadmin/pages/revisions/list.html:14
+#, fuzzy
+#| msgid "Revisions"
+msgid "Revision date"
+msgstr "Revisionen"
+
+#: rubion/templates/wagtailadmin/pages/revisions/list.html:26
+#: rubionadmin/templates/wagtailadmin/pages/revisions/list.html:28
+#, fuzzy
+#| msgid "by"
+msgctxt "points to a user who created a revision"
+msgid "by"
+msgstr "durch"
+
+#: rubion/templates/wagtailadmin/pages/revisions/list.html:28
+#: rubionadmin/templates/wagtailadmin/pages/revisions/list.html:30
+#, fuzzy
+#| msgid "Replace current draft"
+msgid "Current draft"
+msgstr "Aktuellen entwurf ersetzen"
+
+#: rubion/templates/wagtailadmin/pages/revisions/list.html:29
+#: rubionadmin/templates/wagtailadmin/pages/revisions/list.html:31
+msgid "Live version"
+msgstr ""
+
+#: rubion/templates/wagtailadmin/pages/revisions/list.html:30
+#: rubionadmin/templates/wagtailadmin/pages/revisions/list.html:32
+msgid "Scheduled for"
+msgstr ""
+
+#: rubion/templates/wagtailadmin/pages/revisions/list.html:38
+#: rubionadmin/templates/wagtailadmin/pages/revisions/list.html:40
+#, fuzzy
+#| msgid "Publish this revision"
+msgid "Review this revision"
+msgstr "Diese Revision veröffentlichen"
+
+#: rubion/templates/wagtailadmin/pages/revisions/list.html:42
+#: rubionadmin/templates/wagtailadmin/pages/revisions/list.html:44
+msgid "Compare with previous revision"
+msgstr ""
+
+#: rubion/templates/wagtailadmin/pages/revisions/list.html:46
+#: rubionadmin/templates/wagtailadmin/pages/revisions/list.html:48
+msgid "Cancel scheduled publish"
+msgstr ""
+
+#: rubion/templates/wagtailadmin/pages/revisions/list.html:53
+#: rubionadmin/templates/wagtailadmin/pages/revisions/list.html:55
+msgid "No revisions of this page exist"
+msgstr ""
 
 #: rubion/templates/wagtailadmin/shared/header.html:42
 #, python-format
@@ -2128,7 +2220,7 @@ msgstr "Beschreibung"
 #: userinput/templates/userinput/admin/key_applications_panel.html:15
 #: userinput/templates/userinput/project_container.html:5
 #: userinput/templates/userinput/project_view.html:46
-#: userinput/wagtail_hooks.py:348
+#: userinput/wagtail_hooks.py:349
 msgid "Workgroup"
 msgstr "Arbeitsgruppe"
 
@@ -2140,7 +2232,7 @@ msgstr "Projekt"
 
 #: rubionadmin/templates/wagtailadmin/home/bookings_for_moderation.html:18
 #: rubionadmin/templates/wagtailadmin/home/method_bookings_for_moderation.html:18
-#: userinput/wagtail_hooks.py:60
+#: userinput/wagtail_hooks.py:61
 msgid "User"
 msgstr "Nutzer"
 
@@ -2224,8 +2316,8 @@ msgstr "URL"
 
 #: rubionadmin/templates/wagtailadmin/home/workgroups_for_moderation.html:61
 #: rubionadmin/templates/wagtailadmin/home/workgroups_for_moderation.html:70
-#: userinput/wagtail_hooks.py:91 userinput/wagtail_hooks.py:99
-#: userinput/wagtail_hooks.py:107
+#: userinput/wagtail_hooks.py:92 userinput/wagtail_hooks.py:100
+#: userinput/wagtail_hooks.py:108
 msgid "not provided"
 msgstr "nicht angegeben"
 
@@ -2317,7 +2409,7 @@ msgid "Your changes have been saved."
 msgstr "Ihre Änderungen wurden gespeichert."
 
 #: ugc/models.py:108 ugc/models.py:221 userinput/models.py:1421
-#: userinput/views.py:170
+#: userinput/models_old.py:1421 userinput/views.py:170
 msgid "An error occured."
 msgstr "Es ist ein Fehler aufgetreten."
 
@@ -2361,7 +2453,7 @@ msgid "long text"
 msgstr "langer Text"
 
 #: userdata/filters.py:12 userdata/wagtail_hooks.py:95 userinput/forms.py:80
-#: userinput/models.py:1766
+#: userinput/models.py:1766 userinput/models_old.py:1766
 msgid "Isotope"
 msgstr "Isotop"
 
@@ -2483,12 +2575,14 @@ msgid "group of persons"
 msgstr "Personengruppe"
 
 #: userdata/models/users.py:144 userinput/models.py:483
+#: userinput/models_old.py:483 userinput/modelsf/rubionuser.py:149
 #: userinput/templates/userinput/home.html:10
 msgid "academic title"
 msgstr "Akademischer Titel"
 
 #: userdata/models/users.py:154 userdata/wagtail_hooks.py:127
-#: userinput/models.py:428
+#: userinput/models.py:428 userinput/models_old.py:428
+#: userinput/modelsf/rubionuser.py:116
 msgid "name"
 msgstr "Name"
 
@@ -2497,10 +2591,12 @@ msgid "only required if no user is connected."
 msgstr "Nur notwendig, wenn kein Webseitennutzer verbunden ist."
 
 #: userdata/models/users.py:168 userinput/models.py:449
+#: userinput/models_old.py:449 userinput/modelsf/rubionuser.py:82
 msgid "male"
 msgstr "männlich"
 
 #: userdata/models/users.py:169 userinput/models.py:450
+#: userinput/models_old.py:450 userinput/modelsf/rubionuser.py:83
 msgid "female"
 msgstr "weiblich"
 
@@ -2546,27 +2642,28 @@ msgid "used to link to RUB's research bibliography"
 msgstr "wird genutzt, um zur RUB-Hochschulbibliographie zu verlinken"
 
 #: userdata/models/users.py:247 userinput/models.py:574
+#: userinput/models_old.py:574 userinput/modelsf/rubionuser.py:234
 #: userinput/templates/userinput/admin/key_applications_panel.html:17
-#: userinput/wagtail_hooks.py:179
+#: userinput/wagtail_hooks.py:180
 msgid "Key number"
 msgstr "Schlüssel-Nummer"
 
 #: userdata/models/users.py:252 userinput/models.py:565
+#: userinput/models_old.py:565 userinput/modelsf/rubionuser.py:225
 msgid "user needs safety instruction"
 msgstr "Nutzer benötigt Sicherheitsunterweisung"
 
 #: userdata/models/users.py:253 userinput/models.py:566
+#: userinput/models_old.py:566 userinput/modelsf/rubionuser.py:226
 msgid "Which safety instructions are required for the user?"
 msgstr "Welche Sicherheitsunterweisungen sind nötig für diesen Nutzer?"
 
-#: userdata/models/users.py:259
-#, fuzzy
-#| msgid "Comment"
-msgid "Commentary"
+#: userdata/models/users.py:259 userinput/wagtail_hooks.py:120
+msgid "Comment"
 msgstr "Kommentar"
 
-#: userdata/models/users.py:282 userinput/forms.py:468 userinput/forms.py:644
-#: userinput/forms.py:716 website/decorators.py:52
+#: userdata/models/users.py:282 userinput/forms.py:467 userinput/forms.py:643
+#: userinput/forms.py:715 website/decorators.py:52
 msgid "additional information"
 msgstr "zusätzliche Informationen"
 
@@ -2600,8 +2697,9 @@ msgid "Comments"
 msgstr "Kommentare"
 
 #: userdata/models/users.py:411 userinput/models.py:1077
+#: userinput/models_old.py:1077 userinput/modelsf/rubionuser.py:426
 #: userinput/templates/notifications/rubionuser_added.html:21
-#: userinput/wagtail_hooks.py:168 userinput/wagtail_hooks.py:382
+#: userinput/wagtail_hooks.py:169 userinput/wagtail_hooks.py:383
 msgid "Safety instructions"
 msgstr "Sicherheitsunterweisungen"
 
@@ -2867,7 +2965,9 @@ msgstr "Bitte einen neuen AG-Leiter auswählen"
 msgid ""
 "Inactivate this user? An e-mail will be send to the user to inform him/her "
 "about the inactivation."
-msgstr "Diesen Nutzer inaktivieren? Zur Information wird eine E-Mail an den Nutzer/die Nutzerin versendet."
+msgstr ""
+"Diesen Nutzer inaktivieren? Zur Information wird eine E-Mail an den Nutzer/"
+"die Nutzerin versendet."
 
 #: userinput/admin_views.py:71
 #, python-format
@@ -2888,6 +2988,7 @@ msgid "Which Workgroup does the new RUBION user belong to?"
 msgstr "Zu welcher AG gehört der neue Nutzer?"
 
 #: userinput/admin_views.py:150 userinput/models.py:215
+#: userinput/models_old.py:215
 msgid "Group leader"
 msgstr "Arbeitsgruppenleiter"
 
@@ -2895,7 +2996,7 @@ msgstr "Arbeitsgruppenleiter"
 msgid "last safety instruction"
 msgstr "letzte Sicherheitsunterweisung"
 
-#: userinput/admin_views.py:176 userinput/wagtail_hooks.py:162
+#: userinput/admin_views.py:176 userinput/wagtail_hooks.py:163
 msgid "not instructed"
 msgstr "nicht unterwiesen"
 
@@ -2974,11 +3075,11 @@ msgstr "durch Angaben"
 msgid "Publications"
 msgstr "Publikationen"
 
-#: userinput/forms.py:176 userinput/forms.py:260 userinput/forms.py:362
+#: userinput/forms.py:176 userinput/forms.py:259 userinput/forms.py:361
 msgid "Contact information"
 msgstr "Kontaktinformation"
 
-#: userinput/forms.py:178 userinput/forms.py:264 userinput/forms.py:366
+#: userinput/forms.py:178 userinput/forms.py:263 userinput/forms.py:365
 msgid "Safety information"
 msgstr "Sicherheitsinformation"
 
@@ -2989,6 +3090,7 @@ msgid ""
 msgstr "Ihre Schutzkleidung wird in dieser Schleuse bereitgestellt."
 
 #: userinput/forms.py:205 userinput/forms.py:212 userinput/models.py:516
+#: userinput/models_old.py:516 userinput/modelsf/rubionuser.py:182
 msgid "Format: YYYY-MM-DD"
 msgstr "Format: JJJJ-MM-TT"
 
@@ -3006,7 +3108,8 @@ msgstr ""
 "Dosimeter bekommen, können Sie das leer lassen und später eintragen, wenn "
 "nötig."
 
-#: userinput/forms.py:207 userinput/forms.py:214 userinput/models.py:524
+#: userinput/forms.py:207 userinput/forms.py:213 userinput/models.py:524
+#: userinput/models_old.py:524 userinput/modelsf/rubionuser.py:190
 msgid "Add the country, if not Germany"
 msgstr "Fügen Sie das Geburtsland hinzu (wenn nicht Deutschland)"
 
@@ -3033,7 +3136,7 @@ msgstr ""
 "die Behörde übermittelt.  Diese benötigt Ihr Geburtsdatum, um Sie zu "
 "identifizieren."
 
-#: userinput/forms.py:214
+#: userinput/forms.py:213
 msgid ""
 "You need an official dosemeter and your exposure data will be send to the "
 "authorities. We need your place of birth to identify you."
@@ -3042,11 +3145,11 @@ msgstr ""
 "die Behörde übermittelt. Diese benötigt Ihren Geburtsort, um Sie zu "
 "identifizieren."
 
-#: userinput/forms.py:221 userinput/forms.py:348
+#: userinput/forms.py:220 userinput/forms.py:347
 msgid "I agree to the terms and conditions"
 msgstr "Ich stimme den Nutzungsbedingungen zu"
 
-#: userinput/forms.py:222 userinput/forms.py:349
+#: userinput/forms.py:221 userinput/forms.py:348
 msgid ""
 "I agree to the following terms and conditions: The personal data provided by "
 "you is stored for electronic and personal communication. Safety related data "
@@ -3060,48 +3163,48 @@ msgstr ""
 "entsprechenden Behörden und Ämter nach §112 der Strahlenschutzverordnung "
 "weitergegeben."
 
-#: userinput/forms.py:228 userinput/forms.py:365
+#: userinput/forms.py:227 userinput/forms.py:364
 msgid "Terms and conditions"
 msgstr "Nutzungsbedingungen"
 
-#: userinput/forms.py:241 userinput/forms.py:337
+#: userinput/forms.py:240 userinput/forms.py:336
 msgid "password"
 msgstr "Passwort"
 
-#: userinput/forms.py:242 userinput/forms.py:338
+#: userinput/forms.py:241 userinput/forms.py:337
 msgid "The password for logging into this site"
 msgstr "Das Passwort, um sich auf dieser Seite anzumelden"
 
-#: userinput/forms.py:247 userinput/forms.py:342
+#: userinput/forms.py:246 userinput/forms.py:341
 msgid "repeat password"
 msgstr "Wiederholen Sie das Passwort"
 
-#: userinput/forms.py:248 userinput/forms.py:343
+#: userinput/forms.py:247 userinput/forms.py:342
 msgid "Repeat the password for logging into this site"
 msgstr "Wiederholen Sie das Passwort, um sich auf dieser Seite anzumelden."
 
-#: userinput/forms.py:263
+#: userinput/forms.py:262
 msgid "Change login data"
 msgstr "Ändern der Login-Daten"
 
-#: userinput/forms.py:309 userinput/forms.py:316 userinput/forms.py:411
-#: userinput/forms.py:418
+#: userinput/forms.py:308 userinput/forms.py:315 userinput/forms.py:410
+#: userinput/forms.py:417
 msgid "The passwords did not match"
 msgstr "Die Passwörter stimmen nicht überein"
 
-#: userinput/forms.py:361
+#: userinput/forms.py:360
 msgid "Login data"
 msgstr "Login-Daten"
 
-#: userinput/forms.py:438
+#: userinput/forms.py:437
 msgid "may apply for projects"
 msgstr "darf Projekte einreichen"
 
-#: userinput/forms.py:439
+#: userinput/forms.py:438
 msgid "may add members to the workgroup"
 msgstr "darf Mitglieder zur Arbeitsgruppe hinzufügen"
 
-#: userinput/forms.py:443
+#: userinput/forms.py:442
 msgid ""
 "<strong>For workgroup members that are RUB members:</strong> Please provide "
 "the RUB-ID."
@@ -3109,7 +3212,7 @@ msgstr ""
 "<strong>Für AG-Mitglieder, die RUB-Mitlgieder sind:</strong> Bitte die RUB-"
 "ID angeben. "
 
-#: userinput/forms.py:444
+#: userinput/forms.py:443
 msgid ""
 "<strong>For workgroup members that are not members of the RUB:</strong> "
 "Please provide name and e-mail address."
@@ -3118,7 +3221,7 @@ msgstr ""
 "gegen\n"
 "Sie Namen und E-Mail-Adresse an."
 
-#: userinput/forms.py:445
+#: userinput/forms.py:444
 msgid ""
 "<strong>Key application:</strong> Do you think the workgroup member needs a "
 "key to have permanent access to our laboratories? (Please note: We might "
@@ -3130,7 +3233,7 @@ msgstr ""
 "zu haben? (Bitte beachten Sie: Es kann sein, dass wir diesem Antrag nicht "
 "zustimmen.)"
 
-#: userinput/forms.py:446
+#: userinput/forms.py:445
 msgid ""
 "<strong>Permissions:</strong> If you want to allow the the new workgroup "
 "member to administer you group and/or your projects, grant the corresponding "
@@ -3141,35 +3244,35 @@ msgstr ""
 "ihre Arbeitsgruppe und/oder Projekte verwalten kann, erteilen Sie die\n"
 "entsprechenden Berechtigungen."
 
-#: userinput/forms.py:451
+#: userinput/forms.py:450
 msgid "RUB login ID"
 msgstr "RUB-ID"
 
-#: userinput/forms.py:454
+#: userinput/forms.py:453
 msgid "Workgroup member permissions"
 msgstr "Berechtigungen des Arbeitsgruppenmitglieds"
 
-#: userinput/forms.py:466
+#: userinput/forms.py:465
 msgid "by RUB login ID"
 msgstr "via RUB-ID"
 
-#: userinput/forms.py:467
+#: userinput/forms.py:466
 msgid "by data"
 msgstr "via Dateneingabe"
 
-#: userinput/forms.py:469
+#: userinput/forms.py:468
 msgid "permissions"
 msgstr "Berechtigungen"
 
-#: userinput/forms.py:470 userinput/templates/userinput/home.html:6
+#: userinput/forms.py:469 userinput/templates/userinput/home.html:6
 msgid "personal data"
 msgstr "Persönliche Angaben"
 
-#: userinput/forms.py:542 userinput/forms.py:551 userinput/forms.py:560
+#: userinput/forms.py:541 userinput/forms.py:550 userinput/forms.py:559
 msgid "Please fill this"
 msgstr "Bitte ausfüllen"
 
-#: userinput/forms.py:572
+#: userinput/forms.py:571
 msgid ""
 "You have entered a RUB e-Mail address. Please, provide the RUB-ID instead."
 msgstr ""
@@ -3177,21 +3280,21 @@ msgstr ""
 "stattdesen\n"
 "die RUB-ID."
 
-#: userinput/forms.py:581
+#: userinput/forms.py:580
 msgid "Please provide either the RUB ID or name, first name and e-mail."
 msgstr ""
 "Bitte geben Sie entweder eine RUB-ID oder einen Namen, Vornamen und eine\n"
 "E-Mail-Adresse an."
 
-#: userinput/forms.py:593
+#: userinput/forms.py:592
 msgid "Not a correct RUB ID"
 msgstr "Keine korrekte RUB-ID."
 
-#: userinput/forms.py:624
+#: userinput/forms.py:623
 msgid "Information for the RUBION team (will not be published):"
 msgstr "Informationen an das RUBION-Team (nicht öffentlich):"
 
-#: userinput/forms.py:625
+#: userinput/forms.py:624
 msgid ""
 "Please provide any important information. If you have spoken to one of us "
 "already, please mention this here."
@@ -3199,31 +3302,31 @@ msgstr ""
 "Bitte geben Sie weitere wichtige Informationen an. Wenn Sie bereits mit\n"
 "jemandem von uns gesprochen haben, geben Sie das bitte hier an."
 
-#: userinput/forms.py:642
+#: userinput/forms.py:641
 msgid "Information about the project (en)"
 msgstr "Informationen über das Projekt (en)"
 
-#: userinput/forms.py:643
+#: userinput/forms.py:642
 msgid "Information about the project (de)"
 msgstr "Informationen über das Projekt (de)"
 
-#: userinput/forms.py:646
+#: userinput/forms.py:645
 msgid "Message to the RUBION team"
 msgstr "Nachricht an das RUBION-Team"
 
-#: userinput/forms.py:653 userinput/forms.py:654
+#: userinput/forms.py:652 userinput/forms.py:653
 msgid "Title of the project"
 msgstr "Titel des Projekts"
 
-#: userinput/forms.py:653 userinput/forms.py:704 userinput/forms.py:705
+#: userinput/forms.py:652 userinput/forms.py:703 userinput/forms.py:704
 msgid "in english"
 msgstr "in englisch"
 
-#: userinput/forms.py:654 userinput/forms.py:702 userinput/forms.py:703
+#: userinput/forms.py:653 userinput/forms.py:701 userinput/forms.py:702
 msgid "in german"
 msgstr "in deutsch"
 
-#: userinput/forms.py:669
+#: userinput/forms.py:668
 msgid ""
 "You cannot add or remove a method from a project that has been already "
 "approved. If you want to add or remove a method to or from your project, "
@@ -3233,7 +3336,7 @@ msgstr ""
 "bereits akzeptiert wurde. Um Methoden hinzuzufügen oder zu löschen,\n"
 "kontaktieren Sie uns bitte persönlich."
 
-#: userinput/forms.py:691
+#: userinput/forms.py:690
 msgid ""
 "Your application for the project has been filed. You will receive a decision "
 "as soon as possible, usually within two weeks."
@@ -3243,23 +3346,23 @@ msgstr ""
 "von\n"
 "zwei Wochen."
 
-#: userinput/forms.py:702 userinput/forms.py:704
+#: userinput/forms.py:701 userinput/forms.py:703
 msgid "Workgroup name"
 msgstr "Name der AG"
 
-#: userinput/forms.py:703 userinput/forms.py:705
+#: userinput/forms.py:702 userinput/forms.py:704
 msgid "The name of your workgroup"
 msgstr "Der Name Ihrer Arbeitsgruppe"
 
-#: userinput/forms.py:714
+#: userinput/forms.py:713
 msgid "information in german"
 msgstr "Informationen auf deutsch"
 
-#: userinput/forms.py:715
+#: userinput/forms.py:714
 msgid "information in english"
 msgstr "Informationen auf englisch"
 
-#: userinput/forms.py:720
+#: userinput/forms.py:719
 msgid ""
 "Your application for your workgroup has been filed. Please proceed with your "
 "identification. You will receive a decision as soon as possible, usually "
@@ -3283,337 +3386,401 @@ msgstr "Inaktiv"
 msgid "Inactivate this user"
 msgstr "Diesen Nutzer inaktivieren"
 
-#: userinput/helpers.py:87 userinput/helpers.py:89
+#: userinput/helpers.py:93 userinput/helpers.py:95
 msgid "Submit via email"
 msgstr "Versende via E-Mail"
 
-#: userinput/helpers.py:101 userinput/helpers.py:103
+#: userinput/helpers.py:107 userinput/helpers.py:109
 msgid "Manual submission"
 msgstr "Manuelle Übersendung"
 
-#: userinput/models.py:72 userinput/models.py:913 userinput/relations.py:13
+#: userinput/models.py:72 userinput/models.py:913 userinput/models_old.py:72
+#: userinput/models_old.py:913 userinput/modelsf/rubionuser.py:685
+#: userinput/relations.py:13
 msgid "workgroup"
 msgstr "Arbeitsgruppe"
 
-#: userinput/models.py:73 userinput/wagtail_hooks.py:222
+#: userinput/models.py:73 userinput/models_old.py:73
+#: userinput/wagtail_hooks.py:223
 msgid "workgroups"
 msgstr "Arbeitsgruppen"
 
-#: userinput/models.py:80
+#: userinput/models.py:80 userinput/models_old.py:80
 msgid "department (de)"
 msgstr "Abteilung (de)"
 
-#: userinput/models.py:86
+#: userinput/models.py:86 userinput/models_old.py:86
 msgid "department (en)"
 msgstr "Abteilung (en)"
 
-#: userinput/models.py:91
+#: userinput/models.py:91 userinput/models_old.py:91
 msgid "institute (en)"
 msgstr "Institut (en)"
 
-#: userinput/models.py:95
+#: userinput/models.py:95 userinput/models_old.py:95
 msgid "institute (de)"
 msgstr "Institut (de)"
 
-#: userinput/models.py:100
+#: userinput/models.py:100 userinput/models_old.py:100
 msgid "university (de)"
 msgstr "Universität (de)"
 
-#: userinput/models.py:104
+#: userinput/models.py:104 userinput/models_old.py:104
 msgid "university (en)"
 msgstr "Universität (en)"
 
-#: userinput/models.py:114 userinput/models.py:2008
+#: userinput/models.py:114 userinput/models.py:2008 userinput/models_old.py:114
+#: userinput/models_old.py:2008
 msgid "internet address"
 msgstr "Internetadresse"
 
-#: userinput/models.py:115
+#: userinput/models.py:115 userinput/models_old.py:115
 msgid "Please include http:// or https:// and www, if required."
 msgstr "Bitte inklusive http:// oder https:// und ggf. www"
 
-#: userinput/models.py:124
+#: userinput/models.py:124 userinput/models_old.py:124
 msgid "German Information"
 msgstr "Informationen auf deutsch"
 
-#: userinput/models.py:130
+#: userinput/models.py:130 userinput/models_old.py:130
 msgid "English Information"
 msgstr "Informationen auf englisch"
 
-#: userinput/models.py:133
+#: userinput/models.py:133 userinput/models_old.py:133
 msgid "Additional Information"
 msgstr "Zusätzliche Informationen"
 
-#: userinput/models.py:141
+#: userinput/models.py:141 userinput/models_old.py:141
 msgid "Internal comments"
 msgstr "Interne Kommentare"
 
-#: userinput/models.py:378
+#: userinput/models.py:378 userinput/models_old.py:378
+#: userinput/modelsf/rubionuser.py:31
 msgid "workgroup member"
 msgstr "Arbeitsgruppenmitglied"
 
-#: userinput/models.py:379
+#: userinput/models.py:379 userinput/models_old.py:379
+#: userinput/modelsf/rubionuser.py:32
 msgid "workgroup members"
 msgstr "Arbeitsgruppenmitglieder"
 
-#: userinput/models.py:384 userinput/relations.py:37
+#: userinput/models.py:384 userinput/models_old.py:384
+#: userinput/modelsf/rubionuser.py:42 userinput/relations.py:37
 msgid "RUBION User"
 msgstr "RUBION-Nutzer"
 
-#: userinput/models.py:385
+#: userinput/models.py:385 userinput/models_old.py:385
+#: userinput/modelsf/rubionuser.py:43
 msgid "RUBION Users"
 msgstr "RUBION-Nutzer"
 
-#: userinput/models.py:407
+#: userinput/models.py:407 userinput/models_old.py:407
+#: userinput/modelsf/rubionuser.py:64
 msgid "Not yet decided"
 msgstr "Noch nicht entschieden"
 
-#: userinput/models.py:408
+#: userinput/models.py:408 userinput/models_old.py:408
+#: userinput/modelsf/rubionuser.py:65
 msgid "No dosemeter"
 msgstr "Kein Dosimeter"
 
-#: userinput/models.py:409
+#: userinput/models.py:409 userinput/models_old.py:409
+#: userinput/modelsf/rubionuser.py:66
 msgid "Official dosemeter"
 msgstr "Offizielles Dosimeter"
 
-#: userinput/models.py:410
+#: userinput/models.py:410 userinput/models_old.py:410
+#: userinput/modelsf/rubionuser.py:67
 msgid "Electronic dosemeter"
 msgstr "Elektronisches Dosimeter"
 
-#: userinput/models.py:411
+#: userinput/models.py:411 userinput/models_old.py:411
+#: userinput/modelsf/rubionuser.py:68
 msgid "External dosemeter"
 msgstr "Externes Dosimeter"
 
-#: userinput/models.py:414
+#: userinput/models.py:414 userinput/models_old.py:414
+#: userinput/modelsf/rubionuser.py:71
 msgid "not decided"
 msgstr "nicht entschieden"
 
-#: userinput/models.py:415 userinput/wagtail_hooks.py:93
-#: userinput/wagtail_hooks.py:101 userinput/wagtail_hooks.py:109
-#: userinput/wagtail_hooks.py:176
+#: userinput/models.py:415 userinput/models_old.py:415
+#: userinput/modelsf/rubionuser.py:72 userinput/wagtail_hooks.py:94
+#: userinput/wagtail_hooks.py:102 userinput/wagtail_hooks.py:110
+#: userinput/wagtail_hooks.py:177
 msgid "not required"
 msgstr "Nicht notwendig"
 
-#: userinput/models.py:416
+#: userinput/models.py:416 userinput/models_old.py:416
+#: userinput/modelsf/rubionuser.py:73
 msgid "official"
 msgstr "Offiziell"
 
-#: userinput/models.py:417
+#: userinput/models.py:417 userinput/models_old.py:417
+#: userinput/modelsf/rubionuser.py:74
 msgid "electronic"
 msgstr "elektronisch"
 
-#: userinput/models.py:418
+#: userinput/models.py:418 userinput/models_old.py:418
+#: userinput/modelsf/rubionuser.py:75
 msgid "external"
 msgstr "extern"
 
-#: userinput/models.py:438
+#: userinput/models.py:438 userinput/models_old.py:438
+#: userinput/modelsf/rubionuser.py:126
 msgid "email address"
 msgstr "E-Mail-Adresse"
 
-#: userinput/models.py:458
+#: userinput/models.py:458 userinput/models_old.py:458
+#: userinput/modelsf/rubionuser.py:139
 msgid "What is your gender?"
 msgstr "Ihr Geschlecht?"
 
-#: userinput/models.py:459
+#: userinput/models.py:459 userinput/models_old.py:459
+#: userinput/modelsf/rubionuser.py:140
 msgid ""
 "We ask this question to correctly address you in emails and letters send to "
 "you."
 msgstr ""
 "Wir benötigen diese Angaben, um Sie in E-Mails und Briefen korrekt anzureden."
 
-#: userinput/models.py:470
+#: userinput/models.py:470 userinput/models_old.py:470
+#: userinput/modelsf/rubionuser.py:94
 #: userinput/templates/userinput/admin/inspect_project.html:72
 #: userinput/templates/userinput/admin/inspect_project.html:79
 msgid "None"
 msgstr "Kein"
 
-#: userinput/models.py:471
+#: userinput/models.py:471 userinput/models_old.py:471
+#: userinput/modelsf/rubionuser.py:95
 msgid "BSc"
 msgstr "BSc"
 
-#: userinput/models.py:472
+#: userinput/models.py:472 userinput/models_old.py:472
+#: userinput/modelsf/rubionuser.py:96
 msgid "MSc"
 msgstr "MSc"
 
-#: userinput/models.py:473
+#: userinput/models.py:473 userinput/models_old.py:473
+#: userinput/modelsf/rubionuser.py:97
 msgid "PhD"
 msgstr "Dr."
 
-#: userinput/models.py:474
+#: userinput/models.py:474 userinput/models_old.py:474
+#: userinput/modelsf/rubionuser.py:98
 msgid "MD"
 msgstr "Dr. med."
 
-#: userinput/models.py:475
+#: userinput/models.py:475 userinput/models_old.py:475
+#: userinput/modelsf/rubionuser.py:99
 msgid "Prof."
 msgstr "Prof."
 
-#: userinput/models.py:488
+#: userinput/models.py:488 userinput/models_old.py:488
+#: userinput/modelsf/rubionuser.py:154
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: userinput/models.py:497
+#: userinput/models.py:497 userinput/models_old.py:497
+#: userinput/modelsf/rubionuser.py:163
 msgid "linked website user"
 msgstr "verbundener Webseitennutzer"
 
-#: userinput/models.py:506
+#: userinput/models.py:506 userinput/models_old.py:506
+#: userinput/modelsf/rubionuser.py:172
 msgid "Preferred language for communication"
 msgstr "Bevorzugte Sprache"
 
-#: userinput/models.py:515
+#: userinput/models.py:515 userinput/models_old.py:515
+#: userinput/modelsf/rubionuser.py:181
 msgid "Date of birth"
 msgstr "Geburtsdatum"
 
-#: userinput/models.py:523
+#: userinput/models.py:523 userinput/models_old.py:523
+#: userinput/modelsf/rubionuser.py:189
 msgid "Place of birth"
 msgstr "Geburtsort"
 
-#: userinput/models.py:531
+#: userinput/models.py:531 userinput/models_old.py:531
+#: userinput/modelsf/rubionuser.py:197
 msgid "Previous names."
 msgstr "Vorherigen Namen"
 
-#: userinput/models.py:532
+#: userinput/models.py:532 userinput/models_old.py:532
+#: userinput/modelsf/rubionuser.py:198
 msgid "Please list your previous name (in case of marriage, for example)"
 msgstr ""
 "Bitte listen Sie eventuelle vorherige Namen auf (bspw. im Falle einer Heirat)"
 
 # Vorherige Exposition
 # Vorherige Exposition(en)
-#: userinput/models.py:537
+#: userinput/models.py:537 userinput/models_old.py:537
+#: userinput/modelsf/rubionuser.py:203
 msgid "Previous exposure"
 msgstr "Vorherige Exposition(en)"
 
-#: userinput/models.py:538
+#: userinput/models.py:538 userinput/models_old.py:538
+#: userinput/modelsf/rubionuser.py:204
 msgid "Has there been work-related previous exposure to ionizing radiation?"
 msgstr "Liegt bei Ihnen eine vorherige berufliche Strahlenexposition vor?"
 
-#: userinput/models.py:545
+#: userinput/models.py:545 userinput/models_old.py:545
+#: userinput/modelsf/rubionuser.py:211
 msgid "is the user validated"
 msgstr "Ist der Nutzer bestätigt"
 
-#: userinput/models.py:549
+#: userinput/models.py:549 userinput/models_old.py:549
+#: userinput/modelsf/rubionuser.py:215
 msgid "has agreed"
 msgstr "hat zugestimmt"
 
-#: userinput/models.py:554
+#: userinput/models.py:554 userinput/models_old.py:554
+#: userinput/modelsf/rubionuser.py:220
 msgid "is a member of the RUB"
 msgstr "Ist RUB-Angehöriger"
 
-#: userinput/models.py:591
+#: userinput/models.py:591 userinput/models_old.py:591
+#: userinput/modelsf/rubionuser.py:251
 msgid "lab coat size"
 msgstr "Kittelgröße"
 
-#: userinput/models.py:592
+#: userinput/models.py:592 userinput/models_old.py:592
+#: userinput/modelsf/rubionuser.py:252
 msgid "The size of your lab coat."
 msgstr "Die Größe, die Ihr Laborkittel haben soll."
 
-#: userinput/models.py:603
+#: userinput/models.py:603 userinput/models_old.py:603
+#: userinput/modelsf/rubionuser.py:264
 msgid "shoe size"
 msgstr "Schuhgröße"
 
-#: userinput/models.py:604
+#: userinput/models.py:604 userinput/models_old.py:604
+#: userinput/modelsf/rubionuser.py:265
 msgid "The size your protecting shoes should have."
 msgstr "Die Schuhgröße, die Ihre Überschuhe haben sollen."
 
-#: userinput/models.py:616
+#: userinput/models.py:616 userinput/models_old.py:616
+#: userinput/modelsf/rubionuser.py:277
 msgid "Preferred entrance in the lab."
 msgstr "Bevorzugter Eingang in das Labor"
 
-#: userinput/models.py:621
+#: userinput/models.py:621 userinput/models_old.py:621
+#: userinput/modelsf/rubionuser.py:282
 msgid "User seen by RUBION staff members"
 msgstr "Nutzer durch RUBION-Mitarebiter gesehen"
 
-#: userinput/models.py:632
+#: userinput/models.py:632 userinput/models_old.py:632
+#: userinput/modelsf/rubionuser.py:293
 msgid "leader of the group"
 msgstr "Arbeitsgruppenleiter"
 
-#: userinput/models.py:639
+#: userinput/models.py:639 userinput/models_old.py:639
+#: userinput/modelsf/rubionuser.py:300
 msgid "may create projects"
 msgstr "darf Projekte erstellen"
 
-#: userinput/models.py:644
+#: userinput/models.py:644 userinput/models_old.py:644
+#: userinput/modelsf/rubionuser.py:305
 msgid "May add members"
 msgstr "darf Mitglieder hinzufügen"
 
-#: userinput/models.py:649
+#: userinput/models.py:649 userinput/models_old.py:649
+#: userinput/modelsf/rubionuser.py:310
 msgid "Does this user permanently need a key?"
 msgstr "Benötigt dieser Nutzer permanent einen Schlüssel?"
 
-#: userinput/models.py:656
+#: userinput/models.py:656 userinput/models_old.py:656
+#: userinput/modelsf/rubionuser.py:317
 msgid "Type of dosemeter"
 msgstr "Art des Dosimeters"
 
-#: userinput/models.py:873
+#: userinput/models.py:873 userinput/models_old.py:873
+#: userinput/modelsf/rubionuser.py:645
 msgid "{} has been removed from your workgroup."
 msgstr "{} wurde aus der Arbeitsgruppe entfernt."
 
 #: userinput/models.py:882 userinput/models.py:1592 userinput/models.py:1611
+#: userinput/models_old.py:882 userinput/models_old.py:1592
+#: userinput/models_old.py:1611 userinput/modelsf/rubionuser.py:654
 msgid "Operation was canceled."
 msgstr "Die Operation wurde abgebrochen."
 
-#: userinput/models.py:1007
+#: userinput/models.py:1007 userinput/models_old.py:1007
+#: userinput/modelsf/rubionuser.py:356
 msgid "personal information"
 msgstr "Persönliche Angaben"
 
-#: userinput/models.py:1017
+#: userinput/models.py:1017 userinput/models_old.py:1017
+#: userinput/modelsf/rubionuser.py:366
 msgid "Additional personal data for radiation safety"
 msgstr "Zusätzliche persönlcieh Angaben für den Strahlenschutz"
 
-#: userinput/models.py:1031
+#: userinput/models.py:1031 userinput/models_old.py:1031
+#: userinput/modelsf/rubionuser.py:380
 msgid "internal information"
 msgstr "Interne Informationen"
 
-#: userinput/models.py:1037
+#: userinput/models.py:1037 userinput/models_old.py:1037
+#: userinput/modelsf/rubionuser.py:386
 msgid "user permissions"
 msgstr "Berechtigungen"
 
-#: userinput/models.py:1047
+#: userinput/models.py:1047 userinput/models_old.py:1047
+#: userinput/modelsf/rubionuser.py:396
 msgid "Safety"
 msgstr "Sicherheit"
 
-#: userinput/models.py:1053
+#: userinput/models.py:1053 userinput/models_old.py:1053
+#: userinput/modelsf/rubionuser.py:402
 msgid "Key"
 msgstr "Schlüssel"
 
-#: userinput/models.py:1055
+#: userinput/models.py:1055 userinput/models_old.py:1055
+#: userinput/modelsf/rubionuser.py:404
 msgid "User may book"
 msgstr "Buchungserlaubnis"
 
-#: userinput/models.py:1076
+#: userinput/models.py:1076 userinput/models_old.py:1076
+#: userinput/modelsf/rubionuser.py:425
 msgid "Settings set by RUBION"
 msgstr "Einstellungen durch das RUBION"
 
-#: userinput/models.py:1078
+#: userinput/models.py:1078 userinput/models_old.py:1078
+#: userinput/modelsf/rubionuser.py:427
 msgid "internal comments"
 msgstr "Interne Kommentare"
 
-#: userinput/models.py:1079
+#: userinput/models.py:1079 userinput/models_old.py:1079
+#: userinput/modelsf/rubionuser.py:428
 msgid "internal settings"
 msgstr "Interne Einstellungen"
 
-#: userinput/models.py:1080
+#: userinput/models.py:1080 userinput/models_old.py:1080
+#: userinput/modelsf/rubionuser.py:429
 msgid "User Data"
 msgstr "Nutzerdaten"
 
-#: userinput/models.py:1104
+#: userinput/models.py:1104 userinput/models_old.py:1104
 msgid "project summary (en)"
 msgstr "Projektzusammenfassung (en)"
 
-#: userinput/models.py:1105
+#: userinput/models.py:1105 userinput/models_old.py:1105
 msgid "Public summary of the project (in english)."
 msgstr "Öffentliche Zusammenfassung des Projekts (auf englisch)."
 
-#: userinput/models.py:1111
+#: userinput/models.py:1111 userinput/models_old.py:1111
 msgid "project summary (de)"
 msgstr "Projektzusammenfassung (de)"
 
-#: userinput/models.py:1112
+#: userinput/models.py:1112 userinput/models_old.py:1112
 msgid "Public summary of the project (in german)."
 msgstr "Öffentliche Zusammenfassung des Projekts (auf deutsch)."
 
-#: userinput/models.py:1117
+#: userinput/models.py:1117 userinput/models_old.py:1117
 msgid "hide project"
 msgstr "Projekt verstecken"
 
-#: userinput/models.py:1118
+#: userinput/models.py:1118 userinput/models_old.py:1118
 msgid ""
 "Is this project confidential? If you check this, it will not be visible to "
 "the public."
@@ -3621,20 +3788,20 @@ msgstr ""
 "Ist dieses Projekt vertraulich? Wenn dieser Haken gesetzt wird, wird das\n"
 "Projekt nicht öffentlich aufgeführt."
 
-#: userinput/models.py:1123
+#: userinput/models.py:1123 userinput/models_old.py:1123
 msgid "genetically modified organisms"
 msgstr "Genetisch veränderte Organismen"
 
-#: userinput/models.py:1124
+#: userinput/models.py:1124 userinput/models_old.py:1124
 msgid "Does the project include working with genetically modified organisms?"
 msgstr ""
 "Beinhaltet das Projekt die Arbeit mit genetisch modifizierten Organismen?"
 
-#: userinput/models.py:1129
+#: userinput/models.py:1129 userinput/models_old.py:1129
 msgid "Information on GMOs"
 msgstr "Information zu GMOs"
 
-#: userinput/models.py:1130
+#: userinput/models.py:1130 userinput/models_old.py:1130
 msgid ""
 "Provide information about the GMOs you plan to use (safety level, cell "
 "type, ...)"
@@ -3642,19 +3809,19 @@ msgstr ""
 "Geben Sie weitere Informationen zu den GMOs an, die Sie benutzen möchten\n"
 "(Sicherheitsstufe, Zelltyp, etc.)"
 
-#: userinput/models.py:1136
+#: userinput/models.py:1136 userinput/models_old.py:1136
 msgid "Uses chemical compounds"
 msgstr "Werden Chemikalien benutzt"
 
-#: userinput/models.py:1137
+#: userinput/models.py:1137 userinput/models_old.py:1137
 msgid "Does the project include working with chemical compounds"
 msgstr "Beinhaltet das Projekt die Arbeit mit Chemikalien?"
 
-#: userinput/models.py:1142
+#: userinput/models.py:1142 userinput/models_old.py:1142
 msgid "Information on chemicals"
 msgstr "Informationen über Chemikalien"
 
-#: userinput/models.py:1143
+#: userinput/models.py:1143 userinput/models_old.py:1143
 msgid ""
 "Provide information about the chemicals you plan to use (compound, "
 "amount, ...)"
@@ -3662,19 +3829,19 @@ msgstr ""
 "Geben Sie Informationen zu den Chemikalien an, die Sie nutzen möchten\n"
 "(Verbindung, Menge, etc.)"
 
-#: userinput/models.py:1149
+#: userinput/models.py:1149 userinput/models_old.py:1149
 msgid "Uses hazardous compounds"
 msgstr "Benutzt Gefahrstoffe"
 
-#: userinput/models.py:1150
+#: userinput/models.py:1150 userinput/models_old.py:1150
 msgid "Does the project include working with hazardous compounds"
 msgstr "Beinhaltet das Projekt die Arbeit mit Gefahrstoffen?"
 
-#: userinput/models.py:1156
+#: userinput/models.py:1156 userinput/models_old.py:1156
 msgid "Information on hazardous compunds"
 msgstr "Informationen zu Gefahrstoffen"
 
-#: userinput/models.py:1157
+#: userinput/models.py:1157 userinput/models_old.py:1157
 msgid ""
 "Provide information about the hazardous compunds you plan to use (compound, "
 "amount, ...)"
@@ -3682,22 +3849,22 @@ msgstr ""
 "Geben Sie Informationen zu den Gefahrstoffen an, die Sie benutzen möchten\n"
 "(Verbindund, Menge, etc.)"
 
-#: userinput/models.py:1163
+#: userinput/models.py:1163 userinput/models_old.py:1163
 msgid "Ordinance on biological agents"
 msgstr "Biostoffverordnung"
 
-#: userinput/models.py:1164
+#: userinput/models.py:1164 userinput/models_old.py:1164
 msgid ""
 "Does the project include work which underlies the Ordinance on Biological "
 "Agents"
 msgstr ""
 "Beinhaltet das Projekt Arbeiten, die unter die Biostoffverordnung fallen?"
 
-#: userinput/models.py:1169
+#: userinput/models.py:1169 userinput/models_old.py:1169
 msgid "Information on biological agents"
 msgstr "Informationen zu biologischen Agenzen"
 
-#: userinput/models.py:1170
+#: userinput/models.py:1170 userinput/models_old.py:1170
 msgid ""
 "Provide information about the biological agents you plan to use (agent, "
 "amount, ...)"
@@ -3706,110 +3873,113 @@ msgstr ""
 "möchten\n"
 "(Art, Menge, etc.)"
 
-#: userinput/models.py:1177
+#: userinput/models.py:1177 userinput/models_old.py:1177
 msgid "has the user been asked to add funding?"
 msgstr "Wurde der Nutzer nach Angaben zur Förderung gefragt?"
 
 # Dieses Feld wird automatisch ausgefüllt. Bite nicht ändern.
 #: userinput/models.py:1178 userinput/models.py:1183 userinput/models.py:1188
+#: userinput/models_old.py:1178 userinput/models_old.py:1183
+#: userinput/models_old.py:1188
 msgid "This is an auto-filled field. Do not change"
 msgstr "Dieses Feld wird automatisch ausgefüllt. Bitte nicht ändern."
 
 # Wurde der Nutzer nach Publikationen gefragt?
-#: userinput/models.py:1182
+#: userinput/models.py:1182 userinput/models_old.py:1182
 msgid "has the user been asked to add publications?"
 msgstr "Wurde der Nutzer nach Publikationen gefragt?"
 
 # Wurde der Nutzer nach Abschlussarbeiten gefragt?
-#: userinput/models.py:1187
+#: userinput/models.py:1187 userinput/models_old.py:1187
 msgid "has the user been asked to add theses?"
 msgstr "Wurde der Nutzer nach Abschlussarbeiten gefragt?"
 
-#: userinput/models.py:1192
+#: userinput/models.py:1192 userinput/models_old.py:1192
 msgid "research"
 msgstr "Forschung"
 
-#: userinput/models.py:1196
+#: userinput/models.py:1196 userinput/models_old.py:1196
 msgid "teaching"
 msgstr "Lehre"
 
-#: userinput/models.py:1202
+#: userinput/models.py:1202 userinput/models_old.py:1202
 msgid "Prolongation counter"
 msgstr "Verlängerungs-Zähler"
 
-#: userinput/models.py:1208
+#: userinput/models.py:1208 userinput/models_old.py:1208
 msgid "Maximum number of prolongations"
 msgstr "Maximale Anzahl der Verlängerungen"
 
-#: userinput/models.py:1236
+#: userinput/models.py:1236 userinput/models_old.py:1236
 msgid "summary in german"
 msgstr "Zusammenfassung (in deutsch)"
 
-#: userinput/models.py:1240
+#: userinput/models.py:1240 userinput/models_old.py:1240
 msgid "summary in english"
 msgstr "Zusammenfassung (in englisch)"
 
-#: userinput/models.py:1244
+#: userinput/models.py:1244 userinput/models_old.py:1244
 msgid "Used Nuclides"
 msgstr "Benutzte Nuklide"
 
 #: userinput/models.py:1252 userinput/models.py:1546
+#: userinput/models_old.py:1252 userinput/models_old.py:1546
 msgid "funding"
 msgstr "Förderung"
 
-#: userinput/models.py:1253
+#: userinput/models.py:1253 userinput/models_old.py:1253
 msgid "publications"
 msgstr "Publikationen"
 
-#: userinput/models.py:1254
+#: userinput/models.py:1254 userinput/models_old.py:1254
 msgid "theses"
 msgstr "Abschlussarbeiten"
 
-#: userinput/models.py:1267
+#: userinput/models.py:1267 userinput/models_old.py:1267
 msgid "Expiration"
 msgstr "Ablaufdatum"
 
-#: userinput/models.py:1274
+#: userinput/models.py:1274 userinput/models_old.py:1274
 msgid "Resources"
 msgstr "Ressourcen"
 
-#: userinput/models.py:1275
+#: userinput/models.py:1275 userinput/models_old.py:1275
 #: userinput/templates/userinput/admin/inspect_project.html:11
 msgid "Nuclides"
 msgstr "Nuklide"
 
-#: userinput/models.py:1276
+#: userinput/models.py:1276 userinput/models_old.py:1276
 msgid "related items"
 msgstr "Zugehörende Angaben"
 
-#: userinput/models.py:1279
+#: userinput/models.py:1279 userinput/models_old.py:1279
 #: userinput/templates/userinput/admin/inspect_project.html:71
 msgid "Internal comment"
 msgstr "Interner Kommentar"
 
-#: userinput/models.py:1516
+#: userinput/models.py:1516 userinput/models_old.py:1516
 msgid "thesis"
 msgstr "Abschlussarbeit"
 
-#: userinput/models.py:1531
+#: userinput/models.py:1531 userinput/models_old.py:1531
 msgid "publication"
 msgstr "Publikation"
 
-#: userinput/models.py:1588
+#: userinput/models.py:1588 userinput/models_old.py:1588
 msgid "The project was extended by one year."
 msgstr "Das Projekt wurde um ein Jahr verlängert."
 
-#: userinput/models.py:1590
+#: userinput/models.py:1590 userinput/models_old.py:1590
 msgid "The project cannot be extended anymore. Please contact the RUBION team."
 msgstr ""
 "Das Projekt kann nicht weiter verlängert werden. bitte kontaktieren Sie das "
 "RUBION-Team."
 
-#: userinput/models.py:1608
+#: userinput/models.py:1608 userinput/models_old.py:1608
 msgid "The project was closed."
 msgstr "Das Projekt wurde geschlossen."
 
-#: userinput/models.py:1710
+#: userinput/models.py:1710 userinput/models_old.py:1710
 msgid ""
 "\n"
 "<h3>Information</h3>\n"
@@ -3834,95 +4004,96 @@ msgstr ""
 "Ihrem Projekt an.</p>\n"
 "    "
 
-#: userinput/models.py:1845
+#: userinput/models.py:1845 userinput/models_old.py:1845
 msgid "max amount per order (in MBq)"
 msgstr "Maximale Bestellmenge (in MBq)"
 
-#: userinput/models.py:1851
+#: userinput/models.py:1851 userinput/models_old.py:1851
 msgid "estimated amount per experiment (in MBq)"
 msgstr "Benutzte Menge pro Experiment (in MBq)"
 
-#: userinput/models.py:1884
+#: userinput/models.py:1884 userinput/models_old.py:1884
 msgid "funding agency"
 msgstr "Förder-Institution"
 
-#: userinput/models.py:1890
+#: userinput/models.py:1890 userinput/models_old.py:1890
 msgid "project ID"
 msgstr "Projekt-ID"
 
-#: userinput/models.py:1896
+#: userinput/models.py:1896 userinput/models_old.py:1896
 msgid "project title (english)"
 msgstr "Projekttitel (englisch)"
 
-#: userinput/models.py:1902
+#: userinput/models.py:1902 userinput/models_old.py:1902
 msgid "project title (german)"
 msgstr "Projekttitel (deutsch)"
 
-#: userinput/models.py:1909
+#: userinput/models.py:1909 userinput/models_old.py:1909
 msgid "project url"
 msgstr "Projekt-URL"
 
-#: userinput/models.py:1925
+#: userinput/models.py:1925 userinput/models_old.py:1925
 msgid "authors"
 msgstr "Autoren"
 
-#: userinput/models.py:1926
+#: userinput/models.py:1926 userinput/models_old.py:1926
 msgid "comma separated list of authors"
 msgstr "Komma-separierte Liste der Autoren"
 
-#: userinput/models.py:1933
+#: userinput/models.py:1933 userinput/models_old.py:1933
 msgid "title of the publication"
 msgstr "Titel der Veröffentlichung"
 
-#: userinput/models.py:1939
+#: userinput/models.py:1939 userinput/models_old.py:1939
 msgid "journal"
 msgstr "Journal"
 
-#: userinput/models.py:1945
+#: userinput/models.py:1945 userinput/models_old.py:1945
 msgid "volume"
 msgstr "Band (Volume)"
 
 #: userinput/models.py:1950 userinput/models.py:2002
+#: userinput/models_old.py:1950 userinput/models_old.py:2002
 msgid "year"
 msgstr "Jahr"
 
-#: userinput/models.py:1956
+#: userinput/models.py:1956 userinput/models_old.py:1956
 msgid "pages"
 msgstr "Seiten"
 
-#: userinput/models.py:1973
+#: userinput/models.py:1973 userinput/models_old.py:1973
 msgid "Habilitation"
 msgstr "Habilitation"
 
-#: userinput/models.py:1974
+#: userinput/models.py:1974 userinput/models_old.py:1974
 msgid "PhD thesis"
 msgstr "Doktorarbeit"
 
-#: userinput/models.py:1975
+#: userinput/models.py:1975 userinput/models_old.py:1975
 msgid "Master's thesis"
 msgstr "Masterarbeit"
 
-#: userinput/models.py:1976
+#: userinput/models.py:1976 userinput/models_old.py:1976
 msgid "Bachelor's thesis"
 msgstr "Bachelorarbeit"
 
-#: userinput/models.py:1984
+#: userinput/models.py:1984 userinput/models_old.py:1984
 msgid "theses type (Bachelor, Master or PhD)"
 msgstr "Art der Abschlussarbeit (Bachelor-, Master- oder Doktorarbeit)"
 
-#: userinput/models.py:1991
+#: userinput/models.py:1991 userinput/models_old.py:1991
 msgid "title of the thesis"
 msgstr "Titel der Abschlussarbeit"
 
-#: userinput/models.py:1997
+#: userinput/models.py:1997 userinput/models_old.py:1997
 msgid "author"
 msgstr "Autor"
 
-#: userinput/models.py:2063
+#: userinput/models.py:2063 userinput/models_old.py:2063
 msgid "Element"
 msgstr "Element"
 
-#: userinput/models.py:2069
+#: userinput/models.py:2069 userinput/models_old.py:2069
 msgid "Isotope mass"
 msgstr "Isotopenmasse"
 
@@ -4113,7 +4284,7 @@ msgstr "Keine Arbeitsgruppenmitglieder hinzugefügt."
 #: userinput/templates/userinput/admin/inspect_workgroup.html:18
 #: userinput/templates/userinput/project_container.html:19
 #: userinput/templates/userinput/workgroup_view.html:40
-#: userinput/wagtail_hooks.py:321
+#: userinput/wagtail_hooks.py:322
 msgid "Projects"
 msgstr "Projekte"
 
@@ -4153,7 +4324,7 @@ msgid "Phone"
 msgstr "Telefon"
 
 #: userinput/templates/userinput/admin/name_in_si_list.html:6
-#: userinput/wagtail_hooks.py:282
+#: userinput/wagtail_hooks.py:283
 msgid "Prolong"
 msgstr "Verlängern"
 
@@ -4176,7 +4347,6 @@ msgstr "Bestätigungsdatum"
 #: userinput/templates/userinput/close_project.html:4
 #: userinput/templates/userinput/close_project.html:21
 #: userinput/templates/userinput/project_view.html:40
-#: userinput/templates/userinput/prolong_project.html:4
 msgid "Close project"
 msgstr "Projekt schließen"
 
@@ -4241,12 +4411,14 @@ msgstr "AG-Mitglied hinzufügen"
 #: userinput/templates/userinput/home.html:55
 msgid ""
 "\n"
-"    Your workgroup currently awaits approval by the RUBION team. In order to be able to assess your \n"
+"    Your workgroup currently awaits approval by the RUBION team. In order to "
+"be able to assess your \n"
 "    application, we kindly ask you to \n"
 "    "
 msgstr ""
 "\n"
-"Ihre Arbeitsgruppe wartet momentan auf die Bestätigung durch das RUBION-Team. Um Ihre Bewerbung \n"
+"Ihre Arbeitsgruppe wartet momentan auf die Bestätigung durch das RUBION-"
+"Team. Um Ihre Bewerbung \n"
 "beurteilen zu können, bitten wir Sie, innerhalb der nächsten Tage, \n"
 " "
 
@@ -4257,15 +4429,18 @@ msgstr "ein Projekt zu beantragen. "
 #: userinput/templates/userinput/home.html:61
 msgid ""
 "\n"
-"    within the next few days. This information is necessary for us to see what you want to do. \n"
-"    Please note that your application cannot be evaluated before you apply for a project.\n"
+"    within the next few days. This information is necessary for us to see "
+"what you want to do. \n"
+"    Please note that your application cannot be evaluated before you apply "
+"for a project.\n"
 "    "
 msgstr ""
 "\n"
-"Diese Information ist für uns notwendig, um zu sehen was Sie im Detail planen. \n"
-"Bitte beachten Sie, dass Ihre Bewerbung nicht vor der Beantragung eines Projekts geprüft werden kann.\n"
+"Diese Information ist für uns notwendig, um zu sehen was Sie im Detail "
+"planen. \n"
+"Bitte beachten Sie, dass Ihre Bewerbung nicht vor der Beantragung eines "
+"Projekts geprüft werden kann.\n"
 " "
-
 
 #: userinput/templates/userinput/home.html:75
 msgid "You are not a user of RUBION"
@@ -4534,6 +4709,11 @@ msgstr "Dieses Projekt hat keine Publikationen"
 msgid "This project has no theses."
 msgstr "Dieses Projekt hat keine Abschlussarbeiten"
 
+#: userinput/templates/userinput/prolong_project.html:4
+#: userinput/templates/userinput/prolong_project.html:21
+msgid "Prolong project"
+msgstr "Projekt verlängern"
+
 #: userinput/templates/userinput/prolong_project.html:10
 msgid ""
 "\n"
@@ -4548,10 +4728,6 @@ msgstr ""
 "Angaben\n"
 "        in Berichten gegenüber dem Rektorat.\n"
 " "
-
-#: userinput/templates/userinput/prolong_project.html:21
-msgid "Prolong project"
-msgstr "Projekt verlängern"
 
 #: userinput/templates/userinput/rubionuser_view.html:5
 msgid "E-mail"
@@ -4605,132 +4781,128 @@ msgstr "Aus Arbeitsgruppe entfernen"
 msgid "Your information has been updated."
 msgstr "Ihre Informationen wurden geändert."
 
-#: userinput/wagtail_hooks.py:89 userinput/wagtail_hooks.py:91
+#: userinput/wagtail_hooks.py:90 userinput/wagtail_hooks.py:92
 msgid "labcoat size"
 msgstr "Kittelgröße"
 
-#: userinput/wagtail_hooks.py:93
+#: userinput/wagtail_hooks.py:94
 msgid "labcoat"
 msgstr "Kittelgröße"
 
-#: userinput/wagtail_hooks.py:97 userinput/wagtail_hooks.py:99
+#: userinput/wagtail_hooks.py:98 userinput/wagtail_hooks.py:100
 msgid "overshoe size"
 msgstr "Schuhgröße"
 
-#: userinput/wagtail_hooks.py:101
+#: userinput/wagtail_hooks.py:102
 msgid "overshoes"
 msgstr "Überschuhe"
 
-#: userinput/wagtail_hooks.py:105 userinput/wagtail_hooks.py:107
+#: userinput/wagtail_hooks.py:106 userinput/wagtail_hooks.py:108
 msgid "entrance"
 msgstr "Sicherheitsschleuse"
 
-#: userinput/wagtail_hooks.py:109
+#: userinput/wagtail_hooks.py:110
 msgid "special entrance"
 msgstr "Sicherheitsschleuse"
 
-#: userinput/wagtail_hooks.py:115
+#: userinput/wagtail_hooks.py:116
 msgid "safety information"
 msgstr "Sicherheitsinformation"
 
-#: userinput/wagtail_hooks.py:119
-msgid "Comment"
-msgstr "Kommentar"
-
-#: userinput/wagtail_hooks.py:129
+#: userinput/wagtail_hooks.py:130
 msgid "Not required"
 msgstr "Nicht notwendig"
 
-#: userinput/wagtail_hooks.py:138
+#: userinput/wagtail_hooks.py:139
 msgid "this month"
 msgstr "dieser Monat"
 
-#: userinput/wagtail_hooks.py:141
+#: userinput/wagtail_hooks.py:142
 msgid "last month"
 msgstr "letzter Monat"
 
-#: userinput/wagtail_hooks.py:144
+#: userinput/wagtail_hooks.py:145
 msgid "{} months ago"
 msgstr "vor {} Monaten"
 
-#: userinput/wagtail_hooks.py:245
+#: userinput/wagtail_hooks.py:246
 msgid "institute"
 msgstr "Institut"
 
-#: userinput/wagtail_hooks.py:248
+#: userinput/wagtail_hooks.py:249
 msgid "university"
 msgstr "Universität"
 
-#: userinput/wagtail_hooks.py:251
+#: userinput/wagtail_hooks.py:252
 msgid "department"
 msgstr "Abteilung"
 
-#: userinput/wagtail_hooks.py:284
+#: userinput/wagtail_hooks.py:285
 #, python-format
 msgid "Prolong this %s"
 msgstr "Verlängern Sie dieses %s"
 
-#: userinput/wagtail_hooks.py:334
+#: userinput/wagtail_hooks.py:335
 msgid "active since"
 msgstr "Aktiv seit"
 
-#: userinput/wagtail_hooks.py:337
+#: userinput/wagtail_hooks.py:338
 msgid "Will expire at"
 msgstr "Wird ablaufen am"
 
-#: userinput/wagtail_hooks.py:352 userinput/wagtail_hooks.py:466
+#: userinput/wagtail_hooks.py:353 userinput/wagtail_hooks.py:467
 msgid "No"
 msgstr "Nein"
 
-#: userinput/wagtail_hooks.py:354 userinput/wagtail_hooks.py:464
+#: userinput/wagtail_hooks.py:355 userinput/wagtail_hooks.py:465
 msgid "Yes"
 msgstr "ja"
 
-#: userinput/wagtail_hooks.py:355
+#: userinput/wagtail_hooks.py:356
 msgid "public"
 msgstr "öffentlich"
 
-#: userinput/wagtail_hooks.py:374
+#: userinput/wagtail_hooks.py:375
 msgid "Safety instruction for RUBION users"
 msgstr "Sicherheitsunterweisungen für RUBION-Nutzer"
 
-#: userinput/wagtail_hooks.py:375
+#: userinput/wagtail_hooks.py:376
 msgid "Safety instructions for RUBION users"
 msgstr "Sicherheitsunterweisungen für RUBION-Nutzer"
 
-#: userinput/wagtail_hooks.py:418
+#: userinput/wagtail_hooks.py:419
 msgid "Data submission to CRO"
 msgstr "Datenübermittlung an den zentralen Strahlenschutz"
 
-#: userinput/wagtail_hooks.py:419
+#: userinput/wagtail_hooks.py:420
 msgid "Data submissions to CRO"
 msgstr "Datenübermittlungen an den zentralen Strahlenschutz"
 
-#: userinput/wagtail_hooks.py:423
+#: userinput/wagtail_hooks.py:424
 msgid "Central radiation safety office"
 msgstr "Zentraler Strahlenschutz"
 
-#: userinput/wagtail_hooks.py:432
+#: userinput/wagtail_hooks.py:433
 msgid "name, first name"
 msgstr "Name, Vorname"
 
-#: userinput/wagtail_hooks.py:444
+#: userinput/wagtail_hooks.py:445
 msgid "last submission"
 msgstr "Letzt Übermittlung"
 
-#: userinput/wagtail_hooks.py:450
+#: userinput/wagtail_hooks.py:451
 msgid "by"
 msgstr "durch"
 
-#: userinput/wagtail_hooks.py:453
+#: userinput/wagtail_hooks.py:454
 msgid "last revision"
 msgstr "Letzte Änderung"
 
-#: userinput/wagtail_hooks.py:460
+#: userinput/wagtail_hooks.py:461
 msgid "last revision by user"
 msgstr "Letzte Änderung durch Nutzer"
 
-#: userinput/wagtail_hooks.py:469
+#: userinput/wagtail_hooks.py:470
 msgid "User data"
 msgstr "Nutzerdaten"
 
@@ -5128,6 +5300,14 @@ msgstr "Gesendete E-Mails"
 #: website/wagtail_hooks.py:39
 msgid "Bugs/Wishes"
 msgstr "Fehler/Wünsche"
+
+#~ msgid "submit"
+#~ msgstr "Senden"
+
+#, fuzzy
+#~| msgid "Comment"
+#~ msgid "Commentary"
+#~ msgstr "Kommentar"
 
 #~ msgid "Saftey instructions"
 #~ msgstr "Sicherheitsunterweisungen"
