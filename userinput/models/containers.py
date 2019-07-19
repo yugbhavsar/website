@@ -1,5 +1,6 @@
 from .project import Project
 from .workgroup import WorkGroup
+from .rubionuser import RUBIONUser
 
 from django.utils import translation
 from django.utils.translation import ugettext_lazy as _
@@ -44,7 +45,23 @@ class WorkGroupContainer ( UGCContainer2 ):
         context['workgroups'] = self.get_visible_children()
         return context
 
+@only_content    
+class MemberContainer ( UGCContainer2 ):
+    subpage_types = [ UGCCreatePage2, 'userinput.RUBIONUser' ]
+    parent_page_types = [ WorkGroup ]
+    for_model = RUBIONUser
+    content_panels = [
+        FieldPanel( 'title' ),
+        FieldPanel( 'title_de' ),
+        StreamFieldPanel( 'introduction_en' ),
+        StreamFieldPanel( 'introduction_de' ),
+    ]
 
+    def get_visible_children( self ):
+        return RUBIONUser.objects.child_of(self).order_by('title')
+
+
+    
 @only_content
 class ProjectContainer ( UGCContainer2 ):
     create_title = "Apply for Project"
