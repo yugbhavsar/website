@@ -1,5 +1,10 @@
 from .attendees import CourseAttendee
+
 from django.db import models
+
+import uuid 
+
+from wagtail.snippets.models import register_snippet
 
 @register_snippet
 class CourseParticipationValidation( models.Model ):
