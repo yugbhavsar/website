@@ -1,5 +1,5 @@
 from .containers import (
-    WorkGroupContainer, ProjectContainer, ListOfProjectsPage
+    WorkGroupContainer, MemberContainer, ProjectContainer, ListOfProjectsPage
 )
 
 from .project import Project
