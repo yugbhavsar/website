@@ -6,6 +6,7 @@ from .course import Course
 from courses.attendees import register_attendee
 
 from django.db import models
+from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy as _l
 
 from rubauth.auth import LDAPBackend, fetch_user_info
@@ -138,10 +139,10 @@ class CourseAttendee ( models.Model ):
     
     @property
     def full_name( self ):
-    '''
-    A property that retrieves the full name of the attendee,
-    including academic title
-    '''
+        '''
+        A property that retrieves the full name of the attendee,
+        including academic title
+        '''
 
         title_format = ""
         if self.academic_title in [ 
@@ -161,12 +162,12 @@ class CourseAttendee ( models.Model ):
     
     
     def validate( self, save = True ):
-    '''
-    A method that validates the object and saves it.
-    
-    Saving can be omitted by passing False to the 
-    respective parameter
-    '''
+        '''
+        A method that validates the object and saves it.
+        
+        Saving can be omitted by passing False to the 
+        respective parameter
+        '''
     
         self.is_validated = True        
         if save:
@@ -544,6 +545,63 @@ class SskHospitalAttendee (
     ]
 
 
+class SskRubMemberAttendee( 
+        AbstractRUBAttendee, AbstractCertificateInformationMixin
+):
+    '''
+    implements a RUB member attending the german SSK
+    '''
+
+    #--------------------------------------------------
+    #
+    # settings
+    #
+    #--------------------------------------------------
+    
+    identifier = 'sskrubmember'
+    display_name =_l('RUB employee')
+    display_name_plural =_l('RUB employees')
+    forms = [
+        'courses.forms.RUBIDForm',
+        'courses.forms.SskRubMemberDataForm' ,
+        'courses.forms.SskRubMemberAttendeeCertificateForm',
+        'courses.forms.SskRubMemberTermsAndConditionsForm'
+    ]
+
+    class Meta:
+        verbose_name = _l('RUB staff for course with official certificate')
+
+
+    #--------------------------------------------------
+    #
+    # model definition
+    #
+    #--------------------------------------------------
+    
+    faculty = models.CharField(
+        max_length = 128,
+        blank = True,
+        verbose_name = _l('Faculty')
+    )
+
+    department = models.CharField(
+        max_length = 128,
+        blank = True,
+        verbose_name = _l('Department')
+    )
+
+    institute = models.CharField(
+        max_length = 128,
+        verbose_name = _l('Institute or Workgroup')
+    )
+
+    room = models.CharField(
+        max_length = 16,
+        verbose_name = _l('Building and room')
+    )
+
+
+    
 
 # register the attendees
 register_attendee( StudentAttendee )
@@ -551,3 +609,4 @@ register_attendee( StudentAttendee )
 register_attendee( SskStudentAttendee )
 register_attendee( SskExternalAttendee )
 register_attendee( SskHospitalAttendee )
+register_attendee( SskRubMemberAttendee )
