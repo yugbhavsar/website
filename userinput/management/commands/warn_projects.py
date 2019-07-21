@@ -18,6 +18,7 @@ class Command(BaseCommand):
         self.today = datetime.datetime.today()
         self.next_month =  self.today + relativedelta(months = +1)
         self.two_weeks_ago = self.today + relativedelta(weeks=-2)
+        self.one_weeks_ago = self.today + relativedelta(weeks=-1)
         super(Command, self).__init__(*args, **kwargs)
     
     def add_arguments(self, parser):
@@ -30,9 +31,13 @@ class Command(BaseCommand):
 
     
     def handle(self, *args, **options):
+        recently_send = ProjectExpiredNotifications.objects.filter(mail__sent_at__gt = self.one_weeks_ago)
+        ids = []
+        for rs in recently_send.all():
+            ids.append(rs.id)
         projects_soon = Project.objects.filter(
             expire_at__gt = self.today, expire_at__lt = self.next_month, locked = False
-        )
+        ).exclude(id__in = ids)
         projects_expired = Project.objects.filter(expire_at__lte = self.today, locked = False)
         
         if options['list']:
@@ -51,14 +56,15 @@ class Command(BaseCommand):
 
     def send_expired_mail( self, project ):
         mail = EMailText.objects.get(identifier = 'warning.project.expired')
-        self.send_mail(self, mail, project)
+        self.send_mail(mail, project)
+        
         
     def send_will_soon_expire_mail( self, project ):
         mail = EMailText.objects.get(identifier = 'warning.project.will_expire')
-        self.send_mail(self, mail, project)
+        self.send_mail(mail, project)
 
     def send_mail( self, mail, project ):
-        contacts = self.get_contacts( project )
+        contacts = self.get_contacts( project.get_workgroup() )
         to = []
         languages = []
         for contact in contacts:
@@ -74,19 +80,22 @@ class Command(BaseCommand):
             
         sent_mail = mail.send(
             to, {
+                'contacts' : contacts,
                 'project_de' : project.title_de,
                 'project_en' : project.title,
-                
+                'expires' : project.expire_at
             },
             lang = languages 
         )
-        
+        noti = ProjectExpiredNotifications(
+            project=project, mail = sent_mail
+        ).save()
             
     def needs_to_be_sent( self, project ):
         notifications = ProjectExpiredNotifications.objects.filter(project = project).order_by('-mail__sent_at')
         try:
             last = notifications[0]
-        except IndexError
+        except IndexError:
             return True
 
         if last.mail.sent_at < self.two_weeks_ago:
