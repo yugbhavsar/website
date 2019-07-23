@@ -198,9 +198,6 @@ AUTHENTICATION_BACKENDS = (
 
 RUB_LDAP_SERVER = 'ldap.ruhr-uni-bochum.de'
 
-
-#conn.rebind(user='uid=happepbo,', password="<pwd>")
-
 ALLOWED_HOSTS = [
     'test.rubion.rub.de',
     'www.rubion.rub.de',
@@ -218,3 +215,7 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 PASSWORD_REQUIRED_TEMPLATE = 'website/password_required.html'
+
+CRON_CLASSES = [
+    'userinput.cron.WarnProjects'
+]
