@@ -1,5 +1,5 @@
-Django>=1.11,<1.12
-wagtail>=1.13,<1.14
+Django>=2.1.5
+wagtail>=2.4,<2.5
 wagtailfontawesome
 psycopg2
 dateutils
@@ -8,3 +8,4 @@ reportlab
 PyPDF2
 xlsxwriter
 holidays
+django-cron
