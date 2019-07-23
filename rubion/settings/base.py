@@ -73,9 +73,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'django_cron',
     'rubionadmin'
-
+    
 ]
 
 MIDDLEWARE = [
@@ -205,7 +205,7 @@ ALLOWED_HOSTS = [
     'test.rubion.rub.de',
     'www.rubion.rub.de',
     'localhost',
-]
+] 
 WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'rubauth/login.html'
 LOGIN_URL = '/login/'
 
