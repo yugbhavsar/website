@@ -25,6 +25,7 @@ class WarnProjects( CronJobBase ):
     code = 'userinput.warn_projects'
 
     def do( self ):
+
         self.today = datetime.datetime.today()
         self.next_month =  self.today + relativedelta(months = +1)
         self.two_weeks_ago = self.today + relativedelta(weeks=-2)
@@ -37,7 +38,7 @@ class WarnProjects( CronJobBase ):
         projects_soon = Project.objects.filter(
             expire_at__gt = self.today, expire_at__lt = self.next_month, locked = False
         ).exclude(id__in = ids)
-        projects_expired = Project.objects.filter(expire_at__lte = self.today, locked = False)
+        projects_expired = Project.objects.filter(expire_at__lte = self.today, locked = False).exclude(id__in = ids)
         for project in projects_expired:
             if self.needs_to_be_sent( project ):
                 self.send_expired_mail( project )
@@ -74,6 +75,7 @@ class WarnProjects( CronJobBase ):
         self.send_mail(mail, project)
 
     def send_mail( self, mail, project ):
+        print ('sending mail')
         contacts = self.get_contacts( project.get_workgroup() )
         to = []
         languages = []
@@ -88,7 +90,7 @@ class WarnProjects( CronJobBase ):
         else:
             languages = None
             
-            sent_mail = mail.send(
+        sent_mail = mail.send(
             to, {
                 'contacts' : contacts,
                 'project_de' : project.title_de,
