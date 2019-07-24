@@ -8,12 +8,12 @@
   </a>
   <div class="t-dark">
     <ul role="menu" class="c-dropdown__menu  u-toggle  u-arrow u-arrow--tl u-background">
-      <li class="c-dropdown__item ">{% trans "today" %}</li>
+<!--  <li class="c-dropdown__item ">{% trans "today" %}</li>
       {% for instruction in instructions %}
       <li class="c-dropdown__item ">
         <a data-usertype="{{usertype}}" data-uid="{{obj.id}}" data-iid="{{instruction.id}}" href="{% url 'rubionadmin:set_safety_instruction_date' obj.id instruction.id usertype%}" class="u-link is-live si_add_link">{{ instruction }}</a>
       </li>
-      {% endfor %}
+      {% endfor %} -->
       <li class="c-dropdown__item ">{% trans "Provide date" %}</li>
       {% for instruction in instructions %}
       <li class="c-dropdown__item ">
