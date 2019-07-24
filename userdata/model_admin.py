@@ -87,8 +87,9 @@ class SafetyModelAdmin( ModelAdmin ):
             cls = "help-block help-info"
             if required:
                 cls = "help-block help-critical"
-
-            date = _('Not instructed')
+                date = _('Not instructed')
+            else:
+                date = _('Not required')
             
         if required:
             return mark_safe('<div style="margin:0; clear:None" class="{}"><strong>{}</strong></div>'.format(cls, date))
