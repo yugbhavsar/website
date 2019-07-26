@@ -51,6 +51,7 @@ class StaffUserModelAdmin ( ModelAdmin ):
     menu_label = _l('staff')
     menu_icon = ' icon-fa-user-circle'
     list_display = ('title_', 'job', 'phone', 'room', 'mail', 'tasks')
+    index_view_extra_js = ['js/admin/fix_admin_headers.js']
     menu_order = 300
     form_fields_exclude = ['orcid']
     search_fields = ('title','last_name','first_name')
@@ -109,6 +110,7 @@ class StaffSafetyInstructionModelAdmin( SafetyModelAdmin ):
     model = StaffUserModelProxy
     menu_label = _('Safety Instructions')
     list_display = ( 'name', 'safety_instructionp38', 'safety_instruction_general', 'safety_instrucions_il',  'safety_instrucions_acc', 'laser_safety', 'crane_license', 'forklift_license', 'hazardous_materials_instrucions')
+    index_view_extra_js = ['js/admin/fix_admin_headers.js']
     lookup_field = 'rubion_staff'
     index_template_name = 'modeladmin/userinput/rubionuserproxymodel/index.html'
 
