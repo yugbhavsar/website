@@ -222,6 +222,7 @@ class WorkgroupsModelAdmin ( ModelAdmin ):
     menu_label = _l('workgroups')
     menu_icon = 'group'
     list_display = ('_title','get_head', 'university','institute', 'department', 'methods')
+    index_view_extra_js = ['js/admin/fix_admin_headers.js']
     menu_order = 300
     exclude_from_explorer = True
     button_helper_class = NoCopyButtonHelper
@@ -321,6 +322,7 @@ class ProjectModelAdmin ( ModelAdmin ):
     menu_label = _l('Projects')
     menu_icon = ' icon-fa-calendar'
     list_display = ('title','active_since', 'expires_at', 'workgroup','public')
+    index_view_extra_js = ['js/admin/fix_admin_headers.js']
     menu_order = 400
     exclude_from_explorer = False
     list_filter = (ProjectExpiredFilter,)
