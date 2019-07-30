@@ -409,18 +409,18 @@ class RUserSafetyInstructionsModelAdmin( SafetyModelAdmin ):
         return super()._get_si(obj, instruction, rstaff = get_staff_obj( obj ))
 
 
-class RUBIONUserModelManagerForCRO(PageManager):
-    def get_queryset(self):
-        qs = super().get_queryset()
-        return qs.filter(dosemeter=RUBIONUser.OFFICIAL_DOSEMETER)
+# class RUBIONUserModelManagerForCRO(PageManager):
+#     def get_queryset(self):
+#         qs = super().get_queryset()
+#         return qs.filter(dosemeter=RUBIONUser.OFFICIAL_DOSEMETER)
 
 
-class RUBIONUserProxyForCRO( RUBIONUser ):
-    class Meta:
-        proxy = True
-        verbose_name = _l('Data submission to CRO')
-        verbose_name_plural = _l('Data submissions to CRO')
-    objects = RUBIONUserModelManagerForCRO()
+# class RUBIONUserProxyForCRO( RUBIONUser ):
+#     class Meta:
+#         proxy = True
+#         verbose_name = _l('Data submission to CRO')
+#         verbose_name_plural = _l('Data submissions to CRO')
+#     objects = RUBIONUserModelManagerForCRO()
 
 class RUBIONUserProxyForCROMA( ModelAdmin ):
     menu_label = _l('Central radiation safety office')
