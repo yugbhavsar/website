@@ -43,6 +43,19 @@ class WarnSafetyInstruction( CronJobBase ):
                 mail = EMailText.objects.get(identifier = 'warning.safety_instruction')
         
 
-    def needs_to_be_sent( self, ru ):
-        # We need to check every 
-        notification = SafetyInstructionExpiredNotifications.objects.filter(
+    def needs_to_be_sent( self, ru, expired, soon ):
+        #combine expired and soon (remove duplicates)
+
+        candidates = list(set(expired + soon))
+        
+        # Get all notifications for user `ru` sent in the past two weeks
+        notifications = SafetyInstructionExpiredNotifications.objects.filter(r_user = ru, mail__sent_at__gt = self.two_weeks_ago)
+
+        for n in notifications.all():
+            try:
+                candidates.remove(n.instruction)
+            except ValueError:
+                pass
+        return candidates
+                
+        
