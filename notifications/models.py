@@ -1,5 +1,6 @@
 from .register import register_notification
 
+
 from django.db import models
 from django.forms.widgets import Select
 from django.utils import translation, timezone
@@ -15,6 +16,7 @@ from modelcluster.models import ClusterableModel
 from rubion.helpers import any_in
 
 from userdata.models import StaffUser
+from userdata.safety_instructions import SAFETYINSTRCUTION_CHOICES
 
 from userinput.relations import (
     AbstractRelatedWorkgroup, AbstractRelatedProject,
@@ -590,7 +592,9 @@ class ProjectExpiredNotifications( models.Model ):
 
 @register_snippet    
 class SafetyInstructionExpiredNotifications( models.Model ):
-    project = models.ForeignKey('userdata.SafetyInstructionUserRelation', on_delete=models.CASCADE)
+    r_user = models.ForeignKey('userinput.RUBIONUser', on_delete=models.CASCADE, null = True)
+    s_user = models.ForeignKey('userdata.StaffUser', on_delete=models.CASCADE, null = True)
+    instruction = models.CharField(choices = SAFETYINSTRCUTION_CHOICES, max_length = 128, null = True)
     mail = models.ForeignKey('website.SentMail', on_delete=models.CASCADE)
 
 
