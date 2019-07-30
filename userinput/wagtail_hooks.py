@@ -6,7 +6,7 @@ from .admin_views import (
 from .helpers import (
     RUBIONUserButtonHelper, get_staff_obj, get_key_if_staff, 
     RUBIONUserSafetyRelationButtonHelper, RUserDataSubmissionButtonHelper,
-    RUserDataSubmissionPermissionHelper
+    RUserDataSubmissionPermissionHelper, RUBIONUserPermissionHelper
 )
 from .models import (
     RUBIONUser, WorkGroup, Project,
@@ -57,6 +57,7 @@ from website.mixins import ForcedModelAdminForPageModels
 class RUBIONUserModelAdmin ( ModelAdmin ):
     model = RUBIONUser
     button_helper_class = RUBIONUserButtonHelper
+    permission_helper_class = RUBIONUserPermissionHelper
     menu_label = _l( 'User' )
     menu_icon = 'user'
     list_display = ('wa_name', 'first_name', 'get_workgroup', 'phone', '_key_number', 'safety_information', 'safety_instructions', 'comment')
