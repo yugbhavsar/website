@@ -217,5 +217,6 @@ LOCALE_PATHS = (
 PASSWORD_REQUIRED_TEMPLATE = 'website/password_required.html'
 
 CRON_CLASSES = [
-    'userinput.cron.WarnProjects'
+    'userinput.cron.WarnProjects',
+    'userdata.cron.WarnSafetyInstruction'
 ]
