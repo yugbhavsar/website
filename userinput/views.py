@@ -164,7 +164,6 @@ class RUBIONUserEditView( View ):
 
             return HttpResponseRedirect( reverse('userhome') )
         else:
-            print(form.errors)
             messages.error( request, _('An error occured.') )
             return TemplateResponse(
                 request,
