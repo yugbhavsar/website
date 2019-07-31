@@ -140,8 +140,6 @@ class RUBIONUserEditView( View ):
                 instance.has_agreed =  form.cleaned_data['terms_conditions']
             except KeyError:
                 pass
-            print ("Test 6: {}".format(instance.is_rub))
-            print ("Is this a RUB-instance? {}".format(instance.is_rub))
 
             if not instance.is_rub:
                 if request.user.last_name != newinstance.name_db:
