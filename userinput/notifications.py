@@ -284,7 +284,85 @@ RUBION\'s automatic notification service.
     def get_context_static():
         return {}
 
+
+class ProjectExpiredMailNotification( AbstractRUBIONNotification ):
+
+    identifier = 'project.warning_was_sent'
+    description = _('A warning concerning an expiring project was sent')
+#    template = 'notifications/project_approved.html'
+    mail = {
+        'subject_de' : 'Eine Warnung über ein ablaufendes Projekt wurde versendet.',
+        'subject_en' : 'A warning concerning an expiring project was sent.',
+        'text_de' : '''Hallo {{staff.get_first_name}}!
+
+Das Projekt
+  {{ project }}
+
+der AG
+  {{ workgroup }}
+
+läuft (bzw. lief) am 
+  {{project.expire_at}}
+
+aus. Die folgenden Nutzer wurden darüber benachrichtigt:
+
+  {% for user in to %}
+- {{user.full_name}} ({{user.email}})  
+  {% endfor %}
+
+Viele Grüße,
+
+der automatische Benachrichtigungsservice des RUBION.
+''',
+        'text_en' : '''Dear {{staff.get_first_name}}!
+
+The project
+  {{ project }}
+
+from the group
+  {{ workgroup }}
+
+has expired (or is going to expire) at
+  {{project.expire_at}}
+
+The following users have been notified:
+
+  {% for user in to %}
+- {{user.full_name}} ({{user.email}})  
+  {% endfor %}
+
+Cheers,
+
+der RUBION's automatic notification service.
+'''
+    }
+    def __init__(self, project, to, *args, **kwargs):
+        super(ProjectExpiredMailNotification, self).__init__(*args, **kwargs)
+        print("Notification on project: {}".format(project))
+        self.page = project
+        self.projects = project
+        self.workgroup = project.get_workgroup()
+        self.methods = self.workgroup.get_methods()
+        self.instruments = []
+        self.to = to
+
+        for m in self.methods:
+            for i2r in m.related.all():
+                if i2r.page not in self.instruments:
+                    self.instruments.append(i2r.page)
+
+
+#        print("Notification matches? {}".format(self.matches()))
+
+        
+    def get_context(self, context):
+        context['project'] = self.projects
+        context['to'] = self.to
+        context['workgroup'] = self.workgroup
+        return context
+    
 register_notification( RUBIONUserAddedNotification )
 register_notification( RUBIONUserChangedNotification )
 register_notification( ProjectApprovedNotification )
 register_notification( WorkgroupApprovedNotification )
+register_notification( ProjectExpiredMailNotification )
