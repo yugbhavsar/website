@@ -12,7 +12,7 @@ from notifications.models import SafetyInstructionExpiredNotifications
 
 from userdata.safety_instructions import get_instruction_information, SAFETYINSTRUCTION_NAMES
 from userinput.models import RUBIONUser
-
+from .notifications import SafetyInstractionExpiredMailNotification
 
 from website.models import EMailText
 
@@ -64,7 +64,8 @@ class WarnSafetyInstruction( CronJobBase ):
                         context['soon'].append(SAFETYINSTRUCTION_NAMES[i])
                     sent = mail.send(ru.email, context, lang = ru.preferred_language)
                     sent.save()
-                    logger.info('Warned {} of incomplete safety instructions'.format(ru))                     
+                    logger.info('Warned {} of incomplete safety instructions'.format(ru))
+                    
                     for i in list(set(expired+soon_expired+not_given_yet)):
                         noti = SafetyInstructionExpiredNotifications(
                             r_user = ru,
@@ -72,7 +73,8 @@ class WarnSafetyInstruction( CronJobBase ):
                             instruction = i
                         )
                         noti.save()
-
+                    SafetyInstractionExpiredMailNotification(
+                        ru, context['not_given'], context['expired'], context['soon']).notify()
 
     def needs_to_be_sent( self, ru, expired, soon ):
         #combine expired and soon (remove duplicates)
