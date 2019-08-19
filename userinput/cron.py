@@ -11,6 +11,7 @@ import logging
 from notifications.models import ProjectExpiredNotifications
 
 from userinput.models import Project, RUBIONUser
+from userinput.notifications import ProjectExpiredMailNotification
 
 from website.models import EMailText
 
@@ -102,6 +103,7 @@ class WarnProjects( CronJobBase ):
             project=project, mail = sent_mail
         ).save()
 
+        ProjectExpiredMailNotification( project, contacts ).notify()
         
         logger.info('Sent mail for project {} to {}'.format(project.title_de, ", ".join(to))) 
         
