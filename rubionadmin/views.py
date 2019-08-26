@@ -660,7 +660,9 @@ def full_xls_list( request ):
             su = StaffUser.objects.filter(user = ru.linked_user).first()
         except StaffUser.DoesNotExist:
             su = None
-        
+
+        if su.linked_user == None:
+            su = None
 
         beirat = is_beirat(ru) or is_beirat(su)
         if not su:
