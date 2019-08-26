@@ -551,7 +551,7 @@ def full_xls_list( request ):
     nextpos = DOSEMETER + 1
     SICOORDINATES = {}
     with override_lang('de'):
-        for instruction in SI.AVALABLE_SAFETY_INSTRUCTIONS:
+        for instruction in SI.AVAILABLE_SAFETY_INSTRUCTIONS:
             SICOORDINATES.update({ instruction : nextpos })
             ws.merge_range(
                 HEADROW-1, nextpos, HEADROW-1, nextpos+1,
