@@ -661,7 +661,8 @@ def full_xls_list( request ):
         except StaffUser.DoesNotExist:
             su = None
 
-        if su.linked_user == None:
+        
+        if ru.linked_user == None:
             su = None
 
         beirat = is_beirat(ru) or is_beirat(su)
