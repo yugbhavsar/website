@@ -1,3 +1,6 @@
+from .safety_instructions import get_instruction_information, SAFETYINSTRUCTION_NAMES, GENERAL_ACCELERATOR_LAB, P38_INSTRUCTIONS, GENERAL_ISOTOP_LAB
+from .notifications import SafetyInstractionExpiredMailNotification
+
 import datetime
 
 from dateutil.relativedelta import relativedelta
@@ -10,9 +13,9 @@ import logging
 
 from notifications.models import SafetyInstructionExpiredNotifications
 
-from userdata.safety_instructions import get_instruction_information, SAFETYINSTRUCTION_NAMES
+
 from userinput.models import RUBIONUser
-from .notifications import SafetyInstractionExpiredMailNotification
+
 
 from website.models import EMailText
 
@@ -30,7 +33,8 @@ class WarnSafetyInstruction( CronJobBase ):
         self.next_month =  self.today + relativedelta(months = +1)
         self.two_weeks_ago = self.today + relativedelta(weeks=-2)
         self.one_weeks_ago = self.today + relativedelta(weeks=-1)
-
+        self.one_year_ago = self.today + relativedelta(years=-1)
+        
         for ru in RUBIONUser.objects.live().all():
             expired = []
             soon_expired = []
@@ -47,7 +51,7 @@ class WarnSafetyInstruction( CronJobBase ):
                         elif i['last'] < self.next_month:
                             soon_expired.append(si)
             if expired or soon_expired or not_given_yet:
-                new_notifications = self.needs_to_be_sent( ru, expired, soon_expired )
+                new_notifications = self.needs_to_be_sent( ru, expired, soon_expired, not_given_yet, info )
                 
                 if new_notifications:
                     mail = EMailText.objects.get(identifier = 'warning.safety_instruction')
@@ -76,10 +80,10 @@ class WarnSafetyInstruction( CronJobBase ):
                     SafetyInstractionExpiredMailNotification(
                         ru, context['not_given'], context['expired'], context['soon']).notify()
 
-    def needs_to_be_sent( self, ru, expired, soon ):
+    def needs_to_be_sent( self, ru, expired, soon, not_given, info ):
         #combine expired and soon (remove duplicates)
 
-        candidates = list(set(expired + soon))
+        candidates = list(set(expired + soon + not_given))
         
         # Get all notifications for user `ru` sent in the past two weeks
         notifications = SafetyInstructionExpiredNotifications.objects.filter(r_user = ru, mail__sent_at__gt = self.two_weeks_ago)
@@ -89,6 +93,31 @@ class WarnSafetyInstruction( CronJobBase ):
                 candidates.remove(n.instruction)
             except ValueError:
                 pass
+
+            
+        # If the ru only has an electronic dosemeter and the only notifications are §38 and
+        # general safety (accel/isotope), then report only once
+
+        if (
+            ru.dosemeter == RUBIONUser.ELECTRONIC_DOSEMETER and (
+                sorted(candidates) == sorted([GENERAL_ACCELERATOR_LAB, P38_INSTRUCTIONS]) or
+                sorted(candidates) == sorted([GENERAL_ISOTOPE_LAB, P38_INSTRUCTIONS]) 
+            )
+        ):
+            for i in [GENERAL_ISOTOPE_LAB, GENERAL_ACCELERATOR_LAB, P38_INSTRUCTIONS]:
+                if info[i]['required']:
+                    last = info[i]['last']
+                    last_st = last + relativedelta(weeks= -4)
+                    if SafetyInstructionExpiredNotifications.objects.filter(
+                            r_user = ru,
+                            mail__sent_at__gte = last_st,
+                            instruction = i).exists():
+                        try:
+                            candidates.remove(i)
+                        except ValueError:
+                            pass
+
+        
         return candidates
                 
         
