@@ -49,16 +49,18 @@ import uuid
 # Might be better to put this somewhere else
 from userinput.models import RUBIONUser
 
-
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.contrib.settings.models import BaseSetting, register_setting
-
 from wagtail.admin.edit_handlers import (
     FieldPanel, FieldRowPanel, MultiFieldPanel, InlinePanel,
     TabbedInterface, ObjectList, StreamFieldPanel
 )
-from wagtail.core.fields import RichTextField
+
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.settings.models import BaseSetting, register_setting
+
+from wagtail.core import blocks
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, PageViewRestriction
+from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.documents.models import get_document_model
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -197,6 +199,16 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
         verbose_name = _('Max attendees')
     )
 
+    script = StreamField(
+        [
+            ('chapter', blocks.CharBlock(classname="full title", required = True)),
+            ('section', blocks.CharBlock(required = True)),
+            ('file', DocumentChooserBlock()),
+        ],
+        verbose_name = _('Script for the course'),
+        help_text = _('This allows to combine several PDFs to a single one')
+    )
+    
     fill_automatically = models.BooleanField(
         default = False,
         help_text = _('Fill with attendees from waitlist automatically?')
@@ -223,9 +235,14 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
         InlinePanel('attendee_types', label = _('allowed attendees')) 
     ]
 
+    script_panel = [
+        StreamFieldPanel('script')
+    ]
+    
     edit_handler = TabbedInterface([
         ObjectList(content_panels, heading = _('Date and info') ),
         ObjectList(settings_panels, heading = _('Overrule parent settings') ),
+        ObjectList(script_panel, heading = _('Script')),
     ])
 
 
@@ -386,7 +403,10 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
             
     @property
     def is_fully_booked( self ):
-        return self.get_n_attendees() >= self.get_max_attendees()
+        try:
+            return self.get_n_attendees() >= self.get_max_attendees()
+        except TypeError:
+            return False
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
