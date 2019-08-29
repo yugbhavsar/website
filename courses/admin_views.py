@@ -196,9 +196,9 @@ class ScriptView( InspectView ):
             pdffiledir = settings.COURSE_LATEX_PDFFILE_DIR,
             jobname = job
         )
-        result = subprocess.run(['lualatex', jobname, fn ])
+        result = subprocess.run(['lualatex', jobname, fn ], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         if result.returncode == 0:
-            subprocess.run(['lualatex', jobname, fn])
+            subprocess.run(['lualatex', jobname, fn], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
             if settings.DEBUG:
                 return serve(request, '{job}.pdf'.format(job=job), settings.COURSE_LATEX_PDFFILE_DIR)
