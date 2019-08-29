@@ -17,7 +17,7 @@ from django.utils.formats import date_format
 from django.utils.translation import activate, ugettext as _
 from django.views import View
 from django.views.static import serve
-
+import os
 import uuid
 import subprocess
 import tempfile
@@ -138,13 +138,13 @@ class HasPayedView( AttendeeCourseView ):
 class ScriptView( InspectView ):
     def get( self, request ):
         next_section = None
-
+        job = str(uuid.uuid4())
         fn = '{vardir}/{uuid}.tex'.format(
-            vardir = settings.COURSE_LATEX_VAR_DIR,
-            uuid = str(uuid.uuid4())
+            vardir = settings.COURSE_LATEX_TEXFILE_DIR,
+            uuid = job
         )
         with open(fn, 'w') as ltxfile:
-            ltxfile.write('\input{{{header}}}\n'.format(header = settings.COURSE_SCRIPT_HEADER))
+            ltxfile.write('\\input{{{header}}}\n'.format(header = settings.COURSE_SCRIPT_HEADER))
             ltxfile.write('\\title{{{title}}}\n'.format(title=escape_latex(str(self.instance.script_title))))
             ltxfile.write('\subtitle{{{title}}}\n'.format(title=escape_latex(str(self.instance.script_subtitle1))))
             ltxfile.write('\moresubtitle{{{title}}}\n'.format(title=escape_latex(str(self.instance.script_subtitle2))))
@@ -192,20 +192,33 @@ class ScriptView( InspectView ):
                         next_section = None
                     ltxfile.write('\n')
             ltxfile.write('\\end{document}')
-        result = subprocess.run(['lualatex', '-jobname=/home/patta/foo', fn ])
+        jobname = '-jobname={pdffiledir}/{jobname}'.format(
+            pdffiledir = settings.COURSE_LATEX_PDFFILE_DIR,
+            jobname = job
+        )
+        result = subprocess.run(['lualatex', jobname, fn ])
         if result.returncode == 0:
-            subprocess.run(['lualatex', '-jobname=/home/patta/foo', fn])
+            subprocess.run(['lualatex', jobname, fn])
 
             if settings.DEBUG:
-                return serve(request, 'foo.pdf', '/home/patta/')
+                return serve(request, '{job}.pdf'.format(job=job), settings.COURSE_LATEX_PDFFILE_DIR)
             else:
-                pass
+                response = HttpResponse()
+                response['X-Sendfile'] = '{d}{fn}.pdf'.format(
+                    d = settings.COURSE_LATEX_PDFFILE_URI,
+                    fn = job
+                )
+                response['Content-Length'] = os.stat('{d}/{fn}.pdf'.format(
+                    d = settings.COURSE_LATEX_PDFFILE_DIR,
+                    fn = job
+                )).st_size
+                response['Content-Type'] = 'application/pdf'
         else:
             return HttpResponse('Error generating the script file', status = 500)
 
 ##
 # tiny helper function to avoid bad input
-# people could use latex commands to read or overwreite /etc/password or similar.
+# people could use latex commands to read or overwrite /etc/password or similar.
 # this (hopefully) avoids it
 # @param s The string to escape
 # @return the escaped string 
