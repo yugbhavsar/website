@@ -206,7 +206,30 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
             ('file', DocumentChooserBlock()),
         ],
         verbose_name = _('Script for the course'),
-        help_text = _('This allows to combine several PDFs to a single one')
+        help_text = _('This allows to combine several PDFs to a single one'),
+        null = True
+    )
+
+    script_title = models.CharField(
+        max_length = 512,
+        blank = True
+    )
+    script_subtitle1 = models.CharField(
+        max_length = 512,
+        blank = True
+    )
+    script_subtitle2 = models.CharField(
+        max_length = 512,
+        blank = True
+    )
+    script_date = models.CharField(
+        max_length = 2,
+        choices = (
+            ('d','german'),
+            ('e', 'english'),
+            ('n','no date'),
+        ),
+        default = 'n'
     )
     
     fill_automatically = models.BooleanField(
@@ -236,6 +259,10 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
     ]
 
     script_panel = [
+        FieldPanel('script_title'),
+        FieldPanel('script_subtitle1'),
+        FieldPanel('script_subtitle2'),
+        FieldPanel('script_date'),
         StreamFieldPanel('script')
     ]
     
