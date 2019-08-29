@@ -6,18 +6,26 @@ from .models import (
     CourseParticipationValidation
 )
 
-from website.models import EMailText
 
-from django.http import HttpResponseNotAllowed#, JsonResponse, HttpResponse    
+
+from django.conf import settings
+from django.http import HttpResponseNotAllowed, HttpResponse    
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.utils.formats import date_format
+from django.utils.translation import activate, ugettext as _
 from django.views import View
+from django.views.static import serve
 
+import uuid
+import subprocess
+import tempfile
 
 from wagtail.contrib.modeladmin.views import ChooseParentView, InspectView
 from wagtail.admin import messages
+
+from website.models import EMailText
 
 class AddCourseChooseCourseInfoView( ChooseParentView ):
     def get_context_data( self, *args, **kwargs ):
@@ -126,3 +134,93 @@ class HasPayedView( AttendeeCourseView ):
         return redirect(self.next)
 
 
+
+class ScriptView( InspectView ):
+    def get( self, request ):
+        next_section = None
+
+        fn = '{vardir}/{uuid}.tex'.format(
+            vardir = settings.COURSE_LATEX_VAR_DIR,
+            uuid = str(uuid.uuid4())
+        )
+        with open(fn, 'w') as ltxfile:
+            ltxfile.write('\input{{{header}}}\n'.format(header = settings.COURSE_SCRIPT_HEADER))
+            ltxfile.write('\\title{{{title}}}\n'.format(title=escape_latex(str(self.instance.script_title))))
+            ltxfile.write('\subtitle{{{title}}}\n'.format(title=escape_latex(str(self.instance.script_subtitle1))))
+            ltxfile.write('\moresubtitle{{{title}}}\n'.format(title=escape_latex(str(self.instance.script_subtitle2))))
+            if self.instance.script_date == 'n':
+                # no date
+                dt = ''
+            if self.instance.script_date == 'e':
+                lang = 'en'
+                dtf = 'E d^^{S}, Y'
+            if self.instance.script_date == 'd':
+                #german date
+                lang = 'de'
+                dtf = 'd. E Y'
+
+            if self.instance.script_date in ['e','d']:
+                activate(lang)
+                dt = date_format(self.instance.start, format=dtf).replace('^^','\\textsuperscript')
+                if self.instance.end:
+                    dt = dt + '--{}'.format(date_format(self.instance.end, format=dtf).replace('^^','\\textsuperscript'))
+                
+            ltxfile.write('\\date{{{dt}}}\n'.format(dt = dt))
+            ltxfile.write('\\begin{document}\n')
+            ltxfile.write('\\thispagestyle{empty}\n')
+            ltxfile.write('\\maketitle\n')
+            ltxfile.write('\\tableofcontents\n')
+            for i in self.instance.script:
+                if i.block.name == 'chapter':
+                    ltxfile.write('\\chapter{{{chapname}}}\n'.format(chapname=escape_latex(str(i))))
+                if i.block.name == 'section':
+                    next_section = escape_latex(str(i))
+                if i.block.name=='file':
+                    filename = '{mediaroot}/{fn}'.format(
+                        fn = str(i.value.file),
+                        mediaroot = settings.MEDIA_ROOT
+                    )
+                
+                    if next_section is None:
+                        ltxfile.write('\\InsertPDF{{{fname}}}'.format(fname=filename))
+                    else:
+                        ltxfile.write('\\InsertPDF[{section}]{{{fname}}}'.format(
+                            section = next_section,
+                            fname = filename)
+                        )
+
+                        next_section = None
+                    ltxfile.write('\n')
+            ltxfile.write('\\end{document}')
+        result = subprocess.run(['lualatex', '-jobname=/home/patta/foo', fn ])
+        if result.returncode == 0:
+            subprocess.run(['lualatex', '-jobname=/home/patta/foo', fn])
+
+            if settings.DEBUG:
+                return serve(request, 'foo.pdf', '/home/patta/')
+            else:
+                pass
+        else:
+            return HttpResponse('Error generating the script file', status = 500)
+
+##
+# tiny helper function to avoid bad input
+# people could use latex commands to read or overwreite /etc/password or similar.
+# this (hopefully) avoids it
+# @param s The string to escape
+# @return the escaped string 
+def escape_latex(s): 
+    return  (
+        s
+        .replace('\\','\\textbackslash ')
+        .replace('#','\\#')
+        .replace('^','\\textasciicircum ')
+        .replace('$','\\$')
+        .replace('%','\\%')
+        .replace('&','\\&')
+        .replace('_','\\_')
+        .replace('{','\\{')
+        .replace('}','\\}')
+        .replace('~','\\textasciitilde ')
+    )
+    
