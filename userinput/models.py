@@ -49,6 +49,9 @@ from website.models import (
     IntroductionMixin, AbstractContainerPage
 )
 from website.widgets import StyledDOIWidget
+
+
+
 #
 # ----------------------------------------------------------------------
 #
@@ -989,8 +992,9 @@ class RUBIONUser ( UserGeneratedPage2 ):
             self.save_revision_and_publish()
 
         website_user = self.linked_user
-        website_user.is_active = False
-        website_user.save()
+        if website_user:
+            website_user.is_active = False
+            website_user.save()
             
     # Admin content panels.
     # @TODO might require some clean-up
