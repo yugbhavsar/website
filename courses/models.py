@@ -201,13 +201,14 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
 
     script = StreamField(
         [
-            ('chapter', blocks.CharBlock(classname="full title", required = True)),
-            ('section', blocks.CharBlock(required = True)),
+            ('chapter', blocks.CharBlock(classname="full title",required=True)),
+            ('section', blocks.CharBlock(required=True)),
             ('file', DocumentChooserBlock()),
         ],
         verbose_name = _('Script for the course'),
         help_text = _('This allows to combine several PDFs to a single one'),
-        null = True
+        null = True,
+        blank = True
     )
 
     script_title = models.CharField(
