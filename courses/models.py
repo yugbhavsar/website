@@ -69,7 +69,8 @@ from wagtail.snippets.models import register_snippet
 from website.models import (
     TranslatedPage, MandatoryIntroductionMixin,
     BodyMixin, OptionalIntroductionMixin,
-    EMailText, ChildMixin, ImportantPages
+    EMailText, ChildMixin, ImportantPages,
+    TranslatedField
 )
 
 
@@ -1265,9 +1266,33 @@ class AbstractAttendeeRelation( Orderable ):
     class Meta: 
         abstract = True
 
+    attendee_name_en = models.CharField(
+        max_length = 512,
+        verbose_name = _('name of the attendee type (english)'),
+        blank = True,
+        null = True
+    )
+    attendee_name_de = models.CharField(
+        max_length = 512,
+        verbose_name = _('name of the attendee type (german)'),
+        blank = True,
+        null = True
+    )
+
+    attendee_name = TranslatedField('attendee_name')
+    
+    description_en = RichTextField(
+        blank = True
+    )
+    description_de = RichTextField(
+        blank = True
+    )
+
+    description = TranslatedField('description')
+        
     attendee = models.CharField(
         max_length = 16,
-        verbose_name=_('attendee type')
+        verbose_name=_('required form data')
     )
 
     waitlist = models.BooleanField(
