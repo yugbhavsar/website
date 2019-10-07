@@ -1283,11 +1283,13 @@ class AbstractAttendeeRelation( Orderable ):
     
     description_en = RichTextField(
         blank = True,
-        features=['bold', 'italic', 'link', 'ol', 'ul']
+        features=['bold', 'italic', 'link', 'ol', 'ul'],
+        verbose_name = _('description of the attendee type (english)')
     )
     description_de = RichTextField(
         blank = True,
-        features=['bold', 'italic', 'link', 'ol', 'ul']
+        features=['bold', 'italic', 'link', 'ol', 'ul'],
+        verbose_name = _('description of the attendee type (german)')
     )
 
     description = TranslatedField('description')
@@ -1405,7 +1407,7 @@ class DataSharingPage ( TranslatedPage ):
             form = DataUploadForm(request.POST, request.FILES)
             if form.is_valid():
                 self.process_submission(form, request)
-                return super(DataSharingPage, self).serve(request)
+               return super(DataSharingPage, self).serve(request)
             else:
                 context = self.get_context(request)
                 context['form'] = form
