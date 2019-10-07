@@ -1282,10 +1282,12 @@ class AbstractAttendeeRelation( Orderable ):
     attendee_name = TranslatedField('attendee_name')
     
     description_en = RichTextField(
-        blank = True
+        blank = True,
+        features=['bold', 'italic', 'link', 'ol', 'ul']
     )
     description_de = RichTextField(
-        blank = True
+        blank = True,
+        features=['bold', 'italic', 'link', 'ol', 'ul']
     )
 
     description = TranslatedField('description')
@@ -1316,7 +1318,11 @@ class AbstractAttendeeRelation( Orderable ):
     )
 
     panels = [
+        FieldPanel('attendee_name_en'),
+        FieldPanel('attendee_name_de'),
         FieldPanel('attendee', widget = AttendeeSelectWidget() ) ,
+        FieldPanel('description_en'),
+        FieldPanel('description_de'),
         FieldPanel('price'),
         FieldRowPanel([
             FieldPanel('max_attendees'),
