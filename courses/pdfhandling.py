@@ -362,7 +362,7 @@ class RUBIONCourseInvoice( RUBIONInvoice ):
                 price = a2c_rel.price
         self.add_item(
             [
-                'Kursgebühr für "{}"'.format(course.get_parent()),
+                'Kursgebühr für "{}"'.format(course.get_parent().specific.title_de),
                 'vom {} bis zum {}'.format(course.start.strftime('%d.%m.%Y'), course.end.strftime('%d.%m.%Y')),
                 'Teilnehmer: {} {}'.format(attendee.first_name, attendee.last_name)
             ],
