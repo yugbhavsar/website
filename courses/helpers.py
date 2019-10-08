@@ -63,7 +63,10 @@ class AttendeeButtonHelper (ButtonHelper):
             )+self.get_next(),
             'label': _('Edit' ),
             'classname': cn,
-            'title': _('Edit %s, %s') % (self.obj.last_name, self.obj.first_name)
+            'title': _('Edit %(last_name)s, %(first_name)s') % ({
+                'last_name' : self.obj.last_name,
+                'first_name' : self.obj.first_name
+            })
         }
 
     def delete_button(self, pk, classnames_add=None, classnames_exclude = None):
@@ -81,7 +84,10 @@ class AttendeeButtonHelper (ButtonHelper):
             ),
             'label': _('Delete' ),
             'classname': cn,
-            'title': _('Delete %s, %s') % (self.obj.last_name, self.obj.first_name)
+            'title': _('Delete %(last_name)s, %(first_name)s') % ({
+                'last_name' : self.obj.last_name,
+                'first_name' :self.obj.first_name
+            })
         }
 
     def delete_from_waitlist_button(self, pk, classnames_add=None, classnames_exclude = None):
@@ -96,7 +102,10 @@ class AttendeeButtonHelper (ButtonHelper):
             'url': self.url_helper.get_action_url('delete', quote(pk)),
             'label': _('Delete from waitlist'),
             'classname': cn,
-            'title': _('Delete %s, %s from waiting list') % (self.obj.last_name, self.obj.first_name)
+            'title': _('Delete %(last_name)s, %(first name)s from waiting list') % ({
+                'last_name' : self.obj.last_name,
+                'first_name' :self.obj.first_name
+            })
         }
 
 
@@ -130,7 +139,10 @@ class AttendeeButtonHelper (ButtonHelper):
             'url': reverse('coursesadmin:add2course', args=[pk, self.view.instance.id])+self.get_next(),
             'label': _('Add to course'),
             'classname': cn,
-            'title': _('Add %s, %s to course') %  (self.obj.last_name, self.obj.first_name)
+            'title': _('Add %(last_name)s, %(first_name)s to course') %  ({
+                'last_name' : self.obj.last_name,
+                'first_name' : self.obj.first_name
+            })
         }
 
 
