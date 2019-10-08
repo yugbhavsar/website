@@ -190,3 +190,56 @@ def get_next_invoice_number():
         settings.invoice_counter_year, 
         settings.invoice_counter
     )
+
+##
+# ButtonHelperClass that inserts the "get script" button
+class CourseButtonHelper (ButtonHelper):
+    script_button_classnames = []
+    
+    def script_button(self, pk, classnames_add = None, classnames_exclude = None):
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
+
+        classnames = self.script_button_classnames + classnames_add
+        cn = self.finalise_classname(classnames, classnames_exclude)
+
+        return {
+            'url': self.url_helper.get_action_url('script', quote(pk)),
+            'label': _('Script'),
+            'classname': cn,
+            'title': _('Get Script for this %s') % self.verbose_name,
+        }
+
+    def get_buttons_for_obj(self, obj, exclude=None, classnames_add=None,
+                            classnames_exclude=None):
+        if exclude is None:
+            exclude = []
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
+        ph = self.permission_helper
+        usr = self.request.user
+        pk = getattr(obj, self.opts.pk.attname)
+        btns = []
+        if('inspect' not in exclude and ph.user_can_edit_obj(usr, obj)):
+            btns.append(
+                self.inspect_button(pk, classnames_add, classnames_exclude)
+            )
+        if('edit' not in exclude and ph.user_can_edit_obj(usr, obj)):
+            btns.append(
+                self.edit_button(pk, classnames_add, classnames_exclude)
+            )
+        if('delete' not in exclude and ph.user_can_delete_obj(usr, obj)):
+            btns.append(
+                self.delete_button(pk, classnames_add, classnames_exclude)
+            )
+            
+        if ('script' not in exclude and obj.script):
+            btns.append(
+                self.script_button(pk, classnames_add, classnames_exclude)
+            )
+        return btns
+
