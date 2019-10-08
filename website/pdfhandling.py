@@ -185,6 +185,8 @@ class RUBLetter( RUBPDF ):
         self._draw_at_pos(identifier,'{}: {}'.format(prefix, content), yoffset)
 
     def draw_phone(self, phone):
+        if phone.startswith('32'):
+            phone = phone[2:]
         self.font_flama(8, self.WEIGHT_REGULAR, self.BLACK)
         self._draw_with_prefix('phone', 'Fon', phone)
 
