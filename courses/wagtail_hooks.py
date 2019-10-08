@@ -60,7 +60,7 @@ class CourseModelAdmin(ModelAdmin):
     menu_icon = ' icon-fa-graduation-cap'  
     menu_order = 200  
     add_to_settings_menu = False  
-    exclude_from_explorer = False
+    exclude_from_explorer = True
     list_display = ('course_info', 'start', 'end', 'attendees', 'free_slots', 'data_sharing')
     list_filter = (CoursesDateFilter, CoursesOrgaFilter, )
     inspect_view_enabled = True
