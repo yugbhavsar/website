@@ -185,8 +185,6 @@ class RUBLetter( RUBPDF ):
         self._draw_at_pos(identifier,'{}: {}'.format(prefix, content), yoffset)
 
     def draw_phone(self, phone):
-        if phone.startswith('32'):
-            phone = phone[2:]
         self.font_flama(8, self.WEIGHT_REGULAR, self.BLACK)
         self._draw_with_prefix('phone', 'Fon', phone)
 
@@ -252,11 +250,18 @@ class RUBIONLetter ( RUBLetter, RUBIONPDF ) :
         self.draw_homepage('www.rubion.rub.de')
 
         self.draw_street_zip('Universitätsstraße 150, 44801 Bochum')
-        self.draw_phone('+49 234 32-{}'.format(staff.phone))
+        phone = staff.phone
+        if phone.startswith('32'):
+            phone = phone[2:]
+       
+        self.draw_phone('+49 234 32-{}'.format(phone))
         self.draw_building('Gebäude {}'.format(staff.room))
         self.draw_email(staff.email)
         if staff.fax:
-            self.draw_fax('+49 234 32-{}'.format(staff.fax))
+            fax = staff.fax
+            if fax.startswith('32'):
+                fax = fax[2:]
+            self.draw_fax('+49 234 32-{}'.format(fax))
 
         if staff.grade:
             self.draw_person(["{} {} {}".format(staff.grade, staff.first_name, staff.last_name)])
