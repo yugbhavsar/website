@@ -20,7 +20,7 @@ from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, modeladmin_register
 )
 
-from wagtail.contrib.modeladmin.helpers import PermissionHelper
+from wagtail.contrib.modeladmin.helpers import PagePermissionHelper
 
 from wagtail.admin.menu import MenuItem
 from wagtail.core.models import PageViewRestriction
@@ -50,7 +50,7 @@ class ListOfCoursesPageMA( HiddenModelAdmin ):
 
 modeladmin_register(ListOfCoursesPageMA)
 
-class CoursePermissionHelper( PermissionHelper ):
+class CoursePermissionHelper( PagePermissionHelper ):
     def user_can_inspect_obj(self, usr, obj):
         return self.user_can_edit_obj(usr, obj)
 
@@ -60,7 +60,7 @@ class CourseModelAdmin(ModelAdmin):
     menu_icon = ' icon-fa-graduation-cap'  
     menu_order = 200  
     add_to_settings_menu = False  
-    exclude_from_explorer = True
+    exclude_from_explorer = False
     list_display = ('course_info', 'start', 'end', 'attendees', 'free_slots', 'data_sharing')
     list_filter = (CoursesDateFilter, CoursesOrgaFilter, )
     inspect_view_enabled = True
