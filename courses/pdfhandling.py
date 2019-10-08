@@ -6,6 +6,8 @@ from django.conf import settings
 
 from reportlab.lib.units import cm
 
+from textwrap import wrap
+
 from website.pdfhandling import RUBIONPDF, RUBIONLetter
 
 import datetime
@@ -178,8 +180,10 @@ class RUBIONInvoice( RUBIONLetter ):
         )
         c = 1
         for line in description:
-            self._draw_at_pos('description_l{}'.format(c + yline - 1), line)
-            c = c + 1
+            lines = wrap(line, width=50)
+            for wline in lines:
+                self._draw_at_pos('description_l{}'.format(c + yline - 1), wline)
+                c = c + 1
         self._draw_at_pos('quantity_l{}'.format(yline), "{:1.2f}".format(quantity), align = self.ALIGN_RIGHT)
         if unit:
             self._draw_at_pos('unit_l{}'.format(yline), unit, align = self.ALIGN_CENTER)
