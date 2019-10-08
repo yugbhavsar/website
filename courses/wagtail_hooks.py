@@ -20,6 +20,8 @@ from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, modeladmin_register
 )
 
+from wagtail.contrib.modeladmin.helpers import PermissionHelper
+
 from wagtail.admin.menu import MenuItem
 from wagtail.core.models import PageViewRestriction
 
@@ -48,6 +50,10 @@ class ListOfCoursesPageMA( HiddenModelAdmin ):
 
 modeladmin_register(ListOfCoursesPageMA)
 
+class CoursePermissionHelper( PermissionHelper ):
+    def user_can_inspect_obj(self, usr, obj):
+        return self.user_can_edit_obj(usr, obj)
+
 class CourseModelAdmin(ModelAdmin):
     model = Course
     menu_label = _l('Course dates')
@@ -64,6 +70,8 @@ class CourseModelAdmin(ModelAdmin):
     choose_parent_template_name = 'courses/admin/choose_course.html'
     
     button_helper_class = CourseButtonHelper
+
+    permission_helper_class = CoursePermissionHelper
 
     def course_info( self, obj ):
         return obj.get_parent().specific.title_trans
