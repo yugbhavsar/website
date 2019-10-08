@@ -1262,6 +1262,37 @@ class SskRubMemberAttendee(
 
 register_attendee( SskRubMemberAttendee )
 
+class SskExternalStudentUARuhr(
+        CourseAttendee, AbstractCertificateInformationMixin, InvoiceMixin 
+):
+    identifier = 'sskuaruhr'
+    display_name = _l('Student of the UA Ruhr')
+    display_name_plural = _l('Students of the UA Ruhr')
+    forms = [
+        'courses.forms.SskExternalStudentDataForm',
+        'courses.forms.SskStudentUARuhrCertificateForm',
+        'courses.forms.SskStudentUARuhrInvoiceForm',
+        'courses.forms.SskUaRuhrTermsAndConditionsForm'
+    ]
+    class Meta:
+        verbose_name = _l('Students of the UA Ruhr with official certificate')
+
+    university = models.CharField(
+        max_length = 8,
+        choices = (
+            ('do', _l('TU Dortmund')),
+            ('duiess', _l('University Duisburg/Essen'))
+        ),
+        verbose_name = _l('University')
+    )
+    student_id = models.CharField(
+        max_length = 12,
+        verbose_name = _l('student id')
+    )
+
+register_attendee( SskExternalStudentUARuhr )
+
+
 class AbstractAttendeeRelation( Orderable ):
     class Meta: 
         abstract = True
@@ -1407,7 +1438,7 @@ class DataSharingPage ( TranslatedPage ):
             form = DataUploadForm(request.POST, request.FILES)
             if form.is_valid():
                 self.process_submission(form, request)
-               return super(DataSharingPage, self).serve(request)
+                return super(DataSharingPage, self).serve(request)
             else:
                 context = self.get_context(request)
                 context['form'] = form
