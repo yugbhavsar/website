@@ -1,11 +1,13 @@
-from .admin_views import AddCourseChooseCourseInfoView, CourseDateInspectView
+from .admin_views import AddCourseChooseCourseInfoView, CourseDateInspectView, ScriptView
 from .filters import CoursesDateFilter, CoursesOrgaFilter
-from .helpers import AttendeeButtonHelper
+from .helpers import AttendeeButtonHelper, CourseButtonHelper
 from .models import (
     Course, CourseInformationPage, ListOfCoursesPage, SskStudentAttendee,
-    SskRubMemberAttendee, SskHospitalAttendee, SskExternalAttendee
+    SskRubMemberAttendee, SskHospitalAttendee, SskExternalAttendee, SskExternalStudentUARuhr
 )
 
+
+from django.conf.urls import url
 
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
@@ -61,6 +63,8 @@ class CourseModelAdmin(ModelAdmin):
     choose_parent_view_class = AddCourseChooseCourseInfoView
     choose_parent_template_name = 'courses/admin/choose_course.html'
     
+    button_helper_class = CourseButtonHelper
+
     def course_info( self, obj ):
         return obj.get_parent().specific.title_trans
     course_info.short_description = _l('Course')
@@ -89,8 +93,20 @@ class CourseModelAdmin(ModelAdmin):
                 return None
         else:
             return mark_safe('<em>{}</em>'.format(_l('No data sharing')))
-            
-    
+
+    def script_view(self, request, instance_pk):
+        kwargs = { 'model_admin' : self, 'instance_pk' : instance_pk }
+        return ScriptView.as_view(**kwargs)(request)
+        
+    def get_admin_urls_for_registration(self):
+        urls = super(CourseModelAdmin,self).get_admin_urls_for_registration()
+        return urls + (
+            url(
+                self.url_helper.get_action_url_pattern('script'),
+                self.script_view,
+                name = self.url_helper.get_action_url_name('script')
+            ),
+        )
 
 class CourseInformationPageModelAdmin( ModelAdmin ):
     model = CourseInformationPage
@@ -120,6 +136,10 @@ class SskRubMemberAttendeeMA( ModelAdmin ):
     model = SskRubMemberAttendee
     button_helper_class = AttendeeButtonHelper
 
+class SskExternalStudentUARuhrMA( ModelAdmin ):
+    model = SskExternalStudentUARuhr
+    button_helper_class = AttendeeButtonHelper
+
 
 class CoursesModelAttendeesGroup ( ModelAdminGroup ):
     menu_label = _l('Attendees')
@@ -135,7 +155,7 @@ class CoursesModelAdminGroup ( ModelAdminGroup ):
     items = (
         CourseInformationPageModelAdmin, CourseModelAdmin, 
         SskStudentAttendeeMA, SskExternalAttendeeMA,
-        SskHospitalAttendeeMA, SskRubMemberAttendeeMA
+        SskHospitalAttendeeMA, SskRubMemberAttendeeMA, SskExternalStudentUARuhrMA
     )
 
 
