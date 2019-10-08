@@ -769,7 +769,7 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
             return
 
         parent = self.get_parent().specific
-        staff_mails = [staff.person.email for staff in parent.contact_persons.all()]        
+        staff_mails = [staff.person.mail for staff in parent.contact_persons.all()]        
         
         pdffile = RUBIONCourseInvoice(
             attendee,
