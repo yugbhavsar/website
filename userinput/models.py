@@ -1373,7 +1373,7 @@ class Project ( UserGeneratedPage2 ):
             has_been_asked = False
             setattr(self, has_been_asked_field, True)
 
-        ModelForm = modelform_factory( Model, exclude = [], **kwargs )
+        ModelForm = modelform_factory( Model, exclude = ['is_duplicate'], **kwargs )
 
         # An inline function for proceeding.
         def proceed():
