@@ -11,7 +11,8 @@ from .helpers import (
 from .models import (
     RUBIONUser, WorkGroup, Project,
     WorkGroupContainer, ProjectContainer,
-    ListOfProjectsPage
+    ListOfProjectsPage, FundingSnippet, PublicationSnippet, ThesisSnippet,
+    Project2PublicationRelation
 )
 from .filters import (
     ProjectExpiredFilter, RUsersExpiredSafetyInstructions, 
@@ -22,6 +23,7 @@ from .filters import (
 import datetime
 from dateutil.rrule import rrule, MONTHLY
 from dateutil.relativedelta import relativedelta
+
 
 from django.conf.urls import url
 from django.contrib.admin.utils import quote
@@ -422,58 +424,91 @@ class RUserSafetyInstructionsModelAdmin( SafetyModelAdmin ):
 #         verbose_name_plural = _l('Data submissions to CRO')
 #     objects = RUBIONUserModelManagerForCRO()
 
-class RUBIONUserProxyForCROMA( ModelAdmin ):
-    menu_label = _l('Central radiation safety office')
-    model = RUBIONUserProxyForCRO
-    list_display = ('_title', 'last_submission', 'last_revision', 'last_revision_by_user', 'data_complete' )
-    search_fields = ('name_db', 'first_name_db', 'linked_user__first_name', 'linked_user__last_name')
-    list_filter = (RUserDataSubmissionToCROFilter,)
-    button_helper_class = RUserDataSubmissionButtonHelper
-    permission_helper_class = RUserDataSubmissionPermissionHelper
-    def _title( self, obj ):
-        return obj.title
-    _title.short_description = _('name, first name')
-    _title.admin_order_field = 'title'
+# class RUBIONUserProxyForCROMA( ModelAdmin ):
+#     menu_label = _l('Central radiation safety office')
+#     model = RUBIONUserProxyForCRO
+#     list_display = ('_title', 'last_submission', 'last_revision', 'last_revision_by_user', 'data_complete' )
+#     search_fields = ('name_db', 'first_name_db', 'linked_user__first_name', 'linked_user__last_name')
+#     list_filter = (RUserDataSubmissionToCROFilter,)
+#     button_helper_class = RUserDataSubmissionButtonHelper
+#     permission_helper_class = RUserDataSubmissionPermissionHelper
+#     def _title( self, obj ):
+#         return obj.title
+#     _title.short_description = _('name, first name')
+#     _title.admin_order_field = 'title'
 
-    def last_submission( self, obj ):
-        if obj.data_has_been_submitted:
-            sub = obj.central_radiation_safety_data_submissions.order_by('-date').first()
-            via = _('email')
-            if sub.email is None:
-                via = ('manual')
-            return "{} ({})".format(sub.date.strftime('%d %B %Y, %H:%M'), via)  
-        else:
-            return None
-    last_submission.short_description = _l('last submission')
+#     def last_submission( self, obj ):
+#         if obj.data_has_been_submitted:
+#             sub = obj.central_radiation_safety_data_submissions.order_by('-date').first()
+#             via = _('email')
+#             if sub.email is None:
+#                 via = ('manual')
+#             return "{} ({})".format(sub.date.strftime('%d %B %Y, %H:%M'), via)  
+#         else:
+#             return None
+#     last_submission.short_description = _l('last submission')
 
-    def last_revision( self, obj ):
-        revisions = PageRevision.objects.filter(page = obj).order_by('-created_at').first()
-        return format_lazy(
-            "{} {} {} {}", 
-            revisions.created_at.strftime('%d %B %Y, %H:%M'), _('by'), 
-            revisions.user.first_name, revisions.user.last_name
-        )
-    last_revision.short_description = _l('last revision')
-    def last_revision_by_user( self, obj ):
-        if PageRevision.objects.filter(page = obj, user = obj.linked_user).exists():
-            revisions = PageRevision.objects.filter(page = obj, user = obj.linked_user).order_by('-created_at').first()
-            return revisions.created_at
-        else:
-            return None
-    last_revision_by_user.short_description = _l('last revision by user')
+#     def last_revision( self, obj ):
+#         revisions = PageRevision.objects.filter(page = obj).order_by('-created_at').first()
+#         return format_lazy(
+#             "{} {} {} {}", 
+#             revisions.created_at.strftime('%d %B %Y, %H:%M'), _('by'), 
+#             revisions.user.first_name, revisions.user.last_name
+#         )
+#     last_revision.short_description = _l('last revision')
+#     def last_revision_by_user( self, obj ):
+#         if PageRevision.objects.filter(page = obj, user = obj.linked_user).exists():
+#             revisions = PageRevision.objects.filter(page = obj, user = obj.linked_user).order_by('-created_at').first()
+#             return revisions.created_at
+#         else:
+#             return None
+#     last_revision_by_user.short_description = _l('last revision by user')
 
-    def data_complete( self, obj ):
-        if obj.date_of_birth and obj.place_of_birth:
-            return _('Yes')
-        else:
-            return _('No')
+#     def data_complete( self, obj ):
+#         if obj.date_of_birth and obj.place_of_birth:
+#             return _('Yes')
+#         else:
+#             return _('No')
 
 class UserInputModelAdminGroup( ModelAdminGroup ):
     menu_label = _l('User data')
     menu_icon = 'user'
     menu_order = 10
-    items = (ProjectModelAdmin, RUBIONUserModelAdmin, WorkgroupsModelAdmin, RUserSafetyInstructionsModelAdmin, RUBIONUserProxyForCROMA)
+    items = (ProjectModelAdmin, RUBIONUserModelAdmin, WorkgroupsModelAdmin, RUserSafetyInstructionsModelAdmin)
     
 modeladmin_register( UserInputModelAdminGroup )
 
 
+class PublicationsMA( ModelAdmin ):
+    model = PublicationSnippet
+    list_display = ('_title', 'year', 'journal', 'ag' )
+
+    def _title(self, obj):
+        if obj.doi:
+            
+            return mark_safe('<a href="https://doi.org/{doi}" target="_new">{title}</a>'.format(doi=obj.doi, title=obj.title))
+        return obj.title
+    _title.short_description = _l('title')
+    _title.admin_order_field = 'title'
+
+    def ag(self, obj):
+        project = Project2PublicationRelation.objects.get(snippet_id = obj.pk).project_page.specific
+        ag = project.get_workgroup()
+        
+        return mark_safe('{label_p}: {project}<br />{label_ag}: {ag} ({head})'.format(
+            label_p = _l('Project'),
+            label_ag = _l('workgroup'),
+            project = project.title_trans,
+            ag = ag.title,
+            head = ag.get_head().name
+        ))
+
+    ag.short_description = format_lazy('{}/{}', _l('Project'), _l('workgroup'))
+    
+class UserInputResultsMAG( ModelAdminGroup ):
+    menu_label =_l('User results')
+    menu_icon = 'user'
+    menu_order = 90
+    items = (PublicationsMA, )
+
+modeladmin_register( UserInputResultsMAG )
