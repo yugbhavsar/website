@@ -1917,6 +1917,9 @@ class FundingSnippet( models.Model ):
         
 @register_snippet
 class PublicationSnippet ( models.Model ):
+    class Meta:
+        verbose_name = _('Publication in a scientific journal')
+        verbose_name_plural = _('Publications in scientific journals')
     doi = models.CharField(
         max_length = 32,
         blank = True,
@@ -1958,6 +1961,9 @@ class PublicationSnippet ( models.Model ):
         null = True,
         max_length = 32,
         verbose_name = _('pages')
+    )
+    is_duplicate = models.BooleanField(
+        default = False
     )
 
 
