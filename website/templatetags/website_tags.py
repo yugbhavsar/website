@@ -172,13 +172,13 @@ def render_sidebar( page ):
 
     try:
         return {
-            'contacts' : page.contact_persons,
+            'contacts' : page.contact_persons.order_by('sort_order'),
             'other' : page.sidebar_content,
         }
     except AttributeError:
         try:
             return {
-                'contacts' : page.contact_persons,
+                'contacts' : page.contact_persons.order_by('sort_order'),
                 #            'other' : page.sidebar_content                                           
             }
         except AttributeError:
@@ -195,6 +195,7 @@ def strip_colon(txt):
 
 @register.inclusion_tag('tags/form_element.html')
 def form_element( element ):
+    print (element.field.widget)
     return { 
         'element' : element,
         'checkbox': element.field.widget.__class__.__name__ == 'StyledCheckbox',
@@ -202,6 +203,7 @@ def form_element( element ):
         'radio': element.field.widget.__class__.__name__ == 'RadioSelect',
         'dateselect' : element.field.widget.__class__.__name__ == 'StyledDateSelect',
         'termsconditions' : element.field.widget.__class__.__name__ == 'TermsAndConditionsWidget',
+        'waitlist' : element.field.widget.__class__.__name__ == 'WaitlistCheckboxWidget',
     }
 
 @register.inclusion_tag('tags/form_element_select.html')
