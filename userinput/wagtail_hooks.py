@@ -12,7 +12,7 @@ from .models import (
     RUBIONUser, WorkGroup, Project,
     WorkGroupContainer, ProjectContainer,
     ListOfProjectsPage, FundingSnippet, PublicationSnippet, ThesisSnippet,
-    Project2PublicationRelation
+    Project2PublicationRelation, Project2FundingRelation
 )
 from .filters import (
     ProjectExpiredFilter, RUsersExpiredSafetyInstructions, 
@@ -504,11 +504,36 @@ class PublicationsMA( ModelAdmin ):
         ))
 
     ag.short_description = format_lazy('{}/{}', _l('Project'), _l('workgroup'))
+
+class FundingMA( ModelAdmin ):
+    model = FundingSnippet
+    list_display = ('agency', '_title', 'ag')
+
+    def _title( self, obj ):
+        return obj.title
+    _title.short_description = _l('title')
+    def ag(self, obj):
+        projects = Project2FundingRelation.objects.filter(snippet_id = obj.pk)
+        retstr = []
+        for f2r in projects:
+            project = f2r.project_page.specific
+            ag = project.get_workgroup()
+            retstr.append('{label_p}: {project}<br />{label_ag}: {ag} ({head})'.format(
+                label_p = _l('Project'),
+                label_ag = _l('workgroup'),
+                project = project.title_trans,
+                ag = ag.title,
+                head = ag.get_head().name
+            ))
+      
+        return mark_safe( '<br />'.join(retstr) )
+
+    ag.short_description = format_lazy('{}/{}', _l('Project'), _l('workgroup'))
     
 class UserInputResultsMAG( ModelAdminGroup ):
     menu_label =_l('User results')
     menu_icon = 'user'
     menu_order = 90
-    items = (PublicationsMA, )
+    items = (PublicationsMA, FundingMA)
 
 modeladmin_register( UserInputResultsMAG )
