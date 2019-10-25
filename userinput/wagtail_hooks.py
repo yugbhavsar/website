@@ -479,6 +479,22 @@ class UserInputModelAdminGroup( ModelAdminGroup ):
 modeladmin_register( UserInputModelAdminGroup )
 
 
+def get_project_and_group(Relation, obj):
+    matches = Relation.objects.filter(snippet_id = obj.pk)
+    retstr = []
+    for r in matches:
+        project = r.project_page.specific
+        ag = project.get_workgroup()
+        retstr.append('{label_p}: {project}<br />{label_ag}: {ag} ({head})'.format(
+            label_p = _l('Project'),
+            label_ag = _l('workgroup'),
+            project = project.title_trans,
+            ag = ag.title,
+            head = ag.get_head().name
+        ))
+      
+        return '<br />'.join(retstr) 
+
 class PublicationsMA( ModelAdmin ):
     model = PublicationSnippet
     list_display = ('_title', 'year', 'journal', 'ag' )
@@ -492,17 +508,7 @@ class PublicationsMA( ModelAdmin ):
     _title.admin_order_field = 'title'
 
     def ag(self, obj):
-        project = Project2PublicationRelation.objects.get(snippet_id = obj.pk).project_page.specific
-        ag = project.get_workgroup()
-        
-        return mark_safe('{label_p}: {project}<br />{label_ag}: {ag} ({head})'.format(
-            label_p = _l('Project'),
-            label_ag = _l('workgroup'),
-            project = project.title_trans,
-            ag = ag.title,
-            head = ag.get_head().name
-        ))
-
+        return mark_safe(get_project_and_group(Project2PublicationRelation, obj))
     ag.short_description = format_lazy('{}/{}', _l('Project'), _l('workgroup'))
 
 class FundingMA( ModelAdmin ):
@@ -513,20 +519,7 @@ class FundingMA( ModelAdmin ):
         return obj.title
     _title.short_description = _l('title')
     def ag(self, obj):
-        projects = Project2FundingRelation.objects.filter(snippet_id = obj.pk)
-        retstr = []
-        for f2r in projects:
-            project = f2r.project_page.specific
-            ag = project.get_workgroup()
-            retstr.append('{label_p}: {project}<br />{label_ag}: {ag} ({head})'.format(
-                label_p = _l('Project'),
-                label_ag = _l('workgroup'),
-                project = project.title_trans,
-                ag = ag.title,
-                head = ag.get_head().name
-            ))
-      
-        return mark_safe( '<br />'.join(retstr) )
+        return mark_safe(get_project_and_group(Project2FundingRelation, obj))
 
     ag.short_description = format_lazy('{}/{}', _l('Project'), _l('workgroup'))
     
