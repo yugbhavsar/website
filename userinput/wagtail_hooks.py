@@ -12,7 +12,7 @@ from .models import (
     RUBIONUser, WorkGroup, Project,
     WorkGroupContainer, ProjectContainer,
     ListOfProjectsPage, FundingSnippet, PublicationSnippet, ThesisSnippet,
-    Project2PublicationRelation, Project2FundingRelation
+    Project2PublicationRelation, Project2FundingRelation, Project2ThesisRelation
 )
 from .filters import (
     ProjectExpiredFilter, RUsersExpiredSafetyInstructions, 
@@ -524,6 +524,14 @@ class FundingMA( ModelAdmin ):
     _agency.admin_order_field = 'agency'
     
     def _title( self, obj ):
+        title = obj.title
+        
+        if not title:
+            if obj.title_en:
+                title = obj.title_en
+            elif obj.title_de:
+                title = obj.title_de
+        
         if obj.project_url:
             if obj.project_url.startswith('http://') or obj.project_url.startswith('https://'):
                 url = obj.project_url
@@ -531,20 +539,27 @@ class FundingMA( ModelAdmin ):
                 url = 'http://{}'.format(obj.project_url)
             return mark_safe('<a href="{url}" target="_new">{title}</a>'.format(
                 url = url,
-                title = obj.title
+                title = title
             ))
         else:
-            return obj.title
+            return title
     _title.short_description = _l('title')
     def ag(self, obj):
         return mark_safe(get_project_and_group(Project2FundingRelation, obj))
 
     ag.short_description = format_lazy('{}/{}', _l('Project'), _l('workgroup'))
     
+class ThesisMA( ModelAdmin ):
+    model = ThesisSnippet
+    list_display = ('title', 'thesis_type', 'year', 'ag')
+
+    def ag(self, obj):
+        return mark_safe(get_project_and_group(Project2ThesisRelation, obj))
+
 class UserInputResultsMAG( ModelAdminGroup ):
     menu_label =_l('User results')
     menu_icon = 'user'
     menu_order = 90
-    items = (PublicationsMA, FundingMA)
+    items = (PublicationsMA, FundingMA, ThesisMA)
 
 modeladmin_register( UserInputResultsMAG )
