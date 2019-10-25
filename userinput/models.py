@@ -1978,6 +1978,9 @@ class PublicationSnippet ( models.Model ):
 
 @register_snippet
 class ThesisSnippet( models.Model ):
+    class Meta:
+        verbose_name = _('Thesis')
+        verbose_name_plural = _('Theses')
     HAB = 'h'
     PHD = 'p'
     MS  = 'm'
