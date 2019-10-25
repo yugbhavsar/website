@@ -689,7 +689,8 @@ class Course( RoutablePageMixin, TranslatedPage, BodyMixin  ):
             attendee.email,
             {
                 'attendee' : attendee,
-                'course' : self
+                'course' : self,
+                'waitlist' : attendee.waitlist_course == self
             }
         )
         self.send_invoice(attendee)
