@@ -513,10 +513,28 @@ class PublicationsMA( ModelAdmin ):
 
 class FundingMA( ModelAdmin ):
     model = FundingSnippet
-    list_display = ('agency', '_title', 'ag')
+    list_display = ('_agency', '_title', 'ag')
 
+    def _agency( self, obj ):
+        agency = obj.agency
+        if obj.project_number:
+            return mark_safe('{agency}<br />{num}'.format(agency = agency, num = obj.project_number))
+        else:
+            return agency
+    _agency.admin_order_field = 'agency'
+    
     def _title( self, obj ):
-        return obj.title
+        if obj.project_url:
+            if obj.project_url.startswith('http://') or obj.project_url.startswith('https://'):
+                url = obj.project_url
+            else:
+                url = 'http://{}'.format(obj.project_url)
+            return mark_safe('<a href="{url}" target="_new">{title}</a>'.format(
+                url = url,
+                title = obj.title
+            ))
+        else:
+            return obj.title
     _title.short_description = _l('title')
     def ag(self, obj):
         return mark_safe(get_project_and_group(Project2FundingRelation, obj))
