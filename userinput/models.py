@@ -1881,6 +1881,10 @@ class UserMayBookInstrumentRelation( AbstractRelatedInstrument ):
 
 @register_snippet
 class FundingSnippet( models.Model ):
+    class Meta:
+        verbose_name = _('Project funding')
+        verbose_name_plural = _('Project fundings')
+        
     agency = models.CharField(
         max_length = 64,
         blank = False,
