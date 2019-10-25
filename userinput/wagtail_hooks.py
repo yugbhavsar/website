@@ -551,7 +551,8 @@ class FundingMA( ModelAdmin ):
     
 class ThesisMA( ModelAdmin ):
     model = ThesisSnippet
-    list_display = ('title', 'thesis_type', 'year', 'ag')
+    list_display = ('author', 'title', 'thesis_type', 'year', 'ag')
+
 
     def ag(self, obj):
         return mark_safe(get_project_and_group(Project2ThesisRelation, obj))
