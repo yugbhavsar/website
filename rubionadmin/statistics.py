@@ -5,8 +5,11 @@ from django.db.models import Q
 from django.utils.safestring import mark_safe
 from django.views.generic.base import TemplateView
 
-from userinput.models import WorkGroup, Project, RUBIONUser
+from instruments.models import MethodPage, InstrumentPage
 
+from userinput.models import (
+    WorkGroup, Project, RUBIONUser, Project2MethodRelation
+) 
 
 
 class StatisticsOverview( TemplateView ):
@@ -20,6 +23,8 @@ class StatisticsOverview( TemplateView ):
         context['groups'] = self.get_group_context()
         context['projects'] = self.get_project_context()
         context['users_by_time'] = self.get_user_by_time_context()
+        context['project2methods'] = self.get_project2methods_context()
+        context['projects_by_area'] = get_projects_by_research_area()
         return context
 
     def get_group_context( self ):
@@ -83,10 +88,44 @@ class StatisticsOverview( TemplateView ):
         
     
     def get_project_context( self ):
-        total = Project.objects.filter(expire_at__gte = datetime.date.today()).count()
+        months = []
+        projectcounts = []
+        eprojectcounts = []
+        iprojectcounts = []
         
-        finished = Project.objects.filter(expire_at__lt = datetime.date.today()).count()
+        for m in range(24,-1,-1):
+            d = self.today - relativedelta(months = m, day=1)
+            months.append('\'{m}/{y}\''.format(m=d.month, y=d.year))
+            projectcounts.append(
+                Project.objects.filter(Q(first_published_at__lte = d) & (
+                    Q(expire_at__gte = d) | Q(expire_at = None)
+                )).live().count()
+            )
+ 
     
         return {
-            'total' : total
+            'months' : mark_safe(','.join(months)),
+            'projectcounts' : projectcounts
         }
+
+    def get_project2methods_context( self ):
+        method_map = {};
+        for method in MethodPage.objects.order_by('pk').all():
+            method_map[str(method.pk)] = {'name' : method.title_trans, 'count' : 0}
+        
+        return {}
+
+def get_projects_by_research_area():
+    stats = {}
+    for key, name in InstrumentPage.RESEARCH_AREA_NAMES.items():
+        stats[key] = {'name' : name, 'count' : 0}
+    projects = Project.objects.live().filter(expire_at__gte = datetime.date.today())
+    for project in projects:
+        for method in project.get_methods():
+            areas = [ r.page.specific.area for r in method.related.all() ]
+            areas = list(set(areas))
+            for area in areas:
+                stats[area]['count'] = stats[area]['count'] + 1
+    return stats
+
+    
