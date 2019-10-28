@@ -28,7 +28,7 @@ class StatisticsOverview( TemplateView ):
             if not head:
                 continue
             if head.is_rub:
-                if Project.objects.descendant_of(group).filter(expire_at__lt = self.today).exists():
+                if Project.objects.descendant_of(group).filter(expire_at__gte = self.today).exists():
                     internal = internal + 1
                 else:
                     internal_inactive = internal_inactive + 1
