@@ -162,11 +162,23 @@ class InstrumentPage( AbstractBookable, AbstractPageWithHeaderimage ):
         on_delete = models.SET_NULL,
         blank = True
     )
+    area = models.CharField(
+        choices = (
+            ('acc', _('accelerators')),
+            ('nuc', _('radionuclides')),
+            ('mic', _('microscopy'))
+        ),
+        default = 'acc',
+        max_length = 3,
+        verbose_name = _('research area'),
+    )
+    
     additional_info_panels = [
     
         FieldPanel('short_name_de'),
         FieldPanel('short_name_en'),
         FieldPanel('is_bookable'),
+        FieldPanel('area'),
         MultiFieldPanel([
             FieldPanel('permit'),
             FieldPanel('requires_labcoat'),
