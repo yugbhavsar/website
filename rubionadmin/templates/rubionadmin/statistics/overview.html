@@ -26,15 +26,16 @@
 <div id="groups" style="width:90%;height:400px;"></div>
 </div>
 <div class="statsdisplay">
-<h2>{% trans 'Projects' %}({% trans "Total:"%} {{projects.total}})</h2>
-<div id="projects" style="width:600px;height:250px;"></div>
+<h2>{% trans 'Projects' %}</h2>
+    <div id="projects" style="width:55%;height:400px;display:inline-block"></div>
+    <div id="projects_by_area" style="width:40%;height:400px;display:inline-block"></div>
 </div>
 
 <script>
 
 
   total_users_data = {
-    x   : [{{users_by_time.months}}], //[0,1,2,3,4,5,6,7,8,9,10,11], // {{users_by_time.months}}
+    x   : [{{users_by_time.months}}], 
     y    : [{{users_by_time.usercount}}],
     mode : 'lines+markers',
     type : 'scatter',
@@ -46,7 +47,7 @@
   name : '{% trans "total users" %}',
   }
   i_users_data = {
-    x   : [{{users_by_time.months}}], //[0,1,2,3,4,5,6,7,8,9,10,11], // {{users_by_time.months}}
+    x   : [{{users_by_time.months}}], 
     y    : [{{users_by_time.iusercount}}],
     mode : 'lines+markers',
     type : 'scatter',
@@ -59,7 +60,7 @@
   name : '{% trans "RUB users" %}',
   }
   e_users_data = {
-    x   : [{{users_by_time.months}}], //[0,1,2,3,4,5,6,7,8,9,10,11], // {{users_by_time.months}}
+    x   : [{{users_by_time.months}}], 
     y    : [{{users_by_time.eusercount}}],
     mode : 'lines+markers',
     type : 'scatter',
@@ -90,7 +91,7 @@
   ];
 
   var colors = [ 
-    '#003560', '#004f84b0', '#8dae10', '#c0d76b'
+    '#003560', '#4f84b0', '#8dae10', '#c0d76b'
   ];
 
   var data = [{
@@ -111,6 +112,34 @@
   textinfo : 'value'
 }]
 Plotly.newPlot(GROUPS, data,{}, {height:400, width:500});
+
+project_data = [
+    {
+	x : [{{ projects.months }}],
+	y : {{ projects.projectcounts }},
+	type: 'scatter',
+	mode : 'markers+lines',
+	line : { color: '#8dae10' },
+	//    fill: 'tozeroy',
+	marker: {
+	    symbol: 'square-dot',
+	    color: '#003650'
+	}
+    }]
+project_by_area = [
+    {
+	type : 'pie',
+	labels : [{% for k,v in projects_by_area.items %} '{{v.name}}', {%endfor %}],
+	values : [{% for k,v in projects_by_area.items %} {{v.count}}, {%endfor %}],
+	marker  : {
+	    colors : ['#003560', '#8dae10', '#e7e7e7']
+	}
+    }
+]
+
+Plotly.newPlot('projects', project_data)
+Plotly.newPlot('projects_by_area', project_by_area)
+
 </script>
 {% endblock %}
 
