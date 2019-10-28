@@ -180,7 +180,7 @@ class InstrumentPage( AbstractBookable, AbstractPageWithHeaderimage ):
             (RADIONUCLIDES, RESEARCH_AREA_NAMES[RADIONUCLIDES]),
             (MICROSCOPY, RESEARCH_AREA_NAMES[MICROSCOPY])
         ),
-        default = 'acc',
+        default = ACCELERATORS,
         max_length = 3,
         verbose_name = _('research area'),
     )
