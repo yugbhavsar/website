@@ -4,7 +4,8 @@ from .views import (
     approve_moderation, reject_moderation, reject_moderation_form, 
     instrument_cal, method_cal, method_done,
     user_keys_reject, user_keys_accept, full_xls_list,
-    user_set_dosemeter, user_send_data_to_cro, user_cro_knows_data
+    user_set_dosemeter, user_send_data_to_cro, user_cro_knows_data,
+    statistics
 )
 
 
@@ -39,6 +40,9 @@ urlpatterns = [
     #
     url(r'^rubionuser/(\d+)/key/reject$', user_keys_reject, name='user_keys_reject'),
     url(r'^rubionuser/(\d+)/key/accept$', user_keys_accept, name='user_keys_accept'),
+    #
+    # Safety instructions
+    #
     url(r'^rubionuser/(\d+)/add_safety_instruction/(\d+)/$', user_safety_instruction_add, name='user_safety_instruction_add'),
     url(r'^rubionuser/(\d+)/remove_safety_instruction/(\d+)/$', user_safety_instruction_del, name='user_safety_instruction_del'),
     url(r'^rubionuser/(\d+)/set_safety_instruction_date/(\d+)/$', set_safety_instruction_date, name='set_safety_instruction_date'),
@@ -54,6 +58,10 @@ urlpatterns = [
     # News templates
     #
     url(r'^news/templates/(\w+)/$', news_templates, name='news_templates'),
+    #
+    # Statistics
+    #
+    url(r'^statistics/$', statistics, name = 'statistics'),
     #
     # exports
     #
