@@ -124,15 +124,30 @@ def construct_homepage_panels( request, panels ):
 #from website.admin_interface import RUBIONMenuItem
     
 class ExportMenuItem(MenuItem):
-  def is_shown(self, request):
-    return request.user.has_perm('rubionadmin.export_menu')
+    def is_shown(self, request):
+       return request.user.has_perm('rubionadmin.export_menu')
 
 @hooks.register('register_admin_menu_item')
 def export_menu_entry():
-  return ExportMenuItem(
-    'Export to Excel',
-    reverse('rubionadmin:full_xls_list'),
-    classnames='icon icon-fa-table',
-    order=10000
-  )
+    return ExportMenuItem(
+        'Export to Excel',
+        reverse('rubionadmin:full_xls_list'),
+        classnames='icon icon-fa-table',
+        order=10000
+    )
     
+
+class StatisticsMenuItem(MenuItem):
+    def is_shown(self, request):
+        return request.user.has_perm('rubionadmin.stats_menu')
+
+@hooks.register('register_admin_menu_item')
+def stats_menu():
+    return StatisticsMenuItem(
+        'Statistics',
+        reverse('rubionadmin:statistics'),
+        classnames  = 'icon icon-fa-line-chart',
+        order = 2000
+    )
+  
+  
