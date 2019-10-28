@@ -18,8 +18,12 @@
 {% block content %}
 
 <div class="statsdisplay">
+<h2>{% trans 'Users' %}</h2>
+<div id="users" style="width:90%;height:400px;"></div>
+</div>
+<div class="statsdisplay">
 <h2>{% trans 'Workgroups' %}({% trans "Total:"%} {{groups.total}})</h2>
-<div id="groups" style="width:90%;height:250px;"></div>
+<div id="groups" style="width:90%;height:400px;"></div>
 </div>
 <div class="statsdisplay">
 <h2>{% trans 'Projects' %}({% trans "Total:"%} {{projects.total}})</h2>
@@ -27,55 +31,86 @@
 </div>
 
 <script>
-  GROUPS = document.getElementById('groups');
-  var intern = {
-    y: ['groups'],
-    x: [{{groups.internal}}],
-    name: 'Groups from RUB',
-    type: 'bar',
-  orientation: 'h',
-  marker: {
-    color: '#003560'
-  }
-  };
 
-  var intern_ia = {
-    y: ['groups'],
-    x: [{{groups.internal_inactive}}],
-    name: 'Groups from RUB (inactive)',
-    type: 'bar',
-  orientation: 'h',
-  marker: {
-    color: '#f03560'
+
+  total_users_data = {
+    x   : [{{users_by_time.months}}], //[0,1,2,3,4,5,6,7,8,9,10,11], // {{users_by_time.months}}
+    y    : [{{users_by_time.usercount}}],
+    mode : 'lines+markers',
+    type : 'scatter',
+    line : { color : '#808080' },
+    marker : {
+      color : '#000',
+      symbol : 'square-dot',
+    },
+  name : '{% trans "total users" %}',
   }
-  };
+  i_users_data = {
+    x   : [{{users_by_time.months}}], //[0,1,2,3,4,5,6,7,8,9,10,11], // {{users_by_time.months}}
+    y    : [{{users_by_time.iusercount}}],
+    mode : 'lines+markers',
+    type : 'scatter',
+    marker : {
+      color : '#003560',
+      symbol : 'square-dot',
+
+    },
+    line : { color : '#2c74b0' },
+  name : '{% trans "RUB users" %}',
+  }
+  e_users_data = {
+    x   : [{{users_by_time.months}}], //[0,1,2,3,4,5,6,7,8,9,10,11], // {{users_by_time.months}}
+    y    : [{{users_by_time.eusercount}}],
+    mode : 'lines+markers',
+    type : 'scatter',
+    marker : {
+      color : '#8dae10',
+      symbol: 'square-dot',
+    },
+    line : { color : '#b7d744' },
+
+  name : '{% trans "external users" %}',
+  }
+
+  Plotly.newPlot('users', [total_users_data, i_users_data, e_users_data],{}, {height:400, width:500});
   
-  var extern = {
-    y: ['groups'],
-    x: [{{groups.external}}],
-    name: 'external groups',
-    type: 'bar',
-  orientation: 'h',
-    marker: {
-    color: '#8dae10'
-  }
-};
-  var extern_ia = {
-    y: ['groups'],
-    x: [{{groups.external_inactive}}],
-    name: 'external groups (inactive)',
-    type: 'bar',
-  orientation: 'h',
-    marker: {
-    color: '#8daef0'
-  }
-};
+  GROUPS = document.getElementById('groups');
 
-var data = [intern, intern_ia, extern, extern_ia];
+  var values = [
+    {{groups.internal}},
+    {{groups.internal_inactive}},
+    {{groups.external}},
+    {{groups.external_inactive}}
+  ];
+  var labels =[
+    '{% trans "Groups from RUB" %}',
+    '{% trans "Groups from RUB" %} ({% trans "inactive" %})',
+    '{% trans "Groups external" %}',
+    '{% trans "Groups external" %} ({% trans "inactive" %})'
+  ];
 
-var layout = {barmode: 'stack'};
+  var colors = [ 
+    '#003560', '#004f84b0', '#8dae10', '#c0d76b'
+  ];
 
-Plotly.newPlot(GROUPS, data, layout);
+  var data = [{
+    title : {
+     text : '{% trans "Groups by origin" %}',
+     font : {
+       family: 'RUB Flama, RUBFlama, Arial',
+       size :  20
+     },
+     position: 'top left'
+  },
+  type : 'pie',
+    marker: { 
+      colors: colors
+    },
+  values : values,
+  labels : labels,
+  textinfo : 'value'
+}]
+Plotly.newPlot(GROUPS, data,{}, {height:400, width:500});
 </script>
 {% endblock %}
 
