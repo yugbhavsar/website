@@ -105,6 +105,17 @@ class RadiationHandlingPermit( models.Model ):
 @default_panels
 class InstrumentPage( AbstractBookable, AbstractPageWithHeaderimage ):
 
+    MICROSCOPY    = 'mic'
+    ACCELERATORS  = 'acc'
+    RADIONUCLIDES = 'nuc'
+
+    RESEARCH_AREAS = [ACCELERATORS, MICROSCOPY, RADIONUCLIDES]
+
+    RESEARCH_AREA_NAMES = {
+        ACCELERATORS:  _('accelerators'),
+        RADIONUCLIDES: _('radionuclides'),
+        MICROSCOPY:    _('microscopy')
+    }
     template = 'instruments/instrument_page.html'
     booking_model = 'instruments.models.InstrumentByProjectBooking'
     booking_model_fieldname = 'instrument'
@@ -163,10 +174,11 @@ class InstrumentPage( AbstractBookable, AbstractPageWithHeaderimage ):
         blank = True
     )
     area = models.CharField(
+        
         choices = (
-            ('acc', _('accelerators')),
-            ('nuc', _('radionuclides')),
-            ('mic', _('microscopy'))
+            (ACCELERATORS, RESEARCH_AREA_NAMES[ACCELERATORS]),
+            (RADIONUCLIDES, RESEARCH_AREA_NAMES[RADIONUCLIDES]),
+            (MICROSCOPY, RESEARCH_AREA_NAMES[MICROSCOPY])
         ),
         default = 'acc',
         max_length = 3,
