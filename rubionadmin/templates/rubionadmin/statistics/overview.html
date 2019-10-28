@@ -1,0 +1,82 @@
+{% extends "wagtailadmin/base.html"%}
+{% load static i18n %}
+{% block extra_js %}
+{{ block.super }}
+<script src="{% static 'js/admin/plotly-latest.min.js' %}"></script>
+{% endblock %}
+{% block extra_css %}
+{{block.super}}
+<style>
+  .statsdisplay h2{
+  background-color:#003560;
+  color:#fff;
+  padding:1em;
+  }
+</style>
+{% endblock %}
+{% block titletag %}{{ view.page_title }}{% endblock %}
+{% block content %}
+
+<div class="statsdisplay">
+<h2>{% trans 'Workgroups' %}({% trans "Total:"%} {{groups.total}})</h2>
+<div id="groups" style="width:90%;height:250px;"></div>
+</div>
+<div class="statsdisplay">
+<h2>{% trans 'Projects' %}({% trans "Total:"%} {{projects.total}})</h2>
+<div id="projects" style="width:600px;height:250px;"></div>
+</div>
+
+<script>
+  GROUPS = document.getElementById('groups');
+  var intern = {
+    y: ['groups'],
+    x: [{{groups.internal}}],
+    name: 'Groups from RUB',
+    type: 'bar',
+  orientation: 'h',
+  marker: {
+    color: '#003560'
+  }
+  };
+
+  var intern_ia = {
+    y: ['groups'],
+    x: [{{groups.internal_inactive}}],
+    name: 'Groups from RUB (inactive)',
+    type: 'bar',
+  orientation: 'h',
+  marker: {
+    color: '#f03560'
+  }
+  };
+  
+  var extern = {
+    y: ['groups'],
+    x: [{{groups.external}}],
+    name: 'external groups',
+    type: 'bar',
+  orientation: 'h',
+    marker: {
+    color: '#8dae10'
+  }
+};
+  var extern_ia = {
+    y: ['groups'],
+    x: [{{groups.external_inactive}}],
+    name: 'external groups (inactive)',
+    type: 'bar',
+  orientation: 'h',
+    marker: {
+    color: '#8daef0'
+  }
+};
+
+var data = [intern, intern_ia, extern, extern_ia];
+
+var layout = {barmode: 'stack'};
+
+Plotly.newPlot(GROUPS, data, layout);
+</script>
+{% endblock %}
+
+    
