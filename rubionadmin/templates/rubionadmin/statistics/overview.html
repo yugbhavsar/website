@@ -96,21 +96,22 @@
     '#003560', '#4f84b0', '#8dae10', '#c0d76b'
   ];
 
-  var data = [{
+var data = [{
     title : {
-     text : '{% trans "Groups by origin" %}',
-     font : {
-       family: 'RUB Flama, RUBFlama, Arial',
-       size :  20
-     }
-  },
-  type : 'pie',
-    marker: { 
-      colors: colors
+	text : '{% trans "Groups by origin" %}',
+	font : {
+	    family: 'RUB Flama, RUBFlama, Arial',
+	    size :  20
+	}
     },
-  values : values,
-  labels : labels,
-  textinfo : 'value'
+    type : 'pie',
+    marker: { 
+	colors: colors
+    },
+    values : values,
+    labels : labels,
+    textinfo : 'value',
+    sort : false,
 }]
 
 groups_by_area = [
