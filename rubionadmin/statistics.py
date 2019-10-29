@@ -25,6 +25,7 @@ class StatisticsOverview( TemplateView ):
         context['users_by_time'] = self.get_user_by_time_context()
         context['project2methods'] = self.get_project2methods_context()
         context['projects_by_area'] = get_projects_by_research_area()
+        context['groups_by_area'] =  get_groups_by_research_area()
         return context
 
     def get_group_context( self ):
@@ -85,7 +86,7 @@ class StatisticsOverview( TemplateView ):
             'iusercount' : ','.join(iusercounts)
         }
             
-        
+    
     
     def get_project_context( self ):
         months = []
@@ -128,4 +129,18 @@ def get_projects_by_research_area():
                 stats[area]['count'] = stats[area]['count'] + 1
     return stats
 
-    
+def get_groups_by_research_area():    
+    stats = {}
+    for key, name in InstrumentPage.RESEARCH_AREA_NAMES.items():
+        stats[key] = {'name' : name, 'groups' : []}
+    projects = Project.objects.live().filter(expire_at__gte = datetime.date.today())
+    for project in projects:
+        wg = project.get_workgroup()
+        for method in project.get_methods():
+            areas = [ r.page.specific.area for r in method.related.all() ]
+            areas = list(set(areas))
+            for area in areas:
+                stats[area]['groups'].append(wg)
+    for key, stat in stats.items():
+        stats[key]['count'] = len(set(stat['groups']))
+    return stats
