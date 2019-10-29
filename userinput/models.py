@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.db import models
+from django.db.models import Q
 from django.forms import modelform_factory
 from django.http import Http404
 from django.shortcuts import redirect, get_object_or_404
@@ -2046,7 +2047,8 @@ class ListOfProjectsPage ( AbstractContainerPage ):
         pages = (Project.objects.live().
                  filter(is_confidential = False).
                  filter(has_unpublished_changes = False).
-                 filter(locked = (not active) ) 
+                 filter(locked = (not active) ).
+                 filter(Q(is_teaching = False) | Q(is_teaching = None) | Q(is_research=True))
         )
                 
 
