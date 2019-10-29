@@ -65,7 +65,7 @@ class RUBIONUserModelAdmin ( ModelAdmin ):
     list_display = ('wa_name', 'first_name', 'get_workgroup', 'phone', '_key_number', 'safety_information', 'safety_instructions', 'comment')
     list_filter = (RUserExpiredFilter, )
     menu_order = 200
-    exclude_from_explorer = True
+    exclude_from_explorer = False
     search_fields = ['title','name_db','first_name_db', 'key_number']
     index_view_extra_css = ['css/admin/ruser_index_view.css']
     index_view_extra_js = ['js/admin/ruser_index_view.js','js/admin/fix_admin_headers.js']
@@ -204,19 +204,19 @@ class RUBIONUserModelAdmin ( ModelAdmin ):
 
 class WorkgroupContainerMA( HiddenModelAdmin ):
     model = WorkGroupContainer
-    exclude_from_explorer = True
+    exclude_from_explorer = False# True
 
 modeladmin_register( WorkgroupContainerMA )
 
 class ProjectContainerMA( HiddenModelAdmin ):
     model = ProjectContainer
-    exclude_from_explorer = True
+    exclude_from_explorer = False #True
 
 modeladmin_register( ProjectContainerMA )
 
 class ListOfProjectsPageMA( HiddenModelAdmin ):
     model = ListOfProjectsPage
-    exclude_from_explorer = True
+    exclude_from_explorer = False#True
 
 modeladmin_register( ListOfProjectsPageMA )
 
@@ -227,7 +227,7 @@ class WorkgroupsModelAdmin ( ModelAdmin ):
     list_display = ('_title','get_head', 'university','institute', 'department', 'methods')
     index_view_extra_js = ['js/admin/fix_admin_headers.js']
     menu_order = 300
-    exclude_from_explorer = True
+    exclude_from_explorer = False # True
     button_helper_class = NoCopyButtonHelper
     inspect_view_enabled=True
     inspect_template_name = 'userinput/admin/inspect_workgroup.html'
