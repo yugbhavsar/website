@@ -22,8 +22,10 @@
 <div id="users" style="width:90%;height:400px;"></div>
 </div>
 <div class="statsdisplay">
-<h2>{% trans 'Workgroups' %}({% trans "Total:"%} {{groups.total}})</h2>
-<div id="groups" style="width:90%;height:400px;"></div>
+    <h2>{% trans 'Workgroups' %}({% trans "Total:"%} {{groups.total}})</h2>
+    <div id="groups" style="width:45%;height:400px;display:inline-block"></div>
+    <div id="groups_by_area" style="width:45%;height:400px;display:inline-block"></div>
+
 </div>
 <div class="statsdisplay">
 <h2>{% trans 'Projects' %}</h2>
@@ -100,8 +102,7 @@
      font : {
        family: 'RUB Flama, RUBFlama, Arial',
        size :  20
-     },
-     position: 'top left'
+     }
   },
   type : 'pie',
     marker: { 
@@ -111,7 +112,28 @@
   labels : labels,
   textinfo : 'value'
 }]
+
+groups_by_area = [
+    {
+	type : 'pie',
+	labels : [{% for k,v in groups_by_area.items %} '{{v.name}}', {% endfor %}],
+	values : [{% for k,v in groups_by_area.items %} {{v.count}}, {% endfor %}],
+	marker  : {
+	    colors : ['#003560', '#8dae10', '#e7e7e7']
+	},
+	title : {
+	    text : '{% trans "Groups by area" %}',
+	    font : {
+		family: 'RUB Flama, RUBFlama, Arial',
+		size :  20
+	    }
+	}
+    }
+]
+
 Plotly.newPlot(GROUPS, data,{}, {height:400, width:500});
+Plotly.newPlot('groups_by_area', groups_by_area);
+
 
 project_data = [
     {
