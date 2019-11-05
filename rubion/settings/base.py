@@ -220,3 +220,4 @@ CRON_CLASSES = [
     'userinput.cron.WarnProjects',
     'userdata.cron.WarnSafetyInstruction'
 ]
+
