@@ -4,3 +4,4 @@ This repository holds the code used for the website of the [Central Unit for Ion
 Bochum](http://www.rub.de). The code shown here is public to allow users of the facility to
 evaluate it as well as to have a development platform.
 
+The branch v2 is meant to fully replace the old master.
