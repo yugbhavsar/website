@@ -1,7 +1,7 @@
 Django>=2.1.5
-wagtail>=2.7,<2.7
+wagtail>=2.7
 wagtailfontawesome
-psycopg2
+psycopg2-binary
 dateutils
 ldap3
 reportlab
