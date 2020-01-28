@@ -25,7 +25,7 @@ class SafetyModelAdmin( ModelAdmin ):
     def safety_instructionp38( self, obj ):
         return self._get_si(obj, 'contains_p38_safety_info')
 
-    safety_instructionp38.short_description = _l('Radiation safety instructions (§38 StrlSchV)')
+    safety_instructionp38.short_description = _l('Radiation safety instructions (§63 StrlSchV)')
 
     def safety_instrucions_il(self, obj):
         return self._get_si( obj, 'contains_general_safety_info_radionuclides')
