@@ -2603,8 +2603,8 @@ msgid "General safety instructions"
 msgstr "Generelle Sicherheitsunterweisung"
 
 #: userdata/model_admin.py:28
-msgid "Radiation safety instructions (§38 StrlSchV)"
-msgstr "Strahlenschutzunterweisung (§38 StrlSchV)"
+msgid "Radiation safety instructions (§63 StrlSchV)"
+msgstr "Strahlenschutzunterweisung (§63 StrlSchV)"
 
 #: userdata/model_admin.py:32
 msgid "Safety instruction (Isotope lab)"
@@ -2835,13 +2835,13 @@ msgstr ""
 "Beschleunigerlabore?"
 
 #: userdata/models/users.py:489
-msgid "$38 included"
-msgstr "Unterweisung nach §38 StrlSchV enthalten"
+msgid "$63 included"
+msgstr "Unterweisung nach §63 StrlSchV enthalten"
 
 #: userdata/models/users.py:490
 msgid ""
-"Does this instruction include radiation sfaety according to §38 StrlSchV?"
-msgstr "Enthält die Unterweisung eine Strahlenschutzunterweisung nach §38?"
+"Does this instruction include radiation safety according to §63 StrlSchV?"
+msgstr "Enthält die Unterweisung eine Strahlenschutzunterweisung nach §63?"
 
 #: userdata/models/users.py:496
 msgid "Does this instruction include laser radiation safety?"
@@ -2884,8 +2884,8 @@ msgid "general safety in the accellerator lab"
 msgstr "Generelle Sicherheitsunterweisung (Beschleunigerlabore)"
 
 #: userdata/safety_instructions.py:37
-msgid "radiation safety (§38 StrSchV)"
-msgstr "Strahlenschutzunterweisung (§38 StrlSchV)"
+msgid "radiation safety (§63 StrSchV)"
+msgstr "Strahlenschutzunterweisung (§63 StrlSchV)"
 
 #: userdata/safety_instructions.py:38
 msgid "laser safety"
