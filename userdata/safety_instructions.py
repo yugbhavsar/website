@@ -34,7 +34,7 @@ SAFETYINSTRUCTION_NAMES = {
     GENERAL : _l('general safety instruction'),
     GENERAL_ISOTOPE_LAB: _l('general safety in the isotope lab'),
     GENERAL_ACCELERATOR_LAB: _l('general safety in the accellerator lab'),
-    P38_INSTRUCTIONS: _l('radiation safety (§38 StrSchV)'),
+    P38_INSTRUCTIONS: _l('radiation safety (§63 StrSchV)'),
     LASER_INSTRUCTIONS : _l('laser safety'),
     CRANE_LICENSE: _l('crane license'),
     FORKLIFT_LICENSE: _l('forklift license'),
