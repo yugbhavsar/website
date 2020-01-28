@@ -483,8 +483,8 @@ class SafetyInstructionsSnippet( models.Model ):
     )
     contains_p38_safety_info = models.BooleanField(
         default = True,
-        verbose_name = _('$38 included'),
-        help_text = _('Does this instruction include radiation sfaety according to §38 StrlSchV?')
+        verbose_name = _('$63 included'),
+        help_text = _('Does this instruction include radiation sfaety according to §63 StrlSchV?')
     )
 
     contains_laser_safety = models.BooleanField(
