@@ -333,7 +333,7 @@ The following users have been notified:
 
 Cheers,
 
-der RUBION's automatic notification service.
+the RUBION's automatic notification service.
 '''
     }
     def __init__(self, project, to, *args, **kwargs):
