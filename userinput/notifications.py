@@ -313,8 +313,6 @@ aus. Die folgenden Nutzer wurden darüber benachrichtigt:
 Viele Grüße,
 
 der automatische Benachrichtigungsservice des RUBION.
-Bitte antworten Sie nicht auf diese E-Mail. 
-Wenn Sie unsere Hilfe benötigen, senden Sie uns eine E-Mail an: rubion+webmaster@rub.de
 ''',
         'text_en' : '''Dear {{staff.get_first_name}}!
 
@@ -336,8 +334,6 @@ The following users have been notified:
 Cheers,
 
 der RUBION's automatic notification service.
-Please do not reply to this e-mail. 
-If you need our help, please send us an e-mail to: rubion+webmaster@rub.de
 '''
     }
     def __init__(self, project, to, *args, **kwargs):
